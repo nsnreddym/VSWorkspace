@@ -1,0 +1,1 @@
+Visa32.dll in C:\Windows\SysWOW64 folder is renamed as visa323.dll

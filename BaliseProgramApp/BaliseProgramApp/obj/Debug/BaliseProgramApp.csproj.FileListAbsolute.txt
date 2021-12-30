@@ -1,0 +1,9 @@
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\bin\Debug\BaliseProgramApp.exe.config
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\bin\Debug\BaliseProgramApp.exe
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\bin\Debug\BaliseProgramApp.pdb
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.csprojAssemblyReference.cache
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.Form1.resources
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.Properties.Resources.resources
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.csproj.GenerateResource.cache
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.exe
+E:\vsworkspace\BaliseProgramApp\BaliseProgramApp\BaliseProgramApp\obj\Debug\BaliseProgramApp.pdb

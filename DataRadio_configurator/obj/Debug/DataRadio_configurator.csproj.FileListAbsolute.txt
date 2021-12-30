@@ -1,0 +1,14 @@
+D:\VS workspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.exe.config
+D:\VS workspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.exe
+D:\VS workspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.pdb
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Properties.Resources.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.GenerateResource.cache
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.CoreCompileInputs.cache
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.exe
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.pdb
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.MainForm.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Config_Port_Settings.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Radio_Program.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.SelCh.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Read_Flash.resources
+D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.AssemblyReference.cache

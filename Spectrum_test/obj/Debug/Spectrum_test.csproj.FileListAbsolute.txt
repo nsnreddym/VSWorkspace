@@ -1,0 +1,28 @@
+D:\VS workspace\Spectrum_test\bin\Debug\Spectrum_test.exe.config
+D:\VS workspace\Spectrum_test\bin\Debug\Spectrum_test.exe
+D:\VS workspace\Spectrum_test\bin\Debug\Spectrum_test.pdb
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.AssemblyReference.cache
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.Form1.resources
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.Properties.Resources.resources
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.GenerateResource.cache
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.CoreCompileInputs.cache
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.exe
+D:\VS workspace\Spectrum_test\obj\Debug\Spectrum_test.pdb
+F:\vsWorkspace\Spectrum_test\bin\Debug\Spectrum_test.exe.config
+F:\vsWorkspace\Spectrum_test\bin\Debug\Spectrum_test.exe
+F:\vsWorkspace\Spectrum_test\bin\Debug\Spectrum_test.pdb
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.AssemblyReference.cache
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.SuggestedBindingRedirects.cache
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.Form1.resources
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.MainForm.resources
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.Properties.Resources.resources
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.GenerateResource.cache
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.csproj.CoreCompileInputs.cache
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.exe
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.pdb
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.Settings.resources
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.Axis.resources
+F:\vsWorkspace\Spectrum_test\bin\Debug\Spectrum_test.exe.manifest
+F:\vsWorkspace\Spectrum_test\bin\Debug\Spectrum_test.application
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.exe.manifest
+F:\vsWorkspace\Spectrum_test\obj\Debug\Spectrum_test.application
