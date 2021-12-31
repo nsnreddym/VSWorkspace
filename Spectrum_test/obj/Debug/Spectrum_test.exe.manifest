@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Spectrum_test.exe" size="198112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Spectrum_test.exe" size="203744">
       <assemblyIdentity name="Spectrum_test" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kBmcq12bPkBiNqk2NT7HoWZ/MJOwqJuzHJGbS91350o=</dsig:DigestValue>
+        <dsig:DigestValue>YMnfBCrcMLXufZuPoOTR/fa4myYgJSpyiikbAtK/ZIs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

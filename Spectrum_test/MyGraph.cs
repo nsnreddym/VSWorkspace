@@ -39,6 +39,18 @@ namespace GraphClass
             public int noPoints;
             public string Freq;
             public string Pol;
+            public Color color;
+        }
+
+        public struct AnalysisData
+        {
+            public string Freq;
+            public string Pol;
+            public string Max;
+            public string Min;
+            public string BW3dB;
+            public Color color;
+
         }
         #endregion
 
@@ -51,7 +63,7 @@ namespace GraphClass
         private Chart chart;
         private Series[] datapoints = new Series[MaxSeries];
         private int seriesCount;
-        private int currentseriesIndex;
+        //private int currentseriesIndex;
         private readonly Color[] ChartColors = new Color[MaxSeries];
         #endregion
 
@@ -61,7 +73,6 @@ namespace GraphClass
             chart = chart1;
             chartType = ChartType.Polar;
             seriesCount = 0;
-            currentseriesIndex = -1;
 
             //Chart area
             ChartArea ca = chart.ChartAreas[0];
@@ -82,6 +93,7 @@ namespace GraphClass
             {
                 k = i + 1;
                 ChartColors[i] = Color.FromArgb(((k / 4) % 2) * 255, ((k / 2) % 2) * 255, (k % 2) * 255);
+                chartParameters[i].color = ChartColors[i];
             }
 
         }
@@ -98,7 +110,6 @@ namespace GraphClass
                 //Allot data
                 datapoints[seriesCount] = chart.Series[seriesCount];
                 datapoints[seriesCount].BorderWidth = 2;
-                datapoints[seriesCount].Color = ChartColors[seriesCount];
                 if (chartType == ChartType.Polar)
                 {
                     datapoints[seriesCount].ChartType = SeriesChartType.Polar;
@@ -109,7 +120,6 @@ namespace GraphClass
                 }
 
                 seriesCount++;
-                currentseriesIndex = seriesCount - 1;
                 return GraphErrors.NOERROR;
             }
             return GraphErrors.EXCEED_MAXSERIES;
@@ -120,7 +130,6 @@ namespace GraphClass
             chart.Series.Clear();
             //chartType = ChartType.Polar;
             seriesCount = 0;
-            currentseriesIndex = -1;
         }        
 
         public void Update_y_Axis(double Min, double Max, double Interval)
@@ -186,17 +195,20 @@ namespace GraphClass
                 //Add new data series
                 return_val = Addaxis(chartParameters[j].title);
 
+                //Color                
+                datapoints[j].Color = chartParameters[j].color;
+
                 if (return_val == GraphErrors.NOERROR)
                 {
                     for (int i = 0; i < chartParameters[j].noPoints; i++)
                     {
                         if (chartType == ChartType.Rectangle)
                         {
-                            datapoints[currentseriesIndex].Points.AddXY(chartParameters[j].x[i] + chart.ChartAreas[0].AxisX.Minimum, chartParameters[j].y[i]);
+                            datapoints[j].Points.AddXY(chartParameters[j].x[i] + chart.ChartAreas[0].AxisX.Minimum, chartParameters[j].y[i]);
                         }
                         else
                         {
-                            datapoints[currentseriesIndex].Points.AddXY(chartParameters[j].x[i], chartParameters[j].y[i]);
+                            datapoints[j].Points.AddXY(chartParameters[j].x[i], chartParameters[j].y[i]);
 
                         }
                     }
@@ -211,19 +223,21 @@ namespace GraphClass
 
         }
 
-        public void UpdateGraphFromData(int indx)
+        public void UpdateGraphFromData()
         {
-            datapoints[currentseriesIndex].Points.Clear();
+            datapoints[0].Points.Clear();
 
-            for (int i = 0; i < chartParameters[indx].noPoints; i++)
+            datapoints[0].Color = chartParameters[0].color;
+
+            for (int i = 0; i < chartParameters[0].noPoints; i++)
             {
                 if (chartType == ChartType.Rectangle)
                 {
-                    datapoints[currentseriesIndex].Points.AddXY(chartParameters[indx].x[i] + chart.ChartAreas[0].AxisX.Minimum, chartParameters[indx].y[i]);
+                    datapoints[0].Points.AddXY(chartParameters[0].x[i] + chart.ChartAreas[0].AxisX.Minimum, chartParameters[0].y[i]);
                 }
                 else
                 {
-                    datapoints[currentseriesIndex].Points.AddXY(chartParameters[indx].x[i], chartParameters[indx].y[i]);
+                    datapoints[0].Points.AddXY(chartParameters[0].x[i], chartParameters[0].y[i]);
 
                 }
                 
@@ -239,6 +253,7 @@ namespace GraphClass
             ResetGraph();
             chartNoSeries = 0;
         }
+
         public void StartGraph(string title)
         {
             //Reset all graphs
@@ -256,7 +271,6 @@ namespace GraphClass
             chartParameters[0].y = new double[chartParameters[0].noPoints];
 
             seriesCount = 1;
-            currentseriesIndex = 0;
         }
 
         public GraphErrors LoadGraph()
@@ -284,7 +298,7 @@ namespace GraphClass
             return return_val;
 
         }
-
+        
         public void SaveGraph()
         {
             Filehandlings savefile = new Filehandlings();
@@ -318,8 +332,117 @@ namespace GraphClass
 
             //Update Graph
             //CreateGraphFromData(1);
+            chartParameters[0].color = ChartColors[0];
             chartNoSeries = 1;
-            UpdateGraphFromData(currentseriesIndex);
+            UpdateGraphFromData();
+        }
+
+        private int FindMax(double[] ydata, int points)
+        {
+            int i;
+            double max;
+            int indx1;
+            max = ydata[0];
+            indx1 = 0;
+
+            //Finding Max
+            for (i = 0; i < points - 1; i++)
+            {
+                if (ydata[i] > max)
+                {
+                    max = ydata[i];
+                    indx1 = i;
+                }
+            }
+
+            return indx1;
+        }
+
+        private double Find3dB(double[] ydata, int points, double Max, int Maxindx)
+        {
+            int i;
+            double angle;
+            int PdB3Indx;
+            int NdB3Indx;
+            int indx1;
+
+            indx1 = Maxindx;
+            PdB3Indx = indx1;
+            angle = 0;
+
+            //Finding 3dB point +ve side
+            for (i = 0; i < points; i++)
+            {
+                if (ydata[indx1] <= (Max - 3))
+                {
+                    PdB3Indx = indx1;
+                    break;
+                }
+                else
+                {
+                    indx1++;
+                    angle = angle + 1;
+                    if (indx1 >= points)
+                    {
+                        indx1 = 0;
+                    }
+                }
+            }
+            if (i == points)
+            {
+                angle = 3600;
+            }
+
+            indx1 = Maxindx;
+            NdB3Indx = indx1;
+
+            //Finding 3dB point -ve side
+            for (i = 0; i < points; i++)
+            {
+                if (ydata[indx1] <= (Max - 3))
+                {
+                    NdB3Indx = indx1;
+                    break;
+                }
+                else
+                {
+                    indx1--;
+                    angle = angle + 1;
+                    if (indx1 < 0)
+                    {
+                        indx1 = points - 1;
+                    }
+                }
+            }
+            if (i == points)
+            {
+                angle = 3600;
+            }
+
+            return angle;
+        }
+
+        public void AnalyzeGraph(AnalysisData[] analysisdata)
+        {
+            double MaxValue;
+            int MaxValIndx;
+            double dB3angle;
+
+            for (int i = 0; i < chartNoSeries; i++)
+            {                                
+                analysisdata[i].Freq = chartParameters[i].Freq;
+                analysisdata[i].Pol = chartParameters[i].Pol;
+                analysisdata[i].color = chartParameters[i].color;
+
+                MaxValIndx = FindMax(chartParameters[i].y, chartParameters[i].noPoints);
+                MaxValue = chartParameters[i].y[MaxValIndx];
+                dB3angle = Find3dB(chartParameters[i].y, chartParameters[i].noPoints, MaxValue, MaxValIndx);
+                dB3angle = dB3angle * 360.0 / (chartParameters[i].noPoints);
+
+                analysisdata[i].Max = MaxValue.ToString();
+                analysisdata[i].BW3dB = dB3angle.ToString();
+
+            }
         }
 
         #endregion

@@ -135,6 +135,14 @@ namespace Spectrum_test
 
         private void tsAnalyze_Click(object sender, EventArgs e)
         {
+            DataAnalysis dataAnalysis = new DataAnalysis();
+
+            Graph.AnalysisData[] analysisData = new Graph.AnalysisData[graph.chartNoSeries];
+            graph.AnalyzeGraph(analysisData);
+
+            dataAnalysis.DataAnalysis_update(analysisData, graph.chartNoSeries);
+
+            dataAnalysis.ShowDialog();
         }
 
         private void tsChart_Click(object sender, EventArgs e)
