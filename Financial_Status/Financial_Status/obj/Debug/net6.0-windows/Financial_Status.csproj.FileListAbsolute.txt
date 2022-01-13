@@ -4,7 +4,6 @@ E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6.0-windows\Financial_Status.dll
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6.0-windows\ref\Financial_Status.dll
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6.0-windows\Financial_Status.pdb
-E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.csproj.AssemblyReference.cache
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.MainForm.resources
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.csproj.GenerateResource.cache
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.GeneratedMSBuildEditorConfig.editorconfig
@@ -35,3 +34,7 @@ E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.csproj.CopyComplete
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.Accounts_admin.resources
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.Properties.Resources.resources
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.csproj.AssemblyReference.cache
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.DisplaySavings.resources

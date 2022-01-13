@@ -2,16 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="AddTran.cs">
+    <Compile Update="Controls\DisplaySavings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\Admin\Accounts_admin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Form1.cs">
+    <Compile Update="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="MainForm.cs">
+    <Compile Update="Forms\Users\Login.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

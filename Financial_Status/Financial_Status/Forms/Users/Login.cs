@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SQLLiteConn_namespace;
+//using SQLLiteConn_namespace;
 using Globals;
 
 namespace Financial_Status
@@ -21,6 +21,7 @@ namespace Financial_Status
 
         private void button1_Click(object sender, EventArgs e)
         {
+#if false
             DataBaseConn d = new();
             DataBaseConn.Errors error;
 
@@ -35,12 +36,12 @@ namespace Financial_Status
                 GlobalVar.UserName = tbUserName.Text;
                 this.Close();
             }         
-
+#endif
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\";
+            
         }
     }
 }
