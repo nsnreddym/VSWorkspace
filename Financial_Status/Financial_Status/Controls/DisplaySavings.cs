@@ -20,30 +20,18 @@ namespace Financial_Status
             InitializeComponent();
         }
 
-        public void DisplaySavingsAccount(int index)
+        public void DisplaySavingsAccount(int x, int y, int index)
         {
-            int x;
-            int y;
-
-            x = 10 + index* (Size.Width + 50);
-            y = 20;
-
             Location = new Point(x, y);
-            groupBox1.Text = GlobalVar.dataBasedata.accountinfo[index].Name;
-            lBankName.Text = GlobalVar.dataBasedata.accountinfo[index].Bank;
-            lAccNo.Text = GlobalVar.dataBasedata.accountinfo[index].AccountNo;
-            lAccType.Text = GlobalVar.dataBasedata.accountinfo[index].Type;
-            lNickName.Text = GlobalVar.dataBasedata.accountinfo[index].Name;
-
-
-            lBalance.Text = "0";
+            groupBox1.Text = DataBasedata.accountinfo[index].Name;
+            
+            lBankName.Text = DataBasedata.accountinfo[index].SAInfo.Bank;
+            lAccNo.Text = DataBasedata.accountinfo[index].SAInfo.AccNo;
+            lAccType.Text = DataBasedata.accountinfo[index].Type;
+            lBalance.Text = DataBasedata.accountinfo[index].SAInfo.Balance.ToString();
 
             Show();
         }
 
-        private void lBankName_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

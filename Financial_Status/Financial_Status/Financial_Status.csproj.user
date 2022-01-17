@@ -5,6 +5,9 @@
     <Compile Update="Controls\DisplaySavings.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\DisplayLoans.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\Admin\Accounts_admin.cs">
       <SubType>Form</SubType>
     </Compile>

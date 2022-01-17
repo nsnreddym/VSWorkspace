@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,41 +10,61 @@ using Globals;
 namespace FinancialDataBase
 {
     #region DataTypes
+      
     
+    public struct SAInfoData
+    {
+        public int ID;
+        public string Name;
+        public string AccNo;
+        public string Bank;
+        public double Balance;
+    }
+
+    public struct LNInfoData
+    {
+        public int ID;
+        public string Name;
+        public string AccNo;
+        public string Bank;
+        public double Balance;
+        public double LoanAmount;
+        public double EMI;
+        public DateTime StartDate;
+        public int Tenure;
+        public string LnType;
+        public double ROI;
+    }
+
     public struct AccountInfoData
     {
         public int ID;
         public string Type;
         public string Name;
-        public string AccountNo;
-        public string Bank;
+        public string InfoTable;
         public string DataTable;
+        public SAInfoData SAInfo;
+        public LNInfoData LNInfo;
     }
-
     #endregion
 
-    class DataBasedata
+    static class DataBasedata
     {
         #region Properties
-        public List <AccountInfoData> accountinfo = new List<AccountInfoData>();
-        public int noAccounts;
-        #endregion
-
-        #region constructor
-        public DataBasedata()
-        {
-            noAccounts = 0;
-        }
+        public static List <AccountInfoData> accountinfo = new List<AccountInfoData>();
         #endregion
 
         #region AccoutInfo database Methods
-        public void ReadAccounts()
+        public static void ReadAccountInfo()
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+            string infotable;
+            string AccType;
 
             conn.Open();
 
             SQLiteCommand cmd = conn.CreateCommand();
+            SQLiteCommand cmd2 = conn.CreateCommand();
 
             cmd.CommandText = "Select * from Account_Info";
 
@@ -53,20 +72,203 @@ namespace FinancialDataBase
 
             while (datareader.Read())
             {
-                accountinfo.Add(new AccountInfoData
-                {
-                    ID = datareader.GetInt32(0),
-                    Type = datareader.GetString(1),
-                    Name = datareader.GetString(2),
-                    AccountNo = datareader.GetString(3),
-                    Bank = datareader.GetString(4),
-                    DataTable = datareader.GetString(5)
-                });
+                AccType = datareader.GetString(1);
+                infotable = datareader.GetString(3);
 
-                noAccounts++;
+                switch (AccType)
+                {
+                    case "Savings":
+
+                        cmd2.CommandText = "Select * from " + infotable +" where Name = '" + datareader.GetString(2) + "'";
+
+                        SQLiteDataReader datareader2 = cmd2.ExecuteReader();
+
+                        datareader2.Read();
+
+                        accountinfo.Add(new AccountInfoData
+                        {
+                            ID = datareader.GetInt32(0),
+                            Type = AccType,
+                            Name = datareader.GetString(2),
+                            InfoTable = infotable,
+                            DataTable = datareader.GetString(4),
+                            SAInfo = new SAInfoData
+                            {
+                                ID = datareader2.GetInt32(0),
+                                Name = datareader2.GetString(1),
+                                AccNo = datareader2.GetString(2),
+                                Bank = datareader2.GetString(3),
+                                Balance = datareader2.GetDouble(4)
+                            }
+                        }) ;
+
+                        datareader2.Close();
+
+                        break;
+
+                    case "Loan":
+
+                        cmd2.CommandText = "Select * from " + infotable +" where Name = '" + datareader.GetString(2) + "'";
+
+                        SQLiteDataReader datareader3 = cmd2.ExecuteReader();
+
+                        datareader3.Read();
+
+                        accountinfo.Add(new AccountInfoData
+                        {
+                            ID = datareader.GetInt32(0),
+                            Type = AccType,
+                            Name = datareader.GetString(2),
+                            InfoTable = infotable,
+                            DataTable = datareader.GetString(4),
+                            LNInfo = new LNInfoData
+                            {
+                                ID = datareader3.GetInt32(0),
+                                Name = datareader3.GetString(1),
+                                AccNo = datareader3.GetString(2),
+                                Bank = datareader3.GetString(3),
+                                Balance = datareader3.GetDouble(4),
+                                LoanAmount = datareader3.GetDouble(5),
+                                EMI = datareader3.GetDouble(6),
+                                //StartDate = datareader3.GetDateTime(7),
+                                Tenure = datareader3.GetInt32(8),
+                                LnType = datareader3.GetString(9),
+                                ROI = datareader3.GetDouble(10)
+                            }
+                        }) ;
+
+                        datareader3.Close();
+
+                        break;
+
+                    default:
+                        break;
+                }                
+
+                //noAccounts++;
             }
 
             conn.Close();            
+        }
+
+        public static bool AddAccountInfo(string AccType, string NickName)
+        {
+            string infotable;
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            switch(AccType)
+            {
+                case "Savings":
+                    infotable = new string("SavingAccount_Info");
+                    break;
+
+                case "Loan":
+                    infotable = new string("LoanAccount_Info");
+                    break;
+
+                default:
+                    conn.Close();
+                    return false;
+            }
+
+            cmd.CommandText = @"Insert into Account_Info (Type, Name, InfoTable, DataTable) Values (" + " '" +
+                                     AccType + "', '" +
+                                     NickName + "', '" +
+                                     infotable + "', '" +
+                                     NickName + "');";
+
+            cmd.ExecuteNonQuery(); 
+            
+            conn.Close();
+
+            return true;
+        }
+        #endregion
+
+        #region Savings Account Methods
+        public static void UpdateSavingsInfo(String Name, string ACCNo, string Bank)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Insert into SavingAccount_Info (Name, AccountNo, Bank) Values (" + " '" +
+                                Name + "', '" +
+                                ACCNo + "', '" +
+                                Bank + "');";
+
+            cmd.ExecuteNonQuery(); 
+            
+            conn.Close();
+        }
+
+        public static void CreateNewSavingsAccount(String Name)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = GlobalVar.CreateSavingsAccount;
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "Alter Table temp rename to " + Name;
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+        #endregion
+
+        #region Loan Account Methods
+        public static void UpdateLoanInfo(string Name, string ACCNo, string Bank, string LnAmt, string EMI, DateTime startdate, string NoEMI, 
+                                          string LnType, string ROI)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Insert into LoanAccount_Info (Name, AccountNo, Bank, Balance, LoanAmount, EMI, StartDate, NoEMI, LoanType, ROI) Values (" + " '" +
+                                Name + "', '" +
+                                ACCNo + "', '" +
+                                Bank + "', " +
+                                LnAmt + ", " +
+                                LnAmt + ", " +
+                                EMI + ", " +
+                                startdate.ToShortDateString() + ", " +
+                                NoEMI + ", '" +
+                                LnType + "', " +
+                                ROI + ");";
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+
+        public static void CreateNewLoanAccount(String Name)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = GlobalVar.CreateLoanAccount;
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "Alter Table temp rename to " + Name;
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
         }
         #endregion
 

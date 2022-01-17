@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 //using SQLLiteConn_namespace;
 using System.Data.SQLite;
+using FinancialDataBase;
 using Globals;
 
 namespace Financial_Status
@@ -27,33 +28,7 @@ namespace Financial_Status
         }
 
         #region DataBase functions
-        private void CreateNewAccount(string ACCType, String Name, string ACCNo, string Bank)
-        {
-            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath  + "; Version = 3;");
-
-            conn.Open();
-
-            SQLiteCommand cmd = conn.CreateCommand();
-            SQLiteCommand cmd2 = conn.CreateCommand();
-
-            if (ACCType == "Savings")
-            {
-                cmd.CommandText = @"Create Table " + Name + " as select * from SavingsType";
-                cmd2.CommandText = @"Insert into Account_Info (Type, Name, AccountNo, Bank, DataTable) Values (" + " '" +
-                                     ACCType + "', '" +
-                                     Name    + "', " +
-                                     ACCNo   +", '" +
-                                     Bank    + "', '" + 
-                                     Name    + "');";
-            }
-
-            cmd.ExecuteNonQuery();
-            cmd2.ExecuteNonQuery();
-
-            conn.Close();
-
-        }
-        #endregion
+            #endregion
 
         #region ADD functions
 
@@ -92,16 +67,42 @@ namespace Financial_Status
 
         private void bAdd_Click(object sender, EventArgs e)
         {
-            CreateNewAccount(cbAccType.Text.ToString(), tbName.Text, tbAccNo.Text, cbBank.Text);
+            bool status;
+            status = DataBasedata.AddAccountInfo(cbAccType.Text.ToString(), tbName.Text);
+
+            if (status == true)
+            {
+
+                switch (cbAccType.Text.ToString())
+                {
+                    case "Savings":
+                        DataBasedata.UpdateSavingsInfo(tbName.Text, tbAccNo.Text, cbBank.Text);
+                        DataBasedata.CreateNewSavingsAccount(tbName.Text);
+                        break;
+
+                    case "Loan":
+                        DataBasedata.UpdateLoanInfo(tbName.Text, tbAccNo.Text, cbBank.Text, tbLnAmt.Text, EMI.Text, Sdate.Value,NoEMI.Text, cbLnType.Text, ROI.Text);
+                        DataBasedata.CreateNewLoanAccount(tbName.Text);
+                        break;
+
+                    default:
+                        status = false;
+                        break;
+                }
+            }
+
+            if(status == false)
+            {
+                MessageBox.Show("Unable to create account");
+            }
+
         }
-
-        #endregion
-
-
 
         private void bCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
     }
 }
