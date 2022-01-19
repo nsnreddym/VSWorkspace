@@ -9,8 +9,7 @@ using Globals;
 
 namespace FinancialDataBase
 {
-    #region DataTypes
-      
+    #region DataTypes      
     
     public struct SAInfoData
     {
@@ -34,6 +33,7 @@ namespace FinancialDataBase
         public int Tenure;
         public string LnType;
         public double ROI;
+        public double BEMI;
     }
 
     public struct AccountInfoData
@@ -45,6 +45,17 @@ namespace FinancialDataBase
         public string DataTable;
         public SAInfoData SAInfo;
         public LNInfoData LNInfo;
+    }
+
+    public enum Category
+    {
+        MISC = 0,
+        LOAN,
+        SALARY,
+        CHIT,
+        FOOD,
+        MAINTANANCE,
+        BF
     }
     #endregion
 
@@ -133,7 +144,8 @@ namespace FinancialDataBase
                                 //StartDate = datareader3.GetDateTime(7),
                                 Tenure = datareader3.GetInt32(8),
                                 LnType = datareader3.GetString(9),
-                                ROI = datareader3.GetDouble(10)
+                                ROI = datareader3.GetDouble(10),
+                                BEMI = datareader3.GetDouble(11)
                             }
                         }) ;
 
@@ -149,6 +161,31 @@ namespace FinancialDataBase
             }
 
             conn.Close();            
+        }
+
+        public static List<string> GetallAC()
+        {
+            List<string> All_Names = new List<string>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Select Name from Account_Info;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                All_Names.Add(datareader.GetString(0));
+            }
+
+            conn.Close();
+
+            return All_Names;
+
         }
 
         public static bool AddAccountInfo(string AccType, string NickName)
@@ -190,7 +227,7 @@ namespace FinancialDataBase
         #endregion
 
         #region Savings Account Methods
-        public static void UpdateSavingsInfo(String Name, string ACCNo, string Bank)
+        public static void AddSavingsInfo(String Name, string ACCNo, string Bank)
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
 
@@ -206,6 +243,31 @@ namespace FinancialDataBase
             cmd.ExecuteNonQuery(); 
             
             conn.Close();
+        }
+
+        public static List<string> GetSavingsAC()
+        {
+            List <string> SA_Names = new List<string>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Select Name from SavingAccount_Info;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while(datareader.Read())
+            {
+                SA_Names.Add(datareader.GetString(0));
+            }
+
+            conn.Close();
+
+            return SA_Names;
+            
         }
 
         public static void CreateNewSavingsAccount(String Name)
@@ -227,7 +289,7 @@ namespace FinancialDataBase
         #endregion
 
         #region Loan Account Methods
-        public static void UpdateLoanInfo(string Name, string ACCNo, string Bank, string LnAmt, string EMI, DateTime startdate, string NoEMI, 
+        public static void AddLoanInfo(string Name, string ACCNo, string Bank, string LnAmt, string EMI, DateTime startdate, string NoEMI, 
                                           string LnType, string ROI)
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
@@ -236,23 +298,23 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Insert into LoanAccount_Info (Name, AccountNo, Bank, Balance, LoanAmount, EMI, StartDate, NoEMI, LoanType, ROI) Values (" + " '" +
+            cmd.CommandText = @"Insert into LoanAccount_Info (Name, AccountNo, Bank, Balance, LoanAmount, EMI, StartDate, NoEMI, LoanType, ROI, BEMI) Values (" + " '" +
                                 Name + "', '" +
                                 ACCNo + "', '" +
                                 Bank + "', " +
                                 LnAmt + ", " +
                                 LnAmt + ", " +
-                                EMI + ", " +
-                                startdate.ToShortDateString() + ", " +
+                                EMI + ", '" +
+                                startdate.ToShortDateString() + "', " +
                                 NoEMI + ", '" +
                                 LnType + "', " +
-                                ROI + ");";
+                                ROI + ", " +
+                                NoEMI + ");";
 
             cmd.ExecuteNonQuery();
 
             conn.Close();
         }
-
 
         public static void CreateNewLoanAccount(String Name)
         {
@@ -270,6 +332,72 @@ namespace FinancialDataBase
 
             conn.Close();
         }
+
+        public static void AddLoanRecord(string TableName, string date, string EMI)
+        {
+            double ROI, Bal, BEMI;
+            double interest;
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            //Read balance 
+            cmd.CommandText = @"Select Balance, ROI, BEMI from LoanAccount_Info where Name = '" + TableName + "';";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            datareader.Read();
+
+            Bal = datareader.GetDouble(0);
+            ROI = datareader.GetDouble(1);
+            BEMI = datareader.GetDouble(2);
+
+            datareader.Close();
+
+            //Update balance
+            BEMI = BEMI - 1;
+            interest = ROI * Bal / 12/100;
+            Bal = Bal - (int)(Convert.ToDouble(EMI) - interest);
+
+            cmd.CommandText = @"Update LoanAccount_Info set "  + 
+                               "Balance = " + Bal.ToString() + "," +
+                               "BEMI = " + BEMI.ToString() + " " +
+                               "where Name = '" + TableName + "'; ";
+
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = @"Insert into " + TableName + "(Date, EMI) Values (" + " '" +
+                                date + "', " +
+                                EMI +  ");";
+
+            cmd.ExecuteNonQuery();
+            
+            conn.Close();
+        }
+
+        public static double GetTotalDebt()
+        {
+            double totalDebt = 0;
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            //Read balance 
+            cmd.CommandText = @"Select sum(Balance) from LoanAccount_Info;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            datareader.Read();
+
+            totalDebt = datareader.GetDouble(0);
+
+            return totalDebt;
+        }
         #endregion
 
         #region dummy
@@ -280,18 +408,7 @@ namespace FinancialDataBase
             LOGIN_FAILED,
 
             DATABASE_NOTFOUND = -1
-        }
-
-        public enum Category
-        {
-            MISC = 0,
-            LOAN,
-            SALARY,
-            CHIT,
-            FOOD,
-            MAINTANANCE,
-            BF
-        }
+        }        
 
         public struct Savings_ICICI_data
         {

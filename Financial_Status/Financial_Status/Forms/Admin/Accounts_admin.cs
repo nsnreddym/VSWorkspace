@@ -76,12 +76,12 @@ namespace Financial_Status
                 switch (cbAccType.Text.ToString())
                 {
                     case "Savings":
-                        DataBasedata.UpdateSavingsInfo(tbName.Text, tbAccNo.Text, cbBank.Text);
+                        DataBasedata.AddSavingsInfo(tbName.Text, tbAccNo.Text, cbBank.Text);
                         DataBasedata.CreateNewSavingsAccount(tbName.Text);
                         break;
 
                     case "Loan":
-                        DataBasedata.UpdateLoanInfo(tbName.Text, tbAccNo.Text, cbBank.Text, tbLnAmt.Text, EMI.Text, Sdate.Value,NoEMI.Text, cbLnType.Text, ROI.Text);
+                        DataBasedata.AddLoanInfo(tbName.Text, tbAccNo.Text, cbBank.Text, tbLnAmt.Text, EMI.Text, Sdate.Value,NoEMI.Text, cbLnType.Text, ROI.Text);
                         DataBasedata.CreateNewLoanAccount(tbName.Text);
                         break;
 
@@ -94,6 +94,10 @@ namespace Financial_Status
             if(status == false)
             {
                 MessageBox.Show("Unable to create account");
+            }
+            else
+            {
+                MessageBox.Show("Account:" + tbName.Text + " Created.");
             }
 
         }

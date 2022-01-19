@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Spectrum_test.exe.manifest" size="3487">
+    <dependentAssembly dependencyType="install" codebase="Spectrum_test.exe.manifest" size="4350">
       <assemblyIdentity name="Spectrum_test.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WFk0SNYtllXjZkVUENniKHUDoXIyRkiGcpGKRERysJo=</dsig:DigestValue>
+        <dsig:DigestValue>n6HtGewdHeZnbViNvSRpzrjW6np/Z230JVld9DklqEg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

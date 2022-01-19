@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using FinancialDataBase;
 using Globals;
+using Financial_Status.Forms.Users;
 
 namespace Financial_Status
 {
@@ -26,62 +27,7 @@ namespace Financial_Status
         }
 
         #region DataBase functions
-        private void Display_Account_Pallete()
-        {
-            int x, y, indx;
-
-            DisplaySavings[] displaySAs = new DisplaySavings[DataBasedata.accountinfo.Count];
-            DisplayLoans[] displayLAs = new DisplayLoans[DataBasedata.accountinfo.Count];
-
-            x = 10;
-            y = 10;
-            indx = 0;
-
-
-            for (int i = 0; i < DataBasedata.accountinfo.Count; i++)
-            {                
-                switch (DataBasedata.accountinfo[i].Type)
-                {
-                    case "Savings":
-                        displaySAs[i] = new DisplaySavings();
-                                                                     
-                        panel1.Controls.Add(displaySAs[i]);
-                        displaySAs[i].DisplaySavingsAccount(x,y,i);
-
-                        x = x + displaySAs[i].Size.Width + 10;
-
-                        if((x + displaySAs[i].Size.Width) > Size.Width)
-                        {
-                            y = y + displaySAs[i].Size.Height + 10;
-                            x = 10;
-                        }
-
-                        break;
-
-                    case "Loan":
-                        displayLAs[i] = new DisplayLoans();
-                                                                     
-                        panel1.Controls.Add(displayLAs[i]);
-                        displayLAs[i].DisplayLoansAccount(x,y,i);
-
-                        x = x + displayLAs[i].Size.Width + 10;
-
-                        if((x + displayLAs[i].Size.Width) > Size.Width)
-                        {
-                            y = y + displayLAs[i].Size.Height + 10;
-                            x = 10;
-                        }
-
-                        break;
-
-                    default:
-                    break;
-                }                
-            }
-
-            GlobalVar.MaxTables = DataBasedata.accountinfo.Count;
-
-        }
+        
         #endregion
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -96,35 +42,17 @@ namespace Financial_Status
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "Financial Status: Not Logged";
+            this.Text = "Financial Status: Not Logged";            
 
-            panel1.AutoScroll = false;
-            vScrollBar1 = new VScrollBar();
-            vScrollBar1.Dock = DockStyle.Right;
-            vScrollBar1.Maximum = Size.Height;
-            vScrollBar1.Minimum = 0;
-
-            hScrollBar1 = new HScrollBar();
-            hScrollBar1.Dock = DockStyle.Bottom;
-            hScrollBar1.Maximum = Size.Width;
-            hScrollBar1.Minimum = 0;;
-
-            panel1.AutoScroll = true;
-
-            panel1.Dock = DockStyle.Fill;
-
-            GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";
-
-            //Read Accounts
-            DataBasedata.ReadAccountInfo();
-
-            Display_Account_Pallete();
+            GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";           
 
         }
 
         private void addTransactionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            AddTran addTran = new AddTran();
+            addTran.Text = "ADD Transactions";
+            addTran.Show();
         }
 
         private void statementToolStripMenuItem_Click(object sender, EventArgs e)
@@ -138,11 +66,11 @@ namespace Financial_Status
             addAccounts.Add();
         }
 
-        private void panel1_SizeChanged(object sender, EventArgs e)
-        {            
-            vScrollBar1.Maximum = Size.Height;
-            
-            hScrollBar1.Maximum = Size.Width;
+        private void accountSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AccSummary accSummary = new AccSummary();
+            accSummary.MdiParent = this;
+            accSummary.Show();
         }
     }
 }

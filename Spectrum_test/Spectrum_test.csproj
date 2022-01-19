@@ -64,6 +64,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Medha2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -189,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Medha.ico" />
+    <Content Include="Medha2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

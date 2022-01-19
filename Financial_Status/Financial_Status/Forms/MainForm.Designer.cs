@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,7 +36,8 @@
             this.statementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +46,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.financialToolStripMenuItem,
-            this.accountsToolStripMenuItem});
+            this.accountsToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -95,21 +98,28 @@
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
-            // panel1
+            // viewToolStripMenuItem
             // 
-            this.panel1.Location = new System.Drawing.Point(31, 57);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(641, 229);
-            this.panel1.TabIndex = 2;
-            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.accountSummaryToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // accountSummaryToolStripMenuItem
+            // 
+            this.accountSummaryToolStripMenuItem.Name = "accountSummaryToolStripMenuItem";
+            this.accountSummaryToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.accountSummaryToolStripMenuItem.Text = "Account Summary";
+            this.accountSummaryToolStripMenuItem.Click += new System.EventHandler(this.accountSummaryToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -131,6 +141,7 @@
         private ToolStripMenuItem statementToolStripMenuItem;
         private ToolStripMenuItem accountsToolStripMenuItem;
         private ToolStripMenuItem addToolStripMenuItem;
-        private Panel panel1;
+        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem accountSummaryToolStripMenuItem;
     }
 }

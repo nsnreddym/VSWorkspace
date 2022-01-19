@@ -39,3 +39,5 @@ E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.csproj.AssemblyReference.cache
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.DisplaySavings.resources
 E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.DisplayLoans.resources
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.AddTran.resources
+E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\obj\Debug\net6.0-windows\Financial_Status.Forms.Users.AccSummary.resources

@@ -6,7 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>Financial_Status.Program</StartupObject>
+    <ApplicationIcon>FSLogo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="FSLogo.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SQLite" Version="3.13.0" />

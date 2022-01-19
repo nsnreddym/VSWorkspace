@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.title = new System.Windows.Forms.GroupBox();
             this.lAccType = new System.Windows.Forms.Label();
             this.lBalance = new System.Windows.Forms.Label();
             this.lAccNo = new System.Windows.Forms.Label();
@@ -37,27 +37,29 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.title.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // title
             // 
-            this.groupBox1.Controls.Add(this.lAccType);
-            this.groupBox1.Controls.Add(this.lBalance);
-            this.groupBox1.Controls.Add(this.lAccNo);
-            this.groupBox1.Controls.Add(this.lBankName);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(389, 186);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.title.Controls.Add(this.splitter1);
+            this.title.Controls.Add(this.lAccType);
+            this.title.Controls.Add(this.lBalance);
+            this.title.Controls.Add(this.lAccNo);
+            this.title.Controls.Add(this.lBankName);
+            this.title.Controls.Add(this.label5);
+            this.title.Controls.Add(this.label4);
+            this.title.Controls.Add(this.label3);
+            this.title.Controls.Add(this.label2);
+            this.title.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.title.ForeColor = System.Drawing.Color.Red;
+            this.title.Location = new System.Drawing.Point(0, 0);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(389, 186);
+            this.title.TabIndex = 0;
+            this.title.TabStop = false;
+            this.title.Text = "groupBox1";
             // 
             // lAccType
             // 
@@ -140,22 +142,30 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Account No";
             // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(3, 19);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 164);
+            this.splitter1.TabIndex = 10;
+            this.splitter1.TabStop = false;
+            // 
             // DisplaySavings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.title);
             this.Name = "DisplaySavings";
             this.Size = new System.Drawing.Size(389, 186);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.title.ResumeLayout(false);
+            this.title.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private GroupBox groupBox1;
+        private GroupBox title;
         private Label lAccType;
         private Label lBalance;
         private Label lAccNo;
@@ -164,5 +174,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
+        private Splitter splitter1;
     }
 }
