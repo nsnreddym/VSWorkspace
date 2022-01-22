@@ -112,7 +112,11 @@
             "AXIS",
             "TGB",
             "SBI",
-            "BajajFinserv"});
+            "BajajFinserv",
+            "LIC",
+            "HDFC",
+            "PHFL",
+            "Cash"});
             this.cbBank.Location = new System.Drawing.Point(616, 36);
             this.cbBank.Name = "cbBank";
             this.cbBank.Size = new System.Drawing.Size(81, 23);

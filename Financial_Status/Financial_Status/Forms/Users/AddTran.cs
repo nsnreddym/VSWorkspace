@@ -20,62 +20,7 @@ namespace Financial_Status
         {
             InitializeComponent();
         }
-#if false
-        private void AddTran_Load_1(object sender, EventArgs e)
-        {
-            DataBaseConn dataBaseConn = new();
-            int count;
-            string[] tables = new string[GlobalVar.MaxTables];
 
-            count = dataBaseConn.LoadTableNames(tables); 
-
-            for (int i = 0; i < count; i++)
-            {
-                if (tables[i] != "Login")
-                {
-                    cbAccount.Items.Add(tables[i]);
-                }
-            }
-
-            foreach (var item in Enum.GetValues(typeof(DataBaseConn.Category)))
-            {
-                cbCategory.Items.Add(item);
-            }
-
-            cbAccount.SelectedIndex = 0;
-            cbCategory.SelectedIndex = 0;
-        }
-
-        private void bSave_Click(object sender, EventArgs e)
-        {
-            DataBaseConn.Savings_ICICI_data data = new DataBaseConn.Savings_ICICI_data();
-
-            DataBaseConn dataBaseConn = new();
-
-            //Read last transaction
-            data = dataBaseConn.GetLastTransaction(cbAccount.Text);
-
-            //Update data
-            data.date = cbDate.Value;
-            data.Description = tbDesc.Text;
-            data.Amount = Convert.ToDouble(tbAmount.Text);
-            data.TranType = cbTranType.SelectedIndex;            
-            data.Category = cbCategory.SelectedIndex;
-
-            if (data.TranType == 0)
-            {
-                data.Balance = data.Balance - data.Amount;
-            }
-            else
-            {
-                data.Balance = data.Balance + data.Amount;
-            }
-            
-            int count = dataBaseConn.UpdateTransaction(cbAccount.Text, data, 4);
-
-            MessageBox.Show(count.ToString() + "Records Addeed");
-        }
-#endif
         private void bCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -113,13 +58,7 @@ namespace Financial_Status
                 cbAccount.Items.Add(data[cnt]);
             }
 
-            //Get all Account details
-            List <string> data2 = DataBasedata.GetallAC();
-
-            for(int cnt = 0; cnt < data2.Count; cnt++)
-            {
-                cbCreditAC.Items.Add(data2[cnt]);
-            }
+            
 
             foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
             {
@@ -137,7 +76,7 @@ namespace Financial_Status
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            if (cbTranType.SelectedItem.ToString() == "Tr")
+            if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);
 
@@ -147,17 +86,54 @@ namespace Financial_Status
 
         private void cbTranType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbTranType.SelectedItem.ToString() == "Tr")
+            if(cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 cbCreditAC.Enabled = true;
                 cbCategory.Enabled = false;
                 tbDesc.Enabled = false;
+                tbAmount.Enabled = false;
+
+                //Get all Account details
+                List<string> data2 = DataBasedata.GetallLNAC();
+                cbCreditAC.Items.Clear();
+
+                for (int cnt = 0; cnt < data2.Count; cnt++)
+                {
+                    cbCreditAC.Items.Add(data2[cnt]);
+                }
+                cbCreditAC.SelectedIndex = 0;
+            }
+            else if(cbTranType.SelectedItem.ToString() == "Tr_SA")
+            {
+                cbCreditAC.Enabled = true;
+                cbCategory.Enabled = false;
+                tbDesc.Enabled = true;
+                tbAmount.Enabled = true;
+
+                //Get all Account details
+                List<string> data2 = DataBasedata.GetSavingsAC();
+                cbCreditAC.Items.Clear();
+
+                for (int cnt = 0; cnt < data2.Count; cnt++)
+                {
+                    cbCreditAC.Items.Add(data2[cnt]);
+                }
+                cbCreditAC.SelectedIndex = 0;
             }
             else
             {
                 cbCreditAC.Enabled = false;
                 cbCategory.Enabled = true;
                 tbDesc.Enabled = true;
+                tbAmount.Enabled = true;                
+            }
+        }
+
+        private void cbCreditAC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbTranType.SelectedItem.ToString() == "Tr_LN")
+            {
+                tbAmount.Text = DataBasedata.GetEMIinfo(cbCreditAC.SelectedItem.ToString()).ToString();
             }
         }
     }

@@ -87,6 +87,7 @@
             this.tbPasswd.PasswordChar = '*';
             this.tbPasswd.Size = new System.Drawing.Size(100, 23);
             this.tbPasswd.TabIndex = 5;
+            this.tbPasswd.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbPasswd_MouseClick);
             // 
             // Login
             // 
@@ -101,7 +102,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Login";
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.Login_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Login_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

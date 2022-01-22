@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using SQLLiteConn_namespace;
+
+using FinancialDataBase;
 using Globals;
 
 namespace Financial_Status
@@ -21,27 +22,31 @@ namespace Financial_Status
 
         private void button1_Click(object sender, EventArgs e)
         {
-#if false
-            DataBaseConn d = new();
-            DataBaseConn.Errors error;
+            Errors error;
 
-            error = d.CheckLoginCredentials(tbUserName.Text, tbPasswd.Text);
+            error = DataBasedata.CheckLoginCredentials(tbUserName.Text, tbPasswd.Text);
 
             if((int)error != 0)
             {
                 MessageBox.Show(error.ToString());
+                GlobalVar.IsLogged = false;
             }
             else
             {
                 GlobalVar.UserName = tbUserName.Text;
-                this.Close();
+                GlobalVar.IsLogged = true;
+                Close();
             }         
-#endif
         }
 
-        private void Login_Load(object sender, EventArgs e)
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+            Dispose();
+        }
+
+        private void tbPasswd_MouseClick(object sender, MouseEventArgs e)
+        {
+            tbPasswd.Clear();
         }
     }
 }

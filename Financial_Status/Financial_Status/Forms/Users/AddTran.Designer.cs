@@ -135,7 +135,8 @@
             this.cbTranType.Items.AddRange(new object[] {
             "Dr",
             "Cr",
-            "Tr"});
+            "Tr_SA",
+            "Tr_LN"});
             this.cbTranType.Location = new System.Drawing.Point(90, 66);
             this.cbTranType.Name = "cbTranType";
             this.cbTranType.Size = new System.Drawing.Size(48, 23);
@@ -218,6 +219,7 @@
             this.cbCreditAC.Size = new System.Drawing.Size(121, 23);
             this.cbCreditAC.TabIndex = 14;
             this.cbCreditAC.TabStop = false;
+            this.cbCreditAC.SelectedIndexChanged += new System.EventHandler(this.cbCreditAC_SelectedIndexChanged);
             // 
             // AddTran
             // 

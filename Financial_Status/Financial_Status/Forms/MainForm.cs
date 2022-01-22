@@ -44,7 +44,21 @@ namespace Financial_Status
             this.WindowState = FormWindowState.Maximized;
             this.Text = "Financial Status: Not Logged";            
 
-            GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";           
+            GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";    
+            GlobalVar.IsLogged = false;
+
+            /*Login login = new Login();
+
+            login.ShowDialog();
+
+            if (false == GlobalVar.IsLogged)
+            {
+                //this.Close();
+            }
+            else
+            {
+                this.Text = "Financial Status:" + GlobalVar.UserName;
+            }*/
 
         }
 

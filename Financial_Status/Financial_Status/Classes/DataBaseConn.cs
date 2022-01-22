@@ -57,6 +57,15 @@ namespace FinancialDataBase
         MAINTANANCE,
         BF
     }
+
+    public enum Errors
+    {
+        NO_ERROR = 0,
+        LOGIN_FAILED,
+
+        DATABASE_NOTFOUND = -1
+    }
+
     #endregion
 
     static class DataBasedata
@@ -65,102 +74,142 @@ namespace FinancialDataBase
         public static List <AccountInfoData> accountinfo = new List<AccountInfoData>();
         #endregion
 
+        #region Login
+
+        public static Errors CheckLoginCredentials(string UsrName, string Passwd)
+        {
+            SQLiteConnection LoginConn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath  + "; Version = 3;");
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            string myreader = "";
+
+            try
+            {
+                //Open connection
+                LoginConn.Open();
+
+                //Execute command
+                sqlite_cmd = LoginConn.CreateCommand();
+                sqlite_cmd.CommandText = @"SELECT Passwd FROM Login where LoginId = '" + UsrName + "'";
+                sqlite_datareader = sqlite_cmd.ExecuteReader();
+
+                //Read data
+                if (sqlite_datareader.Read())
+                {
+
+                    //Check data
+                    myreader = sqlite_datareader.GetString(0);
+
+                    LoginConn.Close();
+
+                    if (myreader == Passwd)
+                    {
+                        return Errors.NO_ERROR;
+                    }
+                    else
+                    {
+                        return Errors.LOGIN_FAILED;
+                    }
+                }
+
+                return Errors.LOGIN_FAILED;
+            }
+            catch (Exception ex)
+            {
+                return Errors.DATABASE_NOTFOUND;
+            }
+        }
+
+        #endregion
+
         #region AccoutInfo database Methods
         public static void ReadAccountInfo()
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
             string infotable;
-            string AccType;
+            string AccName;
 
             conn.Open();
 
             SQLiteCommand cmd = conn.CreateCommand();
             SQLiteCommand cmd2 = conn.CreateCommand();
 
-            cmd.CommandText = "Select * from Account_Info";
+            accountinfo.Clear();
 
-            SQLiteDataReader datareader = cmd.ExecuteReader();
-
-            while (datareader.Read())
+            //Read Savings accounts information
+            cmd.CommandText = "Select * from Account_Info where Type = 'Savings'";
+            SQLiteDataReader datareader1 = cmd.ExecuteReader();
+            while (datareader1.Read())
             {
-                AccType = datareader.GetString(1);
-                infotable = datareader.GetString(3);
+                AccName = datareader1.GetString(2);
+                infotable = datareader1.GetString(3);
 
-                switch (AccType)
+                cmd2.CommandText = "Select * from " + infotable + " where Name = '" + AccName + "'";
+                SQLiteDataReader datareader2 = cmd2.ExecuteReader();
+                datareader2.Read();
+
+                accountinfo.Add(new AccountInfoData
                 {
-                    case "Savings":
+                    ID = datareader1.GetInt32(0),
+                    Type = datareader1.GetString(1),
+                    Name = AccName,
+                    InfoTable = infotable,
+                    DataTable = datareader1.GetString(4),
+                    SAInfo = new SAInfoData
+                    {
+                        ID = datareader2.GetInt32(0),
+                        Name = datareader2.GetString(1),
+                        AccNo = datareader2.GetString(2),
+                        Bank = datareader2.GetString(3),
+                        Balance = datareader2.GetDouble(4)
+                    }
+                });
 
-                        cmd2.CommandText = "Select * from " + infotable +" where Name = '" + datareader.GetString(2) + "'";
+                datareader2.Close();
 
-                        SQLiteDataReader datareader2 = cmd2.ExecuteReader();
-
-                        datareader2.Read();
-
-                        accountinfo.Add(new AccountInfoData
-                        {
-                            ID = datareader.GetInt32(0),
-                            Type = AccType,
-                            Name = datareader.GetString(2),
-                            InfoTable = infotable,
-                            DataTable = datareader.GetString(4),
-                            SAInfo = new SAInfoData
-                            {
-                                ID = datareader2.GetInt32(0),
-                                Name = datareader2.GetString(1),
-                                AccNo = datareader2.GetString(2),
-                                Bank = datareader2.GetString(3),
-                                Balance = datareader2.GetDouble(4)
-                            }
-                        }) ;
-
-                        datareader2.Close();
-
-                        break;
-
-                    case "Loan":
-
-                        cmd2.CommandText = "Select * from " + infotable +" where Name = '" + datareader.GetString(2) + "'";
-
-                        SQLiteDataReader datareader3 = cmd2.ExecuteReader();
-
-                        datareader3.Read();
-
-                        accountinfo.Add(new AccountInfoData
-                        {
-                            ID = datareader.GetInt32(0),
-                            Type = AccType,
-                            Name = datareader.GetString(2),
-                            InfoTable = infotable,
-                            DataTable = datareader.GetString(4),
-                            LNInfo = new LNInfoData
-                            {
-                                ID = datareader3.GetInt32(0),
-                                Name = datareader3.GetString(1),
-                                AccNo = datareader3.GetString(2),
-                                Bank = datareader3.GetString(3),
-                                Balance = datareader3.GetDouble(4),
-                                LoanAmount = datareader3.GetDouble(5),
-                                EMI = datareader3.GetDouble(6),
-                                //StartDate = datareader3.GetDateTime(7),
-                                Tenure = datareader3.GetInt32(8),
-                                LnType = datareader3.GetString(9),
-                                ROI = datareader3.GetDouble(10),
-                                BEMI = datareader3.GetDouble(11)
-                            }
-                        }) ;
-
-                        datareader3.Close();
-
-                        break;
-
-                    default:
-                        break;
-                }                
-
-                //noAccounts++;
             }
+            datareader1.Close();
 
-            conn.Close();            
+            cmd.CommandText = "Select * from Account_Info where Type = 'Loan'";
+            SQLiteDataReader datareader3 = cmd.ExecuteReader();
+            while (datareader3.Read())
+            {
+                AccName = datareader3.GetString(2);
+                infotable = datareader3.GetString(3);
+
+                cmd2.CommandText = "Select * from " + infotable + " where Name = '" + AccName + "'";
+                SQLiteDataReader datareader4 = cmd2.ExecuteReader();
+                datareader4.Read();
+
+                accountinfo.Add(new AccountInfoData
+                {
+                    ID = datareader3.GetInt32(0),
+                    Type = datareader3.GetString(1),
+                    Name = AccName,
+                    InfoTable = infotable,
+                    DataTable = datareader3.GetString(4),
+                    LNInfo = new LNInfoData
+                    {
+                        ID = datareader4.GetInt32(0),
+                        Name = datareader4.GetString(1),
+                        AccNo = datareader4.GetString(2),
+                        Bank = datareader4.GetString(3),
+                        Balance = datareader4.GetDouble(4),
+                        LoanAmount = datareader4.GetDouble(5),
+                        EMI = datareader4.GetDouble(6),
+                        //StartDate = datareader3.GetDateTime(7),
+                        Tenure = datareader4.GetInt32(8),
+                        LnType = datareader4.GetString(9),
+                        ROI = datareader4.GetDouble(10),
+                        BEMI = datareader4.GetDouble(11)
+                    }
+                });
+
+                datareader4.Close();
+            }
+            datareader3.Close();
+
+           conn.Close();            
         }
 
         public static List<string> GetallAC()
@@ -377,6 +426,32 @@ namespace FinancialDataBase
             conn.Close();
         }
 
+        public static List<string> GetallLNAC()
+        {
+            List<string> All_Names = new List<string>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Select Name from LoanAccount_Info;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                All_Names.Add(datareader.GetString(0));
+            }
+
+            conn.Close();
+
+            return All_Names;
+
+        }
+
+
         public static double GetTotalDebt()
         {
             double totalDebt = 0;
@@ -398,17 +473,34 @@ namespace FinancialDataBase
 
             return totalDebt;
         }
+
+        public static double GetEMIinfo(string TableName)
+        {
+            double EMI;
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            //Read balance 
+            cmd.CommandText = @"Select EMI from LoanAccount_Info where Name = '" + TableName + "';";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            datareader.Read();
+
+            EMI = datareader.GetDouble(0);
+
+            datareader.Close();
+
+            return EMI;
+        }
         #endregion
 
         #region dummy
 
-        public enum Errors
-        {
-            NO_ERROR = 0,
-            LOGIN_FAILED,
-
-            DATABASE_NOTFOUND = -1
-        }        
 
         public struct Savings_ICICI_data
         {
@@ -431,43 +523,7 @@ namespace FinancialDataBase
 #if false
 
 #region Login Methods
-        public Errors CheckLoginCredentials(string UsrName, string Passwd)
-        {
-            SQLiteConnection LoginConn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "Satya_Financial.db" + "; Version = 3;");
-            SQLiteDataReader sqlite_datareader;
-            SQLiteCommand sqlite_cmd;
-            string myreader = "";
-            
-            try 
-            {
-                //Open connection
-                LoginConn.Open();
-
-                //Execute command
-                sqlite_cmd = LoginConn.CreateCommand();
-                sqlite_cmd.CommandText = @"SELECT Passwd FROM Login where LoginId = '" + UsrName + "'";
-                sqlite_datareader = sqlite_cmd.ExecuteReader();
-
-                //Read data
-                sqlite_datareader.Read();
-
-                //Check data
-                myreader = sqlite_datareader.GetString(0);
-
-                LoginConn.Close();
-
-                if(myreader == Passwd)
-                {
-                    return Errors.NO_ERROR;
-                }
-
-                return Errors.LOGIN_FAILED;
-            }
-            catch (Exception ex)
-            {
-                return Errors.DATABASE_NOTFOUND;
-            }
-        }
+        
 #endregion
 
 #region Transactions
