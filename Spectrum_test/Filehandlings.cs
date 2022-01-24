@@ -137,7 +137,7 @@ namespace FileTransactions
 #endif
 #endregion
 
-#region Settings_handlings
+        #region Settings_handlings
         public void Settings_default()
         {
             StreamWriter sw2;

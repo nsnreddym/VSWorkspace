@@ -65,8 +65,8 @@ namespace Financial_Status.Forms.Users
                         {
                             x = x + displaySAs[indx_SA].Size.Width + 10;
                         }
-
-                        if ((x + displaySAs[indx_SA].Size.Width) > Size.Width)
+                        
+                        if ((x + displaySAs[indx_SA].Size.Width) > (Size.Width-20))
                         {
                             y = y + displaySAs[indx_SA].Size.Height + 10;
                             x = 10;

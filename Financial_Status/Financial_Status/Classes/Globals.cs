@@ -14,6 +14,7 @@ namespace Globals
         static public string DataBasePath = @".\";
         static public string UserName;
         static public bool IsLogged;
+        static public bool logrequired;
         static public int MaxTables;
         //static public DataBasedata dataBasedata = new DataBasedata();
 

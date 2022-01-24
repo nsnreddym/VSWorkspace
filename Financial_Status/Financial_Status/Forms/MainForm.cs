@@ -46,20 +46,22 @@ namespace Financial_Status
 
             GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";    
             GlobalVar.IsLogged = false;
-
-            /*Login login = new Login();
-
-            login.ShowDialog();
-
-            if (false == GlobalVar.IsLogged)
+            if (GlobalVar.logrequired == true)
             {
-                //this.Close();
+                Login login = new Login();
+
+                login.ShowDialog();
+
+                if (false == GlobalVar.IsLogged)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    this.Text = "Financial Status:" + GlobalVar.UserName;
+                }
+                
             }
-            else
-            {
-                this.Text = "Financial Status:" + GlobalVar.UserName;
-            }*/
-
         }
 
         private void addTransactionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,6 +87,13 @@ namespace Financial_Status
             AccSummary accSummary = new AccSummary();
             accSummary.MdiParent = this;
             accSummary.Show();
+        }
+
+        private void transactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewTran viewTran = new ViewTran();
+            viewTran.MdiParent = this;
+            viewTran.Show();
         }
     }
 }

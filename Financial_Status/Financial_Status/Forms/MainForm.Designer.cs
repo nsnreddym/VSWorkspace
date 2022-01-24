@@ -33,11 +33,11 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,8 +63,7 @@
             // financialToolStripMenuItem
             // 
             this.financialToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addTransactionToolStripMenuItem,
-            this.statementToolStripMenuItem});
+            this.addTransactionToolStripMenuItem});
             this.financialToolStripMenuItem.Name = "financialToolStripMenuItem";
             this.financialToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.financialToolStripMenuItem.Text = "Financial";
@@ -75,13 +74,6 @@
             this.addTransactionToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.addTransactionToolStripMenuItem.Text = "Add Transaction";
             this.addTransactionToolStripMenuItem.Click += new System.EventHandler(this.addTransactionToolStripMenuItem_Click);
-            // 
-            // statementToolStripMenuItem
-            // 
-            this.statementToolStripMenuItem.Name = "statementToolStripMenuItem";
-            this.statementToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.statementToolStripMenuItem.Text = "Statement";
-            this.statementToolStripMenuItem.Click += new System.EventHandler(this.statementToolStripMenuItem_Click);
             // 
             // accountsToolStripMenuItem
             // 
@@ -101,7 +93,8 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.accountSummaryToolStripMenuItem});
+            this.accountSummaryToolStripMenuItem,
+            this.transactionsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -109,9 +102,16 @@
             // accountSummaryToolStripMenuItem
             // 
             this.accountSummaryToolStripMenuItem.Name = "accountSummaryToolStripMenuItem";
-            this.accountSummaryToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.accountSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.accountSummaryToolStripMenuItem.Text = "Account Summary";
             this.accountSummaryToolStripMenuItem.Click += new System.EventHandler(this.accountSummaryToolStripMenuItem_Click);
+            // 
+            // transactionsToolStripMenuItem
+            // 
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.transactionsToolStripMenuItem.Text = "Transactions";
+            this.transactionsToolStripMenuItem.Click += new System.EventHandler(this.transactionsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -138,10 +138,10 @@
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem financialToolStripMenuItem;
         private ToolStripMenuItem addTransactionToolStripMenuItem;
-        private ToolStripMenuItem statementToolStripMenuItem;
         private ToolStripMenuItem accountsToolStripMenuItem;
         private ToolStripMenuItem addToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem accountSummaryToolStripMenuItem;
+        private ToolStripMenuItem transactionsToolStripMenuItem;
     }
 }

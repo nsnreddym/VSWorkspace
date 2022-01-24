@@ -76,12 +76,43 @@ namespace Financial_Status
 
         private void bSave_Click(object sender, EventArgs e)
         {
+            SavingsAccData savingsdata = new SavingsAccData();
+
+            savingsdata.date = cbDate.Value;
+            savingsdata.Amount = Convert.ToDouble(tbAmount.Text);            
+            savingsdata.Category = (Category)cbCategory.SelectedItem;
+
+
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);
+                //Update in loan account
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);                
 
-                MessageBox.Show("Transaction Added");
+                //Update in debit savings account
+                savingsdata.TranType = TransType.Dr; 
+                savingsdata.Description = "Transfer to Loan Account: " + cbCreditAC.SelectedItem.ToString();
+                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
+            else if (cbTranType.SelectedItem.ToString() == "Tr_SA")
+            {
+                //Update in credit savings account
+                savingsdata.TranType = TransType.Cr;
+                savingsdata.Description = "Transfer from Savings Account: " + cbAccount.SelectedItem.ToString();
+                DataBasedata.AddSavingsRecord(cbCreditAC.SelectedItem.ToString(), savingsdata);
+
+                //Update in debit savings account
+                savingsdata.TranType = TransType.Dr;
+                savingsdata.Description = "Transfer to Savings Account: " + cbCreditAC.SelectedItem.ToString();
+                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+            }
+            else
+            {
+                //Update in debit savings account
+                savingsdata.TranType = (TransType)cbTranType.SelectedIndex;
+                savingsdata.Description = tbDesc.Text;
+                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+            }
+            MessageBox.Show("Transaction Added");
         }
 
         private void cbTranType_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,6 +133,7 @@ namespace Financial_Status
                     cbCreditAC.Items.Add(data2[cnt]);
                 }
                 cbCreditAC.SelectedIndex = 0;
+                cbCategory.SelectedIndex = (int)Category.Loan;
             }
             else if(cbTranType.SelectedItem.ToString() == "Tr_SA")
             {
@@ -119,6 +151,7 @@ namespace Financial_Status
                     cbCreditAC.Items.Add(data2[cnt]);
                 }
                 cbCreditAC.SelectedIndex = 0;
+                cbCategory.SelectedIndex = (int)Category.Transfer;
             }
             else
             {
