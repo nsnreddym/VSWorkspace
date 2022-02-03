@@ -30,7 +30,7 @@ namespace Financial_Status
             lBankName.Text = DataBasedata.accountinfo[index].SAInfo.Bank;
             lAccNo.Text = DataBasedata.accountinfo[index].SAInfo.AccNo;
             lAccType.Text = DataBasedata.accountinfo[index].Type;
-            lBalance.Text = DataBasedata.accountinfo[index].SAInfo.Balance.ToString();
+            lBalance.Text = "Rs. " + DataBasedata.accountinfo[index].SAInfo.Balance.ToString("N");
 
             lBankName.Font = title.Font;
             lAccNo.Font = title.Font;

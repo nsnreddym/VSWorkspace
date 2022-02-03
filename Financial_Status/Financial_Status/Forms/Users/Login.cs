@@ -41,12 +41,17 @@ namespace Financial_Status
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Dispose();
+            //Dispose();
         }
 
         private void tbPasswd_MouseClick(object sender, MouseEventArgs e)
         {
             tbPasswd.Clear();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -80,36 +80,39 @@ namespace Financial_Status.Forms.Users
                         break;
 
                     case "Loan":
-                        displayLAs[indx_LA] = new DisplayLoans();
-
-                        if (indx_LA == 0)
+                        if (DataBasedata.accountinfo[i].LNInfo.Balance != 0)
                         {
-                            panel1.Controls.Add(groupBox2);
-                            groupBox2.Text = "Loan Accounts Total = Rs " + DataBasedata.GetTotalDebt().ToString("N") + " Dr";
-                            groupBox2.AutoSize = true;
-                            groupBox2.Visible = true;
-                            groupBox2.Font = new Font("Arial", 10, FontStyle.Bold);
-                            groupBox2.ForeColor = Color.Green;
+                            displayLAs[indx_LA] = new DisplayLoans();
 
-                            groupBox2.Location = new Point(10, groupBox1.Size.Height + 20);
+                            if (indx_LA == 0)
+                            {
+                                panel1.Controls.Add(groupBox2);
+                                groupBox2.Text = "Loan Accounts Total = Rs " + DataBasedata.GetTotalDebt().ToString("N") + " Dr";
+                                groupBox2.AutoSize = true;
+                                groupBox2.Visible = true;
+                                groupBox2.Font = new Font("Arial", 10, FontStyle.Bold);
+                                groupBox2.ForeColor = Color.Green;
 
-                            y = 20;
-                            x = 10;
+                                groupBox2.Location = new Point(10, groupBox1.Size.Height + 20);
+
+                                y = 20;
+                                x = 10;
+                            }
+                            else
+                            {
+                                x = x + displayLAs[indx_LA].Size.Width + 10;
+                            }
+
+                            if ((x + displayLAs[indx_LA].Size.Width) > Size.Width)
+                            {
+                                y = y + displayLAs[indx_LA].Size.Height + 10;
+                                x = 10;
+                            }
+
+                            displayLAs[indx_LA].DisplayLoansAccount(x, y, i);
+                            groupBox2.Controls.Add(displayLAs[indx_LA]);
+                            indx_LA++;
                         }
-                        else
-                        {
-                            x = x + displayLAs[indx_LA].Size.Width + 10;
-                        }
-
-                        if ((x + displayLAs[indx_LA].Size.Width) > Size.Width)
-                        {
-                            y = y + displayLAs[indx_LA].Size.Height + 10;
-                            x = 10;
-                        }
-
-                        displayLAs[indx_LA].DisplayLoansAccount(x, y, i);
-                        groupBox2.Controls.Add(displayLAs[indx_LA]);
-                        indx_LA++;
 
                         break;
 

@@ -221,6 +221,7 @@
             this.chart1.Size = new System.Drawing.Size(804, 257);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // timer1
             // 

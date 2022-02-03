@@ -47,11 +47,11 @@ namespace Financial_Status
             }
             lAccType.Font = title.Font;
 
-            lAmount.Text = DataBasedata.accountinfo[index].LNInfo.LoanAmount.ToString();
+            lAmount.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.LoanAmount.ToString("N");
             lAmount.Font = title.Font;
-            lBalance.Text = DataBasedata.accountinfo[index].LNInfo.Balance.ToString();
+            lBalance.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.Balance.ToString("N");
             lBalance.Font = title.Font;
-            lEMIAmount.Text = DataBasedata.accountinfo[index].LNInfo.EMI.ToString();
+            lEMIAmount.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.EMI.ToString("N");
             lEMIAmount.Font = title.Font;
 
             lNoEMI.Text = DataBasedata.accountinfo[index].LNInfo.Tenure.ToString();

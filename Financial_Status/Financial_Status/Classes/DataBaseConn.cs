@@ -98,13 +98,15 @@ namespace FinancialDataBase
 
         public static Errors CheckLoginCredentials(string UsrName, string Passwd)
         {
-            SQLiteConnection LoginConn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath  + "; Version = 3;");
+            
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             string myreader = "";
+            Errors ret;
 
             try
             {
+                SQLiteConnection LoginConn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
                 //Open connection
                 LoginConn.Open();
 
@@ -116,28 +118,35 @@ namespace FinancialDataBase
                 //Read data
                 if (sqlite_datareader.Read())
                 {
-
                     //Check data
-                    myreader = sqlite_datareader.GetString(0);
-
-                    LoginConn.Close();
+                    myreader = sqlite_datareader.GetString(0);                    
 
                     if (myreader == Passwd)
                     {
-                        return Errors.NO_ERROR;
+                        ret = Errors.NO_ERROR;
                     }
                     else
                     {
-                        return Errors.LOGIN_FAILED;
+                        ret = Errors.LOGIN_FAILED;
                     }
                 }
+                else
+                {
+                    ret = Errors.LOGIN_FAILED;
+                }
 
-                return Errors.LOGIN_FAILED;
+                sqlite_datareader.Close();
+
+                LoginConn.Close();
+
+                
             }
             catch (Exception ex)
             {
-                return Errors.DATABASE_NOTFOUND;
+                ret = Errors.DATABASE_NOTFOUND;
             }
+
+            return ret;
         }
 
         #endregion
@@ -157,7 +166,7 @@ namespace FinancialDataBase
             accountinfo.Clear();
 
             //Read Savings accounts information
-            cmd.CommandText = "Select * from Account_Info where Type = 'Savings'";
+            cmd.CommandText = "Select * from Info_All_Account where Type = 'Savings'";
             SQLiteDataReader datareader1 = cmd.ExecuteReader();
             while (datareader1.Read())
             {
@@ -190,7 +199,7 @@ namespace FinancialDataBase
             }
             datareader1.Close();
 
-            cmd.CommandText = "Select * from Account_Info where Type = 'Loan'";
+            cmd.CommandText = "Select * from Info_All_Account where Type = 'Loan'";
             SQLiteDataReader datareader3 = cmd.ExecuteReader();
             while (datareader3.Read())
             {
@@ -242,7 +251,7 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Select Name from Account_Info;";
+            cmd.CommandText = @"Select Name from Info_All_Account;";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -269,11 +278,11 @@ namespace FinancialDataBase
             switch(AccType)
             {
                 case "Savings":
-                    infotable = new string("SavingAccount_Info");
+                    infotable = new string("Info_SavingAccount");
                     break;
 
                 case "Loan":
-                    infotable = new string("LoanAccount_Info");
+                    infotable = new string("Info_LoanAccount");
                     break;
 
                 default:
@@ -281,7 +290,7 @@ namespace FinancialDataBase
                     return false;
             }
 
-            cmd.CommandText = @"Insert into Account_Info (Type, Name, InfoTable, DataTable) Values (" + " '" +
+            cmd.CommandText = @"Insert into Info_All_Account (Type, Name, InfoTable, DataTable) Values (" + " '" +
                                      AccType + "', '" +
                                      NickName + "', '" +
                                      infotable + "', '" +
@@ -304,7 +313,7 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Insert into SavingAccount_Info (Name, AccountNo, Bank) Values (" + " '" +
+            cmd.CommandText = @"Insert into Info_SavingAccount (Name, AccountNo, Bank) Values (" + " '" +
                                 Name + "', '" +
                                 ACCNo + "', '" +
                                 Bank + "');";
@@ -324,7 +333,7 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Select Name from SavingAccount_Info;";
+            cmd.CommandText = @"Select Name from Info_SavingAccount;";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -365,7 +374,7 @@ namespace FinancialDataBase
             SQLiteCommand cmd = conn.CreateCommand();
 
             //get the balance
-            cmd.CommandText = @"Select Balance from SavingAccount_Info where Name = '" + TableName + "';";
+            cmd.CommandText = @"Select Balance from Info_SavingAccount where Name = '" + TableName + "';";
             SQLiteDataReader datareader = cmd.ExecuteReader();
             datareader.Read();
             balance = datareader.GetDouble(0);
@@ -380,7 +389,7 @@ namespace FinancialDataBase
             {
                 balance = balance - savingdata.Amount;
             }
-            cmd.CommandText = @"Update SavingAccount_Info set Balance = " + balance.ToString() + " where Name = '" + TableName + "';";
+            cmd.CommandText = @"Update Info_SavingAccount set Balance = " + balance.ToString() + " where Name = '" + TableName + "';";
             cmd.ExecuteNonQuery();
 
             //Add record
@@ -392,6 +401,8 @@ namespace FinancialDataBase
                                 ((int)savingdata.Category).ToString() + ", " +
                                 balance.ToString() + ");";
             cmd.ExecuteNonQuery();
+
+            conn.Close();
 
         }
 
@@ -447,7 +458,7 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Insert into LoanAccount_Info (Name, AccountNo, Bank, Balance, LoanAmount, EMI, StartDate, NoEMI, LoanType, ROI, BEMI) Values (" + " '" +
+            cmd.CommandText = @"Insert into Info_LoanAccount (Name, AccountNo, Bank, Balance, LoanAmount, EMI, StartDate, NoEMI, LoanType, ROI, BEMI) Values (" + " '" +
                                 Name + "', '" +
                                 ACCNo + "', '" +
                                 Bank + "', " +
@@ -493,7 +504,7 @@ namespace FinancialDataBase
             SQLiteCommand cmd = conn.CreateCommand();
 
             //Read balance 
-            cmd.CommandText = @"Select Balance, ROI, BEMI from LoanAccount_Info where Name = '" + TableName + "';";
+            cmd.CommandText = @"Select Balance, ROI, BEMI from Info_LoanAccount where Name = '" + TableName + "';";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -510,7 +521,7 @@ namespace FinancialDataBase
             interest = ROI * Bal / 12/100;
             Bal = Bal - (int)(Convert.ToDouble(EMI) - interest);
 
-            cmd.CommandText = @"Update LoanAccount_Info set "  + 
+            cmd.CommandText = @"Update Info_LoanAccount set "  + 
                                "Balance = " + Bal.ToString() + "," +
                                "BEMI = " + BEMI.ToString() + " " +
                                "where Name = '" + TableName + "'; ";
@@ -536,7 +547,7 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Select Name from LoanAccount_Info;";
+            cmd.CommandText = @"Select Name from Info_LoanAccount;";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -563,13 +574,15 @@ namespace FinancialDataBase
             SQLiteCommand cmd = conn.CreateCommand();
 
             //Read balance 
-            cmd.CommandText = @"Select sum(Balance) from LoanAccount_Info;";
+            cmd.CommandText = @"Select sum(Balance) from Info_LoanAccount;";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
             datareader.Read();
 
             totalDebt = datareader.GetDouble(0);
+
+            conn.Close();
 
             return totalDebt;
         }
@@ -585,7 +598,7 @@ namespace FinancialDataBase
             SQLiteCommand cmd = conn.CreateCommand();
 
             //Read balance 
-            cmd.CommandText = @"Select EMI from LoanAccount_Info where Name = '" + TableName + "';";
+            cmd.CommandText = @"Select EMI from Info_LoanAccount where Name = '" + TableName + "';";
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -597,16 +610,6 @@ namespace FinancialDataBase
 
             return EMI;
         }
-        #endregion
-
-        #region dummy
-
-
-        
-        #endregion
-
-        #region Properties
-
         #endregion
 
     }

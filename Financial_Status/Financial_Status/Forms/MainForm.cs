@@ -12,6 +12,7 @@ using System.Data.SQLite;
 using FinancialDataBase;
 using Globals;
 using Financial_Status.Forms.Users;
+using Financial_Status.Forms.Admin;
 
 namespace Financial_Status
 {
@@ -27,8 +28,22 @@ namespace Financial_Status
         }
 
         #region DataBase functions
-        
+
         #endregion
+
+        public void Settings_Read()
+        {
+            StreamReader sw;
+            int index;
+            int index2;
+            string str;
+            sw = File.OpenText(".\\Settings.ini");
+            str = sw.ReadLine();
+            index = str.IndexOf(':');
+            index2 = str.Length - index - 1;
+            GlobalVar.DataBasePath = str.Substring(index + 1, index2);
+            sw.Close();
+        }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
@@ -42,7 +57,25 @@ namespace Financial_Status
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "Financial Status: Not Logged";            
+            this.Text = "Financial Status: Not Logged";
+
+            string path = @".\Settings.ini";
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("Settings File not exist");
+                return;
+            }
+            Settings_Read();
+
+            if (!File.Exists(GlobalVar.DataBasePath))
+            {
+                MessageBox.Show("Database File not exist");
+                return;
+            }
+
+            financialToolStripMenuItem.Enabled = true;
+            viewToolStripMenuItem.Enabled = true;
+            accountsToolStripMenuItem.Enabled = true;
 
             GlobalVar.DataBasePath = @"E:\Git_Repositories\VSWorkspace\Financial_Status\Financial_Status\database\Satya_Financial_v2.db";    
             GlobalVar.IsLogged = false;
@@ -59,6 +92,15 @@ namespace Financial_Status
                 else
                 {
                     this.Text = "Financial Status:" + GlobalVar.UserName;
+
+                    if(GlobalVar.UserName == "Admin")
+                    {
+                        accountsToolStripMenuItem.Visible = true;
+                    }
+                    else
+                    {
+                        accountsToolStripMenuItem.Visible = false;
+                    }
                 }
                 
             }
@@ -94,6 +136,19 @@ namespace Financial_Status
             ViewTran viewTran = new ViewTran();
             viewTran.MdiParent = this;
             viewTran.Show();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.ShowDialog();
+        }
+
+        private void monthlyBudgetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MonthlyBudget monthlyBudget = new MonthlyBudget();
+            monthlyBudget.MdiParent = this;
+            monthlyBudget.Show();
         }
     }
 }

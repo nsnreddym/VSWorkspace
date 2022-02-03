@@ -11,6 +11,9 @@
     <Compile Update="Forms\Admin\Accounts_admin.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Admin\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -24,6 +27,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\Users\ViewTran.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Users\MonthlyBudget.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

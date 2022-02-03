@@ -38,6 +38,7 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monthlyBudgetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,11 +60,13 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // financialToolStripMenuItem
             // 
             this.financialToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addTransactionToolStripMenuItem});
+            this.financialToolStripMenuItem.Enabled = false;
             this.financialToolStripMenuItem.Name = "financialToolStripMenuItem";
             this.financialToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.financialToolStripMenuItem.Text = "Financial";
@@ -79,6 +82,7 @@
             // 
             this.accountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem});
+            this.accountsToolStripMenuItem.Enabled = false;
             this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
             this.accountsToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.accountsToolStripMenuItem.Text = "Accounts";
@@ -94,7 +98,9 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accountSummaryToolStripMenuItem,
-            this.transactionsToolStripMenuItem});
+            this.transactionsToolStripMenuItem,
+            this.monthlyBudgetToolStripMenuItem});
+            this.viewToolStripMenuItem.Enabled = false;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -112,6 +118,13 @@
             this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.transactionsToolStripMenuItem.Text = "Transactions";
             this.transactionsToolStripMenuItem.Click += new System.EventHandler(this.transactionsToolStripMenuItem_Click);
+            // 
+            // monthlyBudgetToolStripMenuItem
+            // 
+            this.monthlyBudgetToolStripMenuItem.Name = "monthlyBudgetToolStripMenuItem";
+            this.monthlyBudgetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.monthlyBudgetToolStripMenuItem.Text = "Monthly Budget";
+            this.monthlyBudgetToolStripMenuItem.Click += new System.EventHandler(this.monthlyBudgetToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -143,5 +156,6 @@
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem accountSummaryToolStripMenuItem;
         private ToolStripMenuItem transactionsToolStripMenuItem;
+        private ToolStripMenuItem monthlyBudgetToolStripMenuItem;
     }
 }
