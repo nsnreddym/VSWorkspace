@@ -35,6 +35,9 @@ namespace Financial_Status
             {
                 GlobalVar.UserName = tbUserName.Text;
                 GlobalVar.IsLogged = true;
+                Visible = false;
+                MainForm mainForm = new MainForm();
+                mainForm.ShowDialog();
                 Close();
             }         
         }
@@ -51,7 +54,7 @@ namespace Financial_Status
 
         private void Login_Load(object sender, EventArgs e)
         {
-
+            Text = "Financial Status: Login";
         }
     }
 }
