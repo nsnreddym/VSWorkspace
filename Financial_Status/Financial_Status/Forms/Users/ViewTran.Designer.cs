@@ -188,66 +188,73 @@
             // 
             // Sno
             // 
-            this.Sno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Sno.HeaderText = "S No";
+            this.Sno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Sno.HeaderText = "SNo";
             this.Sno.Name = "Sno";
             this.Sno.ReadOnly = true;
             this.Sno.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Sno.Width = 57;
+            this.Sno.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Sno.Width = 35;
             // 
             // Date
             // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
             this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Date.Width = 56;
+            this.Date.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Date.Width = 37;
             // 
             // Desc
             // 
-            this.Desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Desc.HeaderText = "Description";
             this.Desc.Name = "Desc";
             this.Desc.ReadOnly = true;
             this.Desc.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Desc.Width = 92;
+            this.Desc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Desc.Width = 73;
             // 
             // Credit
             // 
-            this.Credit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Credit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Credit.HeaderText = "Credit";
             this.Credit.Name = "Credit";
             this.Credit.ReadOnly = true;
             this.Credit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Credit.Width = 64;
+            this.Credit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Credit.Width = 45;
             // 
             // Debit
             // 
-            this.Debit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Debit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Debit.HeaderText = "Debit";
             this.Debit.Name = "Debit";
             this.Debit.ReadOnly = true;
             this.Debit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Debit.Width = 60;
+            this.Debit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Debit.Width = 41;
             // 
             // Ttype
             // 
-            this.Ttype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Ttype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Ttype.HeaderText = "Transaction";
             this.Ttype.Name = "Ttype";
             this.Ttype.ReadOnly = true;
             this.Ttype.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Ttype.Width = 92;
+            this.Ttype.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Ttype.Width = 73;
             // 
             // Category
             // 
-            this.Category.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Category.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Category.HeaderText = "Category";
             this.Category.Name = "Category";
             this.Category.ReadOnly = true;
             this.Category.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Category.Width = 80;
+            this.Category.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Category.Width = 61;
             // 
             // ViewTran
             // 
@@ -277,6 +284,9 @@
         private Label label1;
         private DataGridView dataview;
         private Label lbDebit;
+        private Label label3;
+        private Label lbCredit;
+        private Label label5;
         private DataGridViewTextBoxColumn Sno;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Desc;
@@ -284,8 +294,5 @@
         private DataGridViewTextBoxColumn Debit;
         private DataGridViewTextBoxColumn Ttype;
         private DataGridViewTextBoxColumn Category;
-        private Label label3;
-        private Label lbCredit;
-        private Label label5;
     }
 }

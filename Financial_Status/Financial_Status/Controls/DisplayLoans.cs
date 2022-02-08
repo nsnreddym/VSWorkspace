@@ -21,17 +21,17 @@ namespace Financial_Status
             InitializeComponent();
         }
 
-        public void DisplayLoansAccount(int x, int y, int index)
+        public void DisplayLoansAccount(List<AccountInfoData> accountinfo, int x, int y, int index)
         {
             Location = new Point(x, y);
-            title.Text = DataBasedata.accountinfo[index].Name;
+            title.Text = accountinfo[index].Name;
             title.Font = new Font("Courier New", 9, FontStyle.Bold);
 
-            lBankName.Text = DataBasedata.accountinfo[index].LNInfo.Bank;
+            lBankName.Text = accountinfo[index].LNInfo.Bank;
             lBankName.Font = title.Font;
-            lAccNo.Text = DataBasedata.accountinfo[index].LNInfo.AccNo;
+            lAccNo.Text = accountinfo[index].LNInfo.AccNo;
             lAccNo.Font = title.Font;
-            switch (DataBasedata.accountinfo[index].LNInfo.LnType)
+            switch (accountinfo[index].LNInfo.LnType)
             {
                 case "PL":
                     lAccType.Text = "Personal Loan";
@@ -47,16 +47,16 @@ namespace Financial_Status
             }
             lAccType.Font = title.Font;
 
-            lAmount.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.LoanAmount.ToString("N");
+            lAmount.Text = "Rs. " + accountinfo[index].LNInfo.LoanAmount.ToString("N");
             lAmount.Font = title.Font;
-            lBalance.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.Balance.ToString("N");
+            lBalance.Text = "Rs. " + accountinfo[index].LNInfo.Balance.ToString("N");
             lBalance.Font = title.Font;
-            lEMIAmount.Text = "Rs. " + DataBasedata.accountinfo[index].LNInfo.EMI.ToString("N");
+            lEMIAmount.Text = "Rs. " + accountinfo[index].LNInfo.EMI.ToString("N");
             lEMIAmount.Font = title.Font;
 
-            lNoEMI.Text = DataBasedata.accountinfo[index].LNInfo.Tenure.ToString();
+            lNoEMI.Text = accountinfo[index].LNInfo.Tenure.ToString();
             lNoEMI.Font = title.Font;
-            lBEMIs.Text = DataBasedata.accountinfo[index].LNInfo.BEMI.ToString();
+            lBEMIs.Text = accountinfo[index].LNInfo.BEMI.ToString();
             lBEMIs.Font = title.Font;
 
             Show();

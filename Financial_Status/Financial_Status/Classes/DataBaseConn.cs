@@ -35,6 +35,13 @@ namespace FinancialDataBase
         public double ROI;
         public double BEMI;
     }
+    public struct BDGInfoData
+    {
+        public int ID;
+        public string Name;
+        public double EMI;
+        public int paidstatus;
+    }
 
     public struct AccountInfoData
     {
@@ -60,14 +67,19 @@ namespace FinancialDataBase
     public enum Category
     {
         Misc = 0,
-        Loan,
-        Salary,
-        Chit,
-        Food,
-        Maintanance,
-        Transfer,
-        Incentivies,
-        BF
+        Loan = 1,
+        Salary = 2,
+        Chit = 3,
+        Food = 4,
+        Maintanance = 5,
+        Transfer = 6,
+        Incentivies = 7,
+        BF = 8,
+        Groceries = 9,
+        NONVeg = 10,
+        Petrol = 11 ,
+        Invest = 12,
+        Medical = 13
     }
 
     public enum TransType
@@ -91,7 +103,7 @@ namespace FinancialDataBase
     static class DataBasedata
     {
         #region Properties
-        public static List <AccountInfoData> accountinfo = new List<AccountInfoData>();
+        
         #endregion
 
         #region Login
@@ -152,8 +164,9 @@ namespace FinancialDataBase
         #endregion
 
         #region AccoutInfo database Methods
-        public static void ReadAccountInfo()
+        public static List<AccountInfoData> ReadAccountInfo()
         {
+            List<AccountInfoData> accountinfo = new List<AccountInfoData>();
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
             string infotable;
             string AccName;
@@ -199,6 +212,39 @@ namespace FinancialDataBase
             }
             datareader1.Close();
 
+            cmd.CommandText = "Select * from Info_All_Account where Type = 'FDCard'";
+            SQLiteDataReader datareader5 = cmd.ExecuteReader();
+            while (datareader5.Read())
+            {
+                AccName = datareader5.GetString(2);
+                infotable = datareader5.GetString(3);
+
+                cmd2.CommandText = "Select * from " + infotable + " where Name = '" + AccName + "'";
+                SQLiteDataReader datareader6 = cmd2.ExecuteReader();
+                datareader6.Read();
+
+                accountinfo.Add(new AccountInfoData
+                {
+                    ID = datareader5.GetInt32(0),
+                    Type = datareader5.GetString(1),
+                    Name = AccName,
+                    InfoTable = infotable,
+                    DataTable = datareader5.GetString(4),
+                    SAInfo = new SAInfoData
+                    {
+                        ID = datareader6.GetInt32(0),
+                        Name = datareader6.GetString(1),
+                        AccNo = datareader6.GetString(2),
+                        Bank = datareader6.GetString(3),
+                        Balance = datareader6.GetDouble(4)
+                    }
+                });
+
+                datareader6.Close();
+
+            }
+            datareader5.Close();
+
             cmd.CommandText = "Select * from Info_All_Account where Type = 'Loan'";
             SQLiteDataReader datareader3 = cmd.ExecuteReader();
             while (datareader3.Read())
@@ -238,7 +284,10 @@ namespace FinancialDataBase
             }
             datareader3.Close();
 
-           conn.Close();            
+            conn.Close();
+
+            return accountinfo;
+                      
         }
 
         public static List<string> GetallAC()
@@ -285,6 +334,10 @@ namespace FinancialDataBase
                     infotable = new string("Info_LoanAccount");
                     break;
 
+                case "FDCard":
+                    infotable = new string("Info_FoodAccount");
+                    break;
+
                 default:
                     conn.Close();
                     return false;
@@ -323,6 +376,24 @@ namespace FinancialDataBase
             conn.Close();
         }
 
+        public static void AddFoodInfo(String Name, string ACCNo, string Bank)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Insert into Info_FoodAccount (Name, AccountNo, Bank) Values (" + " '" +
+                                Name + "', '" +
+                                ACCNo + "', '" +
+                                Bank + "');";
+
+            cmd.ExecuteNonQuery(); 
+            
+            conn.Close();
+        }
+
         public static List<string> GetSavingsAC()
         {
             List <string> SA_Names = new List<string>();
@@ -335,12 +406,23 @@ namespace FinancialDataBase
 
             cmd.CommandText = @"Select Name from Info_SavingAccount;";
 
-            SQLiteDataReader datareader = cmd.ExecuteReader();
+            SQLiteDataReader datareader1 = cmd.ExecuteReader();
 
-            while(datareader.Read())
+            while(datareader1.Read())
             {
-                SA_Names.Add(datareader.GetString(0));
+                SA_Names.Add(datareader1.GetString(0));
             }
+            datareader1.Close();
+
+            cmd.CommandText = @"Select Name from Info_FoodAccount;";
+
+            SQLiteDataReader datareader2 = cmd.ExecuteReader();
+
+            while(datareader2.Read())
+            {
+                SA_Names.Add(datareader2.GetString(0));
+            }
+            datareader2.Close();
 
             conn.Close();
 
@@ -368,13 +450,22 @@ namespace FinancialDataBase
         public static void AddSavingsRecord(string TableName, SavingsAccData savingdata)
         {
             double balance;
+            string infotable;
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
 
             conn.Open();
             SQLiteCommand cmd = conn.CreateCommand();
 
+            //get info_ac
+            cmd.CommandText = @"Select InfoTable from Info_All_Account where Name = '" + TableName + "';";
+
+            SQLiteDataReader datareader1 = cmd.ExecuteReader();
+            datareader1.Read();
+            infotable = datareader1.GetString(0);
+            datareader1.Close();
+
             //get the balance
-            cmd.CommandText = @"Select Balance from Info_SavingAccount where Name = '" + TableName + "';";
+            cmd.CommandText = @"Select Balance from " +  infotable + " where Name = '" + TableName + "';";
             SQLiteDataReader datareader = cmd.ExecuteReader();
             datareader.Read();
             balance = datareader.GetDouble(0);
@@ -389,7 +480,7 @@ namespace FinancialDataBase
             {
                 balance = balance - savingdata.Amount;
             }
-            cmd.CommandText = @"Update Info_SavingAccount set Balance = " + balance.ToString() + " where Name = '" + TableName + "';";
+            cmd.CommandText = @"Update " + infotable + " set Balance = " + balance.ToString() + " where Name = '" + TableName + "';";
             cmd.ExecuteNonQuery();
 
             //Add record
@@ -445,6 +536,30 @@ namespace FinancialDataBase
 
             return savingsdata;
 
+        }
+
+        public static double GetTotalSavings()
+        {
+            double totalDebt = 0;
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            //Read balance 
+            cmd.CommandText = @"Select sum(Balance) from Info_SavingAccount;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            datareader.Read();
+
+            totalDebt = datareader.GetDouble(0);
+
+            conn.Close();
+
+            return totalDebt;
         }
         #endregion
 
@@ -537,7 +652,7 @@ namespace FinancialDataBase
             conn.Close();
         }
 
-        public static List<string> GetallLNAC()
+        public static List<string> GetallLNAC(bool condition)
         {
             List<string> All_Names = new List<string>();
 
@@ -547,7 +662,15 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"Select Name from Info_LoanAccount;";
+            if (condition)
+            {
+                cmd.CommandText = @"Select Name from Info_LoanAccount where Balance > 0;";
+            }
+            else
+            {
+                cmd.CommandText = @"Select Name from Info_LoanAccount;";
+            }
+            
 
             SQLiteDataReader datareader = cmd.ExecuteReader();
 
@@ -609,6 +732,56 @@ namespace FinancialDataBase
             datareader.Close();
 
             return EMI;
+        }
+        #endregion
+
+        #region MonthlyBudget
+        public static List<BDGInfoData> ReadBudget()
+        {
+            List <BDGInfoData> bDGInfoData = new List<BDGInfoData>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Select * from ME_MonthlyExpenses where PaidStatus = 0;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                bDGInfoData.Add(new BDGInfoData
+                {
+                    ID = datareader.GetInt32(0),
+                    Name = datareader.GetString(1),
+                    EMI = datareader.GetDouble(2)
+                });
+            }
+
+            conn.Close();
+
+            return bDGInfoData;
+        }
+
+        public static void UpdateBudget(string name)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd = conn.CreateCommand();
+
+            cmd.CommandText = "Update ME_MonthlyExpenses SET PaidStatus = 1 where Name = '" + name + "';";
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
         }
         #endregion
 

@@ -86,7 +86,8 @@ namespace Financial_Status
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);                
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);
+                DataBasedata.UpdateBudget(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account
                 savingsdata.TranType = TransType.Dr; 
@@ -125,7 +126,7 @@ namespace Financial_Status
                 tbAmount.Enabled = false;
 
                 //Get all Account details
-                List<string> data2 = DataBasedata.GetallLNAC();
+                List<string> data2 = DataBasedata.GetallLNAC(true);
                 cbCreditAC.Items.Clear();
 
                 for (int cnt = 0; cnt < data2.Count; cnt++)

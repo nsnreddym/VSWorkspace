@@ -38,6 +38,7 @@ namespace Financial_Status
             bAdd.Enabled = false;
             cbAccType.SelectedIndex = 0;
             cbBank.SelectedIndex = 0;
+            gbLoanInfo.Enabled = false;
             this.ShowDialog();
         }
 
@@ -80,6 +81,11 @@ namespace Financial_Status
                         DataBasedata.CreateNewSavingsAccount(tbName.Text);
                         break;
 
+                    case "FDCard":
+                        DataBasedata.AddFoodInfo(tbName.Text, tbAccNo.Text, cbBank.Text);
+                        DataBasedata.CreateNewSavingsAccount(tbName.Text);
+                        break;
+
                     case "Loan":
                         DataBasedata.AddLoanInfo(tbName.Text, tbAccNo.Text, cbBank.Text, tbLnAmt.Text, EMI.Text, Sdate.Value,NoEMI.Text, cbLnType.Text, ROI.Text);
                         DataBasedata.CreateNewLoanAccount(tbName.Text);
@@ -108,5 +114,17 @@ namespace Financial_Status
         }
 
         #endregion
+
+        private void cbAccType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if( cbAccType.SelectedItem.ToString() == "Loan")
+            {
+                gbLoanInfo.Enabled = true;
+            }
+            else
+            {
+                gbLoanInfo.Enabled = false;
+            }
+        }
     }
 }

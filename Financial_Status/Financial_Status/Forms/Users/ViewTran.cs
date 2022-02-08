@@ -45,27 +45,7 @@ namespace Financial_Status.Forms.Users
             cbCategory.SelectedIndex = 0;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(cbAccount.SelectedItem.ToString(), cbCategory.SelectedIndex);
-
-            dataview.Rows.Clear();
-            if (savingsdata.Count > 0)
-            {
-                dataview.Rows.Add(savingsdata.Count);
-
-                for (int i = 0; i < savingsdata.Count; i++)
-                {
-                    dataview.Rows[i].Cells[0].Value = i + 1;
-                    dataview.Rows[i].Cells[1].Value = savingsdata[i].date.ToShortDateString();
-                    dataview.Rows[i].Cells[2].Value = savingsdata[i].Description;
-                    dataview.Rows[i].Cells[3].Value = savingsdata[i].Amount.ToString();
-                    dataview.Rows[i].Cells[4].Value = savingsdata[i].TranType.ToString();
-                    dataview.Rows[i].Cells[5].Value = savingsdata[i].Category.ToString();
-
-                }
-            }
-        }
+        
 
         private void updatedata()
         { 
@@ -87,12 +67,12 @@ namespace Financial_Status.Forms.Users
                     dataview.Rows[i].Cells[2].Value = savingsdata[i].Description;
                     if (savingsdata[i].TranType == TransType.Cr)
                     {
-                        dataview.Rows[i].Cells[3].Value = savingsdata[i].Amount.ToString();
+                        dataview.Rows[i].Cells[3].Value = savingsdata[i].Amount.ToString("N");
                         credit = credit + savingsdata[i].Amount;
                     }
                     else
                     {
-                        dataview.Rows[i].Cells[4].Value = savingsdata[i].Amount.ToString();
+                        dataview.Rows[i].Cells[4].Value = savingsdata[i].Amount.ToString("N");
                         debit = debit + savingsdata[i].Amount;
                     }
                     dataview.Rows[i].Cells[5].Value = savingsdata[i].TranType.ToString();

@@ -24,13 +24,14 @@ namespace Financial_Status.Forms.Users
             InitializeComponent();
         }
 
-        private void Display_Account_Pallete()
+            
+        private void Display_Account_Pallete(List<AccountInfoData> accountinfo)
         {
             int x, y;
             int indx_SA, indx_LA;
 
-            DisplaySavings[] displaySAs = new DisplaySavings[DataBasedata.accountinfo.Count];
-            DisplayLoans[] displayLAs = new DisplayLoans[DataBasedata.accountinfo.Count];
+            DisplaySavings[] displaySAs = new DisplaySavings[accountinfo.Count];
+            DisplayLoans[] displayLAs = new DisplayLoans[accountinfo.Count];
             GroupBox groupBox1 = new GroupBox();
             GroupBox groupBox2 = new GroupBox();
 
@@ -40,9 +41,9 @@ namespace Financial_Status.Forms.Users
             y = 20;
 
 
-            for (int i = 0; i < DataBasedata.accountinfo.Count; i++)
+            for (int i = 0; i < accountinfo.Count; i++)
             {
-                switch (DataBasedata.accountinfo[i].Type)
+                switch (accountinfo[i].Type)
                 {
                     case "Savings":
                         displaySAs[indx_SA] = new DisplaySavings();
@@ -50,7 +51,7 @@ namespace Financial_Status.Forms.Users
                         if (indx_SA == 0)
                         {
                             panel1.Controls.Add(groupBox1);
-                            groupBox1.Text = "Saving Accounts";
+                            groupBox1.Text = "Saving Accounts Total = Rs " + DataBasedata.GetTotalSavings().ToString("N") + " Cr";
                             groupBox1.AutoSize = true;
                             groupBox1.Visible = true;
                             groupBox1.Font = new Font("Arial", 10, FontStyle.Bold);
@@ -72,7 +73,42 @@ namespace Financial_Status.Forms.Users
                             x = 10;
                         }
 
-                        displaySAs[indx_SA].DisplaySavingsAccount(x, y, i);
+                        displaySAs[indx_SA].DisplaySavingsAccount(accountinfo, x, y, i);
+
+                        groupBox1.Controls.Add(displaySAs[indx_SA]);
+                        indx_SA++;
+
+                        break;                    
+                    
+                    case "FDCard":
+                        displaySAs[indx_SA] = new DisplaySavings();
+
+                        if (indx_SA == 0)
+                        {
+                            panel1.Controls.Add(groupBox1);
+                            groupBox1.Text = "Saving Accounts Total = Rs " + DataBasedata.GetTotalSavings().ToString("N") + " Cr";
+                            groupBox1.AutoSize = true;
+                            groupBox1.Visible = true;
+                            groupBox1.Font = new Font("Arial", 10, FontStyle.Bold);
+                            groupBox1.ForeColor = Color.Green;
+
+                            groupBox1.Location = new Point(10, 10);
+
+                            x = 10;
+                            y = 20;
+                        }
+                        else
+                        {
+                            x = x + displaySAs[indx_SA].Size.Width + 10;
+                        }
+                        
+                        if ((x + displaySAs[indx_SA].Size.Width) > (Size.Width-20))
+                        {
+                            y = y + displaySAs[indx_SA].Size.Height + 10;
+                            x = 10;
+                        }
+
+                        displaySAs[indx_SA].DisplaySavingsAccount(accountinfo, x, y, i);
 
                         groupBox1.Controls.Add(displaySAs[indx_SA]);
                         indx_SA++;
@@ -80,7 +116,7 @@ namespace Financial_Status.Forms.Users
                         break;
 
                     case "Loan":
-                        if (DataBasedata.accountinfo[i].LNInfo.Balance != 0)
+                        if (accountinfo[i].LNInfo.Balance != 0)
                         {
                             displayLAs[indx_LA] = new DisplayLoans();
 
@@ -109,7 +145,7 @@ namespace Financial_Status.Forms.Users
                                 x = 10;
                             }
 
-                            displayLAs[indx_LA].DisplayLoansAccount(x, y, i);
+                            displayLAs[indx_LA].DisplayLoansAccount(accountinfo, x, y, i);
                             groupBox2.Controls.Add(displayLAs[indx_LA]);
                             indx_LA++;
                         }
@@ -121,7 +157,7 @@ namespace Financial_Status.Forms.Users
                 }
             }
 
-            GlobalVar.MaxTables = DataBasedata.accountinfo.Count;
+            GlobalVar.MaxTables = accountinfo.Count;
 
         }
 
@@ -134,6 +170,7 @@ namespace Financial_Status.Forms.Users
 
         private void AccSummary_Load(object sender, EventArgs e)
         {
+            List<AccountInfoData> accountinfo;
             WindowState = FormWindowState.Maximized;
 
             panel1.AutoScroll = false;
@@ -152,9 +189,9 @@ namespace Financial_Status.Forms.Users
             panel1.Dock = DockStyle.Fill;
 
             //Read Accounts
-            DataBasedata.ReadAccountInfo();
+            accountinfo = DataBasedata.ReadAccountInfo();
 
-            Display_Account_Pallete();
+            Display_Account_Pallete(accountinfo);
         }
     }
 }

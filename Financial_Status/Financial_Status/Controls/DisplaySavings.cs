@@ -20,17 +20,17 @@ namespace Financial_Status
             InitializeComponent();
         }
 
-        public void DisplaySavingsAccount(int x, int y, int index)
+        public void DisplaySavingsAccount(List<AccountInfoData> accountinfo, int x, int y, int index)
         {
             Location = new Point(x, y);
-            title.Text = DataBasedata.accountinfo[index].Name;
+            title.Text = accountinfo[index].Name;
             //title.Font = new Font("Segoe UI", 9, FontStyle.Regular);
             title.Font = new Font("Courier New", 9, FontStyle.Bold);
             
-            lBankName.Text = DataBasedata.accountinfo[index].SAInfo.Bank;
-            lAccNo.Text = DataBasedata.accountinfo[index].SAInfo.AccNo;
-            lAccType.Text = DataBasedata.accountinfo[index].Type;
-            lBalance.Text = "Rs. " + DataBasedata.accountinfo[index].SAInfo.Balance.ToString("N");
+            lBankName.Text = accountinfo[index].SAInfo.Bank;
+            lAccNo.Text = accountinfo[index].SAInfo.AccNo;
+            lAccType.Text = accountinfo[index].Type;
+            lBalance.Text = "Rs. " + accountinfo[index].SAInfo.Balance.ToString("N");
 
             lBankName.Font = title.Font;
             lAccNo.Font = title.Font;

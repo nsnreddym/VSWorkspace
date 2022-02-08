@@ -39,7 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbLoanInfo = new System.Windows.Forms.GroupBox();
             this.Sdate = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
             this.ROI = new System.Windows.Forms.TextBox();
@@ -54,7 +54,7 @@
             this.tbLnAmt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbLoanInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbAccType
@@ -63,11 +63,13 @@
             this.cbAccType.Items.AddRange(new object[] {
             "Savings",
             "Consumer",
-            "Loan"});
+            "Loan",
+            "FDCard"});
             this.cbAccType.Location = new System.Drawing.Point(122, 36);
             this.cbAccType.Name = "cbAccType";
             this.cbAccType.Size = new System.Drawing.Size(81, 23);
             this.cbAccType.TabIndex = 5;
+            this.cbAccType.SelectedIndexChanged += new System.EventHandler(this.cbAccType_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -176,27 +178,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "BasicInfo";
             // 
-            // groupBox2
+            // gbLoanInfo
             // 
-            this.groupBox2.Controls.Add(this.Sdate);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.ROI);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.cbLnType);
-            this.groupBox2.Controls.Add(this.NoEMI);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.EMI);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.tbLnAmt);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(12, 125);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 179);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "LoanInfo";
+            this.gbLoanInfo.Controls.Add(this.Sdate);
+            this.gbLoanInfo.Controls.Add(this.label11);
+            this.gbLoanInfo.Controls.Add(this.ROI);
+            this.gbLoanInfo.Controls.Add(this.label10);
+            this.gbLoanInfo.Controls.Add(this.label9);
+            this.gbLoanInfo.Controls.Add(this.label8);
+            this.gbLoanInfo.Controls.Add(this.cbLnType);
+            this.gbLoanInfo.Controls.Add(this.NoEMI);
+            this.gbLoanInfo.Controls.Add(this.label7);
+            this.gbLoanInfo.Controls.Add(this.EMI);
+            this.gbLoanInfo.Controls.Add(this.label6);
+            this.gbLoanInfo.Controls.Add(this.tbLnAmt);
+            this.gbLoanInfo.Controls.Add(this.label5);
+            this.gbLoanInfo.Location = new System.Drawing.Point(12, 125);
+            this.gbLoanInfo.Name = "gbLoanInfo";
+            this.gbLoanInfo.Size = new System.Drawing.Size(776, 179);
+            this.gbLoanInfo.TabIndex = 14;
+            this.gbLoanInfo.TabStop = false;
+            this.gbLoanInfo.Text = "LoanInfo";
             // 
             // Sdate
             // 
@@ -315,7 +317,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gbLoanInfo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.bAdd);
@@ -324,8 +326,8 @@
             this.Load += new System.EventHandler(this.Accounts_admin_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbLoanInfo.ResumeLayout(false);
+            this.gbLoanInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -343,7 +345,7 @@
         private Label label1;
         private TextBox tbName;
         private GroupBox groupBox1;
-        private GroupBox groupBox2;
+        private GroupBox gbLoanInfo;
         private DateTimePicker Sdate;
         private Label label11;
         private TextBox ROI;
