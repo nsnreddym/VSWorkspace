@@ -48,6 +48,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "AccSummary";
             this.Text = "AccSummary";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AccSummary_FormClosed);
             this.Load += new System.EventHandler(this.AccSummary_Load);
             this.ResumeLayout(false);
 

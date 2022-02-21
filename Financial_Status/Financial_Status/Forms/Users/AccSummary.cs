@@ -193,5 +193,10 @@ namespace Financial_Status.Forms.Users
 
             Display_Account_Pallete(accountinfo);
         }
+
+        private void AccSummary_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
+        }
     }
 }

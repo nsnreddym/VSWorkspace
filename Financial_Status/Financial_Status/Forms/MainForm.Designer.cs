@@ -39,6 +39,7 @@
             this.accountSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyBudgetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.expenditureSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,7 +100,8 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accountSummaryToolStripMenuItem,
             this.transactionsToolStripMenuItem,
-            this.monthlyBudgetToolStripMenuItem});
+            this.monthlyBudgetToolStripMenuItem,
+            this.expenditureSummaryToolStripMenuItem});
             this.viewToolStripMenuItem.Enabled = false;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -108,23 +110,30 @@
             // accountSummaryToolStripMenuItem
             // 
             this.accountSummaryToolStripMenuItem.Name = "accountSummaryToolStripMenuItem";
-            this.accountSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.accountSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.accountSummaryToolStripMenuItem.Text = "Account Summary";
             this.accountSummaryToolStripMenuItem.Click += new System.EventHandler(this.accountSummaryToolStripMenuItem_Click);
             // 
             // transactionsToolStripMenuItem
             // 
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
-            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.transactionsToolStripMenuItem.Text = "Transactions";
             this.transactionsToolStripMenuItem.Click += new System.EventHandler(this.transactionsToolStripMenuItem_Click);
             // 
             // monthlyBudgetToolStripMenuItem
             // 
             this.monthlyBudgetToolStripMenuItem.Name = "monthlyBudgetToolStripMenuItem";
-            this.monthlyBudgetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.monthlyBudgetToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.monthlyBudgetToolStripMenuItem.Text = "Monthly Budget";
             this.monthlyBudgetToolStripMenuItem.Click += new System.EventHandler(this.monthlyBudgetToolStripMenuItem_Click);
+            // 
+            // expenditureSummaryToolStripMenuItem
+            // 
+            this.expenditureSummaryToolStripMenuItem.Name = "expenditureSummaryToolStripMenuItem";
+            this.expenditureSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.expenditureSummaryToolStripMenuItem.Text = "Expenditure Summary";
+            this.expenditureSummaryToolStripMenuItem.Click += new System.EventHandler(this.expenditureSummaryToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -157,5 +166,6 @@
         private ToolStripMenuItem accountSummaryToolStripMenuItem;
         private ToolStripMenuItem transactionsToolStripMenuItem;
         private ToolStripMenuItem monthlyBudgetToolStripMenuItem;
+        private ToolStripMenuItem expenditureSummaryToolStripMenuItem;
     }
 }

@@ -46,6 +46,7 @@
             this.Debit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).BeginInit();
@@ -176,7 +177,8 @@
             this.Credit,
             this.Debit,
             this.Ttype,
-            this.Category});
+            this.Category,
+            this.Account});
             this.dataview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataview.Location = new System.Drawing.Point(3, 209);
             this.dataview.Name = "dataview";
@@ -256,6 +258,16 @@
             this.Category.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Category.Width = 61;
             // 
+            // Account
+            // 
+            this.Account.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Account.HeaderText = "Account";
+            this.Account.Name = "Account";
+            this.Account.ReadOnly = true;
+            this.Account.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Account.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Account.Width = 58;
+            // 
             // ViewTran
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -294,5 +306,6 @@
         private DataGridViewTextBoxColumn Debit;
         private DataGridViewTextBoxColumn Ttype;
         private DataGridViewTextBoxColumn Category;
+        private DataGridViewTextBoxColumn Account;
     }
 }

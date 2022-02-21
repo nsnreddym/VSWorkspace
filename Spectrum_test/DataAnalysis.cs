@@ -42,7 +42,13 @@ namespace Spectrum_test
 
             lbDate.Text = date.ToShortDateString();
 
-            //splitContainer1.Panel1.Height = panel1.Height;
+            tableLayoutPanel1.RowStyles[1].Height = this. Height - tableLayoutPanel1.RowStyles[0].Height;
+            tableLayoutPanel2.ColumnStyles[0].Width = this.Width - tableLayoutPanel2.ColumnStyles[1].Width; 
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

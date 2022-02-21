@@ -110,5 +110,12 @@ namespace Financial_Status
             monthlyBudget.MdiParent = this;
             monthlyBudget.Show();
         }
+
+        private void expenditureSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExpenditureSummary expendituresummary = new ExpenditureSummary();
+            expendituresummary.MdiParent = this;
+            expendituresummary.Show();
+        }
     }
 }
