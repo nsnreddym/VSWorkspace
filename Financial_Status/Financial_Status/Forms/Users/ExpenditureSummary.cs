@@ -18,6 +18,8 @@ namespace Financial_Status.Forms.Users
         double credit, debit;
         List<string> SQLTableNames;
         int trtype;
+        List<int> Groupstrtindx = new List<int>();
+        List<int> Groupendindx = new List<int>();
 
         public ExpenditureSummary()
         {
@@ -41,6 +43,9 @@ namespace Financial_Status.Forms.Users
 
             button1.Enabled = true;
             comboBox1.Enabled = true;
+            cbMonth.SelectedIndex = 0;  
+
+            dataview.CellMouseClick += Dataview_CellMouseClick;
 
         }
 
@@ -49,7 +54,7 @@ namespace Financial_Status.Forms.Users
             int j;
             int k;
 
-            List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(tablename, category);
+            List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(tablename, category, cbMonth.SelectedIndex, 2022);
 
             j = indx;
 
@@ -166,8 +171,26 @@ namespace Financial_Status.Forms.Users
             dataview.Columns["Total"].SortMode = DataGridViewColumnSortMode.NotSortable;
             dataview.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataview.Columns["Total"].ReadOnly = true;
-            dataview.Columns["Total"].DefaultCellStyle = groupcellstyle;
+            dataview.Columns["Total"].DefaultCellStyle = groupcellstyle;            
 
+        }
+
+        private void Dataview_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
+        {           
+            if (e.ColumnIndex == 0)
+            {
+                for (int i = 0; i < Groupstrtindx.Count; i++)
+                {
+                    if (Groupstrtindx[i] == e.RowIndex)
+                    {
+                        for(int j = Groupstrtindx[i]; j < Groupendindx[i]; j++)
+                        {                            
+                            dataview.Rows[j + 1].Visible = !(dataview.Rows[j + 1].Visible);
+                        }
+                    }
+                }
+            }
+            //throw new NotImplementedException();
         }
 
         private void UpdateTable()
@@ -182,13 +205,16 @@ namespace Financial_Status.Forms.Users
             PrepareTable();
             dataview.Rows.Clear();
             indx = 0;
+            Groupstrtindx.Clear();
+            Groupendindx.Clear();
 
             foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
             {
 
                 dataview.Rows.Add();
                 groupindx = dataview.Rows.Count - 1;
-                dataview.Rows[groupindx].Cells["Group"].Value = item;
+                dataview.Rows[groupindx].Cells["Group"].Value = "-" + item.ToString();
+                Groupstrtindx.Add(groupindx);
                 indx = 0;
                 credit = 0;
                 debit = 0;
@@ -197,6 +223,7 @@ namespace Financial_Status.Forms.Users
                 {
                     indx = updateRecord(SQLTableNames[i].ToString(), item.GetHashCode() + 1, indx);
                 }
+                Groupendindx.Add(groupindx+indx);
 
                 if (trtype == 0)
                 {
@@ -228,6 +255,11 @@ namespace Financial_Status.Forms.Users
                 comboBox1.Enabled = true;
                 button1.Enabled = true;
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -45,13 +45,17 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataview = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbMonth = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbYear = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -63,10 +67,11 @@
             // 
             this.dateTimePicker1.CustomFormat = "dd-MMM-yy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(169, 45);
+            this.dateTimePicker1.Location = new System.Drawing.Point(422, 15);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(99, 23);
             this.dateTimePicker1.TabIndex = 0;
+            this.dateTimePicker1.Visible = false;
             // 
             // Account
             // 
@@ -211,16 +216,21 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(105, 51);
+            this.label10.Location = new System.Drawing.Point(358, 21);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(58, 15);
             this.label10.TabIndex = 1;
             this.label10.Text = "Start Date";
+            this.label10.Visible = false;
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.tbYear);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.cbMonth);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.button1);
@@ -233,6 +243,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(794, 200);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(96, 91);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 15);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Transaction";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Debit",
+            "Credit"});
+            this.comboBox1.Location = new System.Drawing.Point(169, 88);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(99, 23);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -248,19 +280,21 @@
             // 
             this.dateTimePicker2.CustomFormat = "dd-MMM-yy";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(366, 45);
+            this.dateTimePicker2.Location = new System.Drawing.Point(619, 15);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(97, 23);
             this.dateTimePicker2.TabIndex = 2;
+            this.dateTimePicker2.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(302, 51);
+            this.label4.Location = new System.Drawing.Point(555, 21);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 15);
             this.label4.TabIndex = 3;
             this.label4.Text = "End Date";
+            this.label4.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -293,26 +327,52 @@
             this.dataview.Size = new System.Drawing.Size(794, 238);
             this.dataview.TabIndex = 2;
             // 
-            // comboBox1
+            // label7
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Debit",
-            "Credit"});
-            this.comboBox1.Location = new System.Drawing.Point(169, 88);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(99, 23);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(105, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 15);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Month";
             // 
-            // label6
+            // cbMonth
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(96, 91);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 15);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Transaction";
+            this.cbMonth.FormattingEnabled = true;
+            this.cbMonth.Items.AddRange(new object[] {
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"});
+            this.cbMonth.Location = new System.Drawing.Point(169, 49);
+            this.cbMonth.Name = "cbMonth";
+            this.cbMonth.Size = new System.Drawing.Size(99, 23);
+            this.cbMonth.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(293, 52);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 15);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Year";
+            // 
+            // tbYear
+            // 
+            this.tbYear.Location = new System.Drawing.Point(342, 49);
+            this.tbYear.Name = "tbYear";
+            this.tbYear.Size = new System.Drawing.Size(88, 23);
+            this.tbYear.TabIndex = 10;
+            this.tbYear.Text = "2022";
             // 
             // ExpenditureSummary
             // 
@@ -362,5 +422,9 @@
         private DataGridView dataview;
         private Label label6;
         private ComboBox comboBox1;
+        private ComboBox cbMonth;
+        private Label label7;
+        private TextBox tbYear;
+        private Label label8;
     }
 }

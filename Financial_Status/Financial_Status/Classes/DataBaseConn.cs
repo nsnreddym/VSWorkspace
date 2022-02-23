@@ -537,6 +537,48 @@ namespace FinancialDataBase
             return savingsdata;
 
         }
+        public static List<SavingsAccData> GetSavingsData(string TableName, int Category, int month, int year)
+        {
+            int days = DateTime.DaysInMonth(year, month);
+
+            List<SavingsAccData> savingsdata = new List<SavingsAccData>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            if(Category == 0)
+            {
+                cmd.CommandText = @"Select * from " + TableName + " where (Date between '01-" + month.ToString() + "-" + year + "' and '" + days.ToString() + "-" + month.ToString() + "-" + year + "');";
+            }
+            else
+            {
+                cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + " and (Date between '01-" + month.ToString() + "-" + year + "' and '" + days.ToString() + "-" + month.ToString() + "-" + year + "'); ";
+            }
+
+            
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                savingsdata.Add(new SavingsAccData
+                {
+                    date = Convert.ToDateTime(datareader.GetString(1)),
+                    Description = datareader.GetString(2),
+                    Amount = datareader.GetDouble(3),
+                    TranType = (TransType)datareader.GetInt32(4),
+                    Category = (Category)datareader.GetInt32(5)
+                });
+            }
+
+            conn.Close();
+
+            return savingsdata;
+
+        }
 
         public static double GetTotalSavings()
         {
