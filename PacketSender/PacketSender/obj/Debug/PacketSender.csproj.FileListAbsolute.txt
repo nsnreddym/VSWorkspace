@@ -1,0 +1,11 @@
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\bin\Debug\PacketSender.exe.config
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\bin\Debug\PacketSender.exe
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\bin\Debug\PacketSender.pdb
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.csproj.AssemblyReference.cache
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.csproj.SuggestedBindingRedirects.cache
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.Form1.resources
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.Properties.Resources.resources
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.csproj.GenerateResource.cache
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.csproj.CoreCompileInputs.cache
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.exe
+E:\Git_Repositories\VSWorkspace\PacketSender\PacketSender\obj\Debug\PacketSender.pdb

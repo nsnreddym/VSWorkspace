@@ -79,7 +79,8 @@ namespace FinancialDataBase
         NONVeg = 10,
         Petrol = 11 ,
         Invest = 12,
-        Medical = 13
+        Medical = 13,
+        Travel = 14
     }
 
     public enum TransType
@@ -485,7 +486,7 @@ namespace FinancialDataBase
 
             //Add record
             cmd.CommandText = @"Insert into " + TableName + "(Date, Description, Amount, TranType, Category, Balance) values(" + "'" +
-                                savingdata.date.ToShortDateString() + "', '" +
+                                savingdata.date.ToString("yyyy-MM-dd") + "', '" +
                                 savingdata.Description + "', " +
                                 savingdata.Amount.ToString() + ", " +
                                 ((int)savingdata.TranType).ToString() + ", " +
@@ -551,11 +552,11 @@ namespace FinancialDataBase
 
             if(Category == 0)
             {
-                cmd.CommandText = @"Select * from " + TableName + " where (Date between '01-" + month.ToString() + "-" + year + "' and '" + days.ToString() + "-" + month.ToString() + "-" + year + "');";
+                cmd.CommandText = @"Select * from " + TableName + " where (Date between '" + year + "-" + month.ToString("D2") + "-01' and '" + year + "-" + month.ToString("D2") + "-" + days.ToString("D2") + "');";
             }
             else
             {
-                cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + " and (Date between '01-" + month.ToString() + "-" + year + "' and '" + days.ToString() + "-" + month.ToString() + "-" + year + "'); ";
+                cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + " and (Date between '" + year + "-" + month.ToString("D2") + "-01' and '" + year + "-" + month.ToString("D2") + "-" + days.ToString("D2") +"'); ";
             }
 
             

@@ -86,7 +86,7 @@ namespace Financial_Status
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToShortDateString(), tbAmount.Text);
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-0:mm-dd"), tbAmount.Text);
                 DataBasedata.UpdateBudget(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account

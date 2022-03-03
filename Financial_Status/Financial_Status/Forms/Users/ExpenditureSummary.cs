@@ -47,6 +47,8 @@ namespace Financial_Status.Forms.Users
 
             dataview.CellMouseClick += Dataview_CellMouseClick;
 
+            //PleaseWaitLabel.Visible = false;
+
         }
 
         private int updateRecord(string tablename, int category, int indx)
@@ -54,7 +56,7 @@ namespace Financial_Status.Forms.Users
             int j;
             int k;
 
-            List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(tablename, category, cbMonth.SelectedIndex, 2022);
+            List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(tablename, category, cbMonth.SelectedIndex + 1, Convert.ToInt32(tbYear.Text));
 
             j = indx;
 
@@ -63,29 +65,32 @@ namespace Financial_Status.Forms.Users
 
                 for (int i = 0; i < savingsdata.Count; i++)
                 {
-                    if ((int)savingsdata[i].TranType == trtype)
+                    if (((int)savingsdata[i].TranType == trtype) || trtype == 2)
                     {
-                        dataview.Rows.Add();
-                        k = dataview.Rows.Count - 1;
-
-                        dataview.Rows[k].Cells["Sno"].Value = j + 1;
-                        dataview.Rows[k].Cells["Account"].Value = tablename;
-                        dataview.Rows[k].Cells["date"].Value = savingsdata[i].date.ToShortDateString();
-                        dataview.Rows[k].Cells["desc"].Value = savingsdata[i].Description;
-                        if (savingsdata[i].TranType == TransType.Cr)
+                        if ((int)savingsdata[i].TranType < 2)
                         {
-                            dataview.Rows[k].Cells["Credit"].Value = savingsdata[i].Amount.ToString("N");
-                            credit = credit + savingsdata[i].Amount;
-                        }
-                        else
-                        {
-                            dataview.Rows[k].Cells["Debit"].Value = savingsdata[i].Amount.ToString("N");
-                            debit = debit + savingsdata[i].Amount;
-                        }
-                        /*dataview.Rows[j + i].Cells[5].Value = savingsdata[i].TranType.ToString();
-                        dataview.Rows[j + i].Cells[6].Value = savingsdata[i].Category.ToString();*/
+                            dataview.Rows.Add();
+                            k = dataview.Rows.Count - 1;
 
-                        j++;
+                            dataview.Rows[k].Cells["Sno"].Value = j + 1;
+                            dataview.Rows[k].Cells["Account"].Value = tablename;
+                            dataview.Rows[k].Cells["date"].Value = savingsdata[i].date.ToShortDateString();
+                            dataview.Rows[k].Cells["desc"].Value = savingsdata[i].Description;
+                            if (savingsdata[i].TranType == TransType.Cr)
+                            {
+                                dataview.Rows[k].Cells["Credit"].Value = savingsdata[i].Amount.ToString("N");
+                                credit = credit + savingsdata[i].Amount;
+                            }
+                            else
+                            {
+                                dataview.Rows[k].Cells["Debit"].Value = savingsdata[i].Amount.ToString("N");
+                                debit = debit + savingsdata[i].Amount;
+                            }
+                            /*dataview.Rows[j + i].Cells[5].Value = savingsdata[i].TranType.ToString();
+                            dataview.Rows[j + i].Cells[6].Value = savingsdata[i].Category.ToString();*/
+
+                            j++;
+                        }
                     }
                     
 
@@ -108,14 +113,19 @@ namespace Financial_Status.Forms.Users
 
             groupcellstyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             groupcellstyle.BackColor = Color.White;
-            if (comboBox1.SelectedIndex == 0)
+            if (trtype == 0)
             {
                 groupcellstyle.ForeColor = Color.Red;
             }
-            else
+            else if (trtype == 1)
             {
                 groupcellstyle.ForeColor = Color.Green;
             }
+            else
+            {
+                groupcellstyle.ForeColor = Color.BlueViolet;
+            }
+        
             groupcellstyle.Font = new Font("Microsoft Sans Serif", 10,FontStyle.Bold);
             
 
@@ -166,12 +176,19 @@ namespace Financial_Status.Forms.Users
             dataview.Columns["Debit"].ReadOnly = true;
             dataview.Columns["Debit"].DefaultCellStyle = datacellstyle;
 
-            dataview.Columns.Add("Total", "Total");
-            dataview.Columns["Total"].DefaultCellStyle = dataview.DefaultCellStyle;
-            dataview.Columns["Total"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dataview.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataview.Columns["Total"].ReadOnly = true;
-            dataview.Columns["Total"].DefaultCellStyle = groupcellstyle;            
+            dataview.Columns.Add("TotalDebit", "Total Debit");
+            dataview.Columns["TotalDebit"].DefaultCellStyle = dataview.DefaultCellStyle;
+            dataview.Columns["TotalDebit"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataview.Columns["TotalDebit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataview.Columns["TotalDebit"].ReadOnly = true;
+            dataview.Columns["TotalDebit"].DefaultCellStyle = groupcellstyle; 
+            
+            dataview.Columns.Add("TotalCredit", "Total Credit");
+            dataview.Columns["TotalCredit"].DefaultCellStyle = dataview.DefaultCellStyle;
+            dataview.Columns["TotalCredit"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataview.Columns["TotalCredit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataview.Columns["TotalCredit"].ReadOnly = true;
+            dataview.Columns["TotalCredit"].DefaultCellStyle = groupcellstyle;            
 
         }
 
@@ -191,6 +208,19 @@ namespace Financial_Status.Forms.Users
                 }
             }
             //throw new NotImplementedException();
+        }
+
+        private void Dataview_collapse_all(bool cond)
+        {
+            for (int i = 0; i < Groupstrtindx.Count; i++)
+            {                
+                for (int j = Groupstrtindx[i]; j < Groupendindx[i]; j++)
+                {
+                    dataview.Rows[j + 1].Visible = cond;
+                }
+            }
+
+            RemoveEmptyColumns();
         }
 
         private void UpdateTable()
@@ -228,15 +258,58 @@ namespace Financial_Status.Forms.Users
                 if (trtype == 0)
                 {
 
-                    dataview.Rows[groupindx].Cells["Total"].Value = (debit).ToString("N");
+                    dataview.Rows[groupindx].Cells["TotalDebit"].Value = (debit).ToString("N");
                     dataview.Columns["Credit"].Visible = false;
+                    dataview.Columns["TotalCredit"].Visible = false;
                     dataview.Columns["Debit"].Visible = true;
+                    dataview.Columns["TotalDebit"].Visible = true;
+                }
+                else if(trtype == 1)
+                {
+                    dataview.Rows[groupindx].Cells["TotalCredit"].Value = (credit).ToString("N");
+                    dataview.Columns["Credit"].Visible = true;
+                    dataview.Columns["TotalCredit"].Visible = true;
+                    dataview.Columns["Debit"].Visible = false;
+                    dataview.Columns["TotalDebit"].Visible = false;
                 }
                 else
                 {
-                    dataview.Rows[groupindx].Cells["Total"].Value = (credit).ToString("N");
+                    dataview.Rows[groupindx].Cells["TotalDebit"].Value = (debit).ToString("N"); 
+                    dataview.Rows[groupindx].Cells["TotalCredit"].Value = (credit).ToString("N");
                     dataview.Columns["Credit"].Visible = true;
-                    dataview.Columns["Debit"].Visible = false;
+                    dataview.Columns["TotalCredit"].Visible = true;
+                    dataview.Columns["Debit"].Visible = true;
+                    dataview.Columns["TotalDebit"].Visible = true;
+                }
+            }
+
+            Dataview_collapse_all(false);
+        }
+
+        private void RemoveEmptyColumns()
+        {
+            foreach (DataGridViewColumn clm in dataview.Columns)
+            {
+                bool notAvailable = true;                
+
+                foreach (DataGridViewRow row in dataview.Rows)
+                {
+                    if(dataview.RowCount > 0 )
+                    {
+                        if((row.Visible == true) && (row.Cells[clm.Index].Value != null))
+                        {
+                            notAvailable = false;
+                            break;
+                        }
+                    }
+                }
+                if (notAvailable)
+                {
+                    dataview.Columns[clm.Index].Visible = false;
+                }
+                else
+                {
+                    dataview.Columns[clm.Index].Visible = true;
                 }
             }
         }
@@ -245,36 +318,44 @@ namespace Financial_Status.Forms.Users
         {
             if (comboBox1.Enabled == true)
             {
-                comboBox1.Enabled = false;
-                button1.Enabled = false;
+                ControlBox.Enabled = false;
 
                 trtype = comboBox1.SelectedIndex;
 
                 UpdateTable();
 
-                comboBox1.Enabled = true;
-                button1.Enabled = true;
+                ControlBox.Enabled = true;
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+
+        private void bCollapse_Click(object sender, EventArgs e)
         {
 
+            ControlBox.Enabled = false;
+            Dataview_collapse_all(false);
+            ControlBox.Enabled = true;
         }
+
+        private void bExpand_Click(object sender, EventArgs e)
+        {
+            ControlBox.Enabled = false;
+            Dataview_collapse_all(true);
+            ControlBox.Enabled = true;
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (button1.Enabled == true)
             {
-                comboBox1.Enabled = false;
-                button1.Enabled = false;
+                ControlBox.Enabled = false;
 
                 trtype = comboBox1.SelectedIndex;
 
                 UpdateTable();
 
-                comboBox1.Enabled = true;
-                button1.Enabled = true;
+                ControlBox.Enabled = true;
             }
             
         }
