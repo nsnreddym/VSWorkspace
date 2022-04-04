@@ -1,0 +1,13 @@
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\FinanceLite_V3.exe.config
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\FinanceLite_V3.exe
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\FinanceLite_V3.pdb
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\FinanceLite_V3.xml
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\DevComponents.DotNetBar2.dll
+E:\FinanceLite_V3\FinanceLite_V3\bin\Debug\DevComponents.DotNetBar2.xml
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.vbprojResolveAssemblyReference.cache
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.MainForm.resources
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.Resources.resources
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.vbproj.GenerateResource.Cache
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.exe
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.xml
+E:\FinanceLite_V3\FinanceLite_V3\obj\Debug\FinanceLite_V3.pdb

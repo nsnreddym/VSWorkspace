@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "780337eb-deff-418a-a8a9-c22ff32c04a7": {
+      "ProjectGuid": "780337eb-deff-418a-a8a9-c22ff32c04a7",
+      "DisplayName": "PacketSender",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

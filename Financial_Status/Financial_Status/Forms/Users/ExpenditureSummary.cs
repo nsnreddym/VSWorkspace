@@ -133,13 +133,13 @@ namespace Financial_Status.Forms.Users
 
             dataview.Columns.Add("Group", "Group");
             dataview.Columns["Group"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dataview.Columns["Group"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataview.Columns["Group"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;            
             dataview.Columns["Group"].ReadOnly = true;
             dataview.Columns["Group"].DefaultCellStyle = groupcellstyle;
 
             dataview.Columns.Add("SNo", "S No");
             dataview.Columns["SNo"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dataview.Columns["SNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; 
+            dataview.Columns["SNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataview.Columns["SNo"].ReadOnly = true;
             dataview.Columns["SNo"].DefaultCellStyle = datacellstyle;
 
@@ -207,6 +207,7 @@ namespace Financial_Status.Forms.Users
                     }
                 }
             }
+            RemoveEmptyColumns();
             //throw new NotImplementedException();
         }
 
@@ -344,6 +345,19 @@ namespace Financial_Status.Forms.Users
             ControlBox.Enabled = true;
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                cbMonth.Enabled = false;
+                comboBox1.Enabled = false;
+            }
+            else
+            {
+                cbMonth.Enabled = true;
+                comboBox1.Enabled = true;
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {

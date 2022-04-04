@@ -62,6 +62,7 @@ namespace FinancialDataBase
         public TransType TranType;
         public Category Category;
         public string CreditAc;
+        public double Balance;
     }
 
     public enum Category
@@ -80,7 +81,8 @@ namespace FinancialDataBase
         Petrol = 11 ,
         Invest = 12,
         Medical = 13,
-        Travel = 14
+        Travel = 14,
+        Education = 15
     }
 
     public enum TransType
@@ -448,7 +450,7 @@ namespace FinancialDataBase
             conn.Close();
         }
 
-        public static void AddSavingsRecord(string TableName, SavingsAccData savingdata)
+        public static double AddSavingsRecord(string TableName, SavingsAccData savingdata)
         {
             double balance;
             string infotable;
@@ -496,11 +498,15 @@ namespace FinancialDataBase
 
             conn.Close();
 
+            return balance;
+
         }
 
-        public static List<SavingsAccData> GetSavingsData(string TableName, int Category)
+        public static List<SavingsAccData> GetSavingsData(string TableName, int Category, DateTime startdate, DateTime Enddate)
         {
             List<SavingsAccData> savingsdata = new List<SavingsAccData>();
+
+            int syear, smonth, sdate;
 
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
 
@@ -508,13 +514,20 @@ namespace FinancialDataBase
 
             SQLiteCommand cmd = conn.CreateCommand();
 
+            syear = startdate.Year;
+
             if(Category == 0)
             {
-                cmd.CommandText = @"Select * from " + TableName + ";";
+                cmd.CommandText = @"Select * from " + TableName + " where (Date between '" +
+                                             startdate.Year + "-" + startdate.Month.ToString("D2") + "-" + startdate.Day.ToString("D2") + "' and '" +
+                                             Enddate.Year + "-" + Enddate.Month.ToString("D2") + "-" + Enddate.Day.ToString("D2") + "');";
             }
             else
             {
-                cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + ";";
+                //cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + ";";
+                cmd.CommandText = @"Select * from " + TableName + " where Category = " + (Category - 1).ToString() + " and (Date between '" + 
+                                             startdate.Year + "-" + startdate.Month.ToString("D2") + "-" + startdate.Day.ToString("D2") + "' and '" + 
+                                             Enddate.Year + "-" + Enddate.Month.ToString("D2") + "-" + Enddate.Day.ToString("D2") + "'); ";
             }
 
             
@@ -529,7 +542,8 @@ namespace FinancialDataBase
                     Description = datareader.GetString(2),
                     Amount = datareader.GetDouble(3),
                     TranType = (TransType)datareader.GetInt32(4),
-                    Category = (Category)datareader.GetInt32(5)
+                    Category = (Category)datareader.GetInt32(5),
+                    Balance = datareader.GetDouble(6)
                 });
             }
 
@@ -571,7 +585,8 @@ namespace FinancialDataBase
                     Description = datareader.GetString(2),
                     Amount = datareader.GetDouble(3),
                     TranType = (TransType)datareader.GetInt32(4),
-                    Category = (Category)datareader.GetInt32(5)
+                    Category = (Category)datareader.GetInt32(5),
+                    Balance = datareader.GetDouble(6)
                 });
             }
 

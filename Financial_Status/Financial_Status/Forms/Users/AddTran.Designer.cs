@@ -45,6 +45,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.cbCreditAC = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbBal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,6 +182,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lbBal);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.bCancel);
             this.panel1.Controls.Add(this.bSave);
@@ -221,6 +225,23 @@
             this.cbCreditAC.TabStop = false;
             this.cbCreditAC.SelectedIndexChanged += new System.EventHandler(this.cbCreditAC_SelectedIndexChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(285, 197);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 15);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Balance";
+            // 
+            // lbBal
+            // 
+            this.lbBal.AutoSize = true;
+            this.lbBal.Location = new System.Drawing.Point(339, 197);
+            this.lbBal.Name = "lbBal";
+            this.lbBal.Size = new System.Drawing.Size(0, 15);
+            this.lbBal.TabIndex = 16;
+            // 
             // AddTran
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -255,5 +276,7 @@
         private Panel panel1;
         private Label label7;
         private ComboBox cbCreditAC;
+        private Label lbBal;
+        private Label label8;
     }
 }

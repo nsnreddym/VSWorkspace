@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,13 +42,12 @@
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ControlBox = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.bExpand = new System.Windows.Forms.Button();
             this.bCollapse = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.tbYear = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,20 +60,11 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.ControlBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "dd-MMM-yy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(87, 22);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(99, 23);
-            this.dateTimePicker1.TabIndex = 0;
-            this.dateTimePicker1.Visible = false;
             // 
             // Account
             // 
@@ -217,20 +206,11 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 100);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(23, 28);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 15);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Start Date";
-            this.label10.Visible = false;
-            // 
             // panel1
             // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.ControlBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -238,14 +218,30 @@
             this.panel1.Size = new System.Drawing.Size(794, 200);
             this.panel1.TabIndex = 0;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Location = new System.Drawing.Point(453, 9);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(245, 182);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 22);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 19);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Compare Report";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // ControlBox
             // 
-            this.ControlBox.Controls.Add(this.dateTimePicker2);
-            this.ControlBox.Controls.Add(this.label10);
             this.ControlBox.Controls.Add(this.bExpand);
-            this.ControlBox.Controls.Add(this.dateTimePicker1);
             this.ControlBox.Controls.Add(this.bCollapse);
-            this.ControlBox.Controls.Add(this.label4);
             this.ControlBox.Controls.Add(this.tbYear);
             this.ControlBox.Controls.Add(this.button1);
             this.ControlBox.Controls.Add(this.label8);
@@ -258,16 +254,6 @@
             this.ControlBox.Size = new System.Drawing.Size(438, 182);
             this.ControlBox.TabIndex = 13;
             this.ControlBox.TabStop = false;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.CustomFormat = "dd-MMM-yy";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(284, 22);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(97, 23);
-            this.dateTimePicker2.TabIndex = 2;
-            this.dateTimePicker2.Visible = false;
             // 
             // bExpand
             // 
@@ -288,16 +274,6 @@
             this.bCollapse.Text = "Collapse All";
             this.bCollapse.UseVisualStyleBackColor = true;
             this.bCollapse.Click += new System.EventHandler(this.bCollapse_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(220, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 15);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "End Date";
-            this.label4.Visible = false;
             // 
             // tbYear
             // 
@@ -423,6 +399,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ControlBox.ResumeLayout(false);
             this.ControlBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -433,8 +411,6 @@
         }
 
         #endregion
-
-        private DateTimePicker dateTimePicker1;
         private DataGridViewTextBoxColumn Account;
         private DataGridViewTextBoxColumn Ttype;
         private Label label3;
@@ -449,11 +425,8 @@
         private DataGridViewTextBoxColumn Category;
         private Panel panel2;
         private TableLayoutPanel tableLayoutPanel2;
-        private Label label10;
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel1;
-        private DateTimePicker dateTimePicker2;
-        private Label label4;
         private Button button1;
         private DataGridView dataview;
         private Label label6;
@@ -465,5 +438,7 @@
         private Button bExpand;
         private Button bCollapse;
         private GroupBox ControlBox;
+        private GroupBox groupBox1;
+        private CheckBox checkBox1;
     }
 }

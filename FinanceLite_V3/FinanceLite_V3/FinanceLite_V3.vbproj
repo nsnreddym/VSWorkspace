@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{111D089D-F4C0-44EE-87EB-C9EFC2926DF6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>FinanceLite_V3.My.MyApplication</StartupObject>
+    <RootNamespace>FinanceLite_V3</RootNamespace>
+    <AssemblyName>FinanceLite_V3</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FinanceLite_V3.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FinanceLite_V3.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>FinanceLite_V3.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>FinanceLite_V3.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>indian_rupees_icon_by_shunil-d38oh35.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=10.0.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp">
+      <HintPath>References\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\Customer\ModifyCustomer.Designer.vb">
+      <DependentUpon>ModifyCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customer\ModifyCustomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loans\ModifyLoan.Designer.vb">
+      <DependentUpon>ModifyLoan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Loans\ModifyLoan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Posting\Posting.Designer.vb">
+      <DependentUpon>Posting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Posting\Posting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\BalanceReport.Designer.vb">
+      <DependentUpon>BalanceReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\BalanceReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\GeneralReport.Designer.vb">
+      <DependentUpon>GeneralReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\GeneralReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Globals.vb" />
+    <Compile Include="Forms\Users\ModifyUser.Designer.vb">
+      <DependentUpon>ModifyUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Users\ModifyUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Testing.Designer.vb">
+      <DependentUpon>Testing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Testing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Tools\LoginForm1.Designer.vb">
+      <DependentUpon>LoginForm1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tools\LoginForm1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Forms\Tools\Security.vb" />
+    <Compile Include="Forms\Tools\SetPaths.Designer.vb">
+      <DependentUpon>SetPaths.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tools\SetPaths.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitBar.Designer.vb">
+      <DependentUpon>WaitBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="WaitBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Customer\ModifyCustomer.resx">
+      <DependentUpon>ModifyCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loans\ModifyLoan.resx">
+      <DependentUpon>ModifyLoan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Posting\Posting.resx">
+      <DependentUpon>Posting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\BalanceReport.resx">
+      <DependentUpon>BalanceReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\GeneralReport.resx">
+      <DependentUpon>GeneralReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Testing.resx">
+      <DependentUpon>Testing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tools\LoginForm1.resx">
+      <DependentUpon>LoginForm1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tools\SetPaths.resx">
+      <DependentUpon>SetPaths.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Users\ModifyUser.resx">
+      <DependentUpon>ModifyUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitBar.resx">
+      <DependentUpon>WaitBar.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New customer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View customer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new loan.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view loan.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Daily.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bulk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RBalance.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RDaily.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RYearly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PDF.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XLS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New Partners.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Partners.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\withdrawl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Deposit.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Posting.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\partners2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Partners3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Path.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="indian_rupees_icon_by_shunil-d38oh35.ico" />
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\NCustomerAdd.ico" />
+    <None Include="Resources\NCustomerSearch.ico" />
+    <None Include="Resources\NLoanNew.png" />
+    <None Include="Resources\NLoanNew.ico" />
+    <None Include="Resources\NLoanOpen.png" />
+    <None Include="Resources\NPosting.png" />
+    <None Include="Resources\NBulk.png" />
+    <None Include="Resources\NExpenses.png" />
+    <None Include="Resources\NPaths.png" />
+    <None Include="Resources\NLogin.png" />
+    <None Include="Resources\NPartners1.png" />
+    <None Include="Resources\NPartners2.png" />
+    <None Include="Resources\NSave.png" />
+    <None Include="Resources\Nreports.png" />
+    <None Include="Resources\NBalanceSheet.png" />
+    <None Include="Resources\Nyearly.png" />
+    <None Include="Resources\NPdf.png" />
+    <None Include="Resources\NXls.png" />
+    <None Include="Resources\NPrint.png" />
+    <None Include="Resources\NPartnersAdd.png" />
+    <None Include="Resources\NDeposit.png" />
+    <None Include="Resources\NWithDrawal.png" />
+    <None Include="Resources\NAbout.png" />
+    <Content Include="Rupee_symbol.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

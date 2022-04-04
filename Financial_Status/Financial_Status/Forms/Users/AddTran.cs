@@ -76,6 +76,8 @@ namespace Financial_Status
 
         private void bSave_Click(object sender, EventArgs e)
         {
+            double balance;
+
             SavingsAccData savingsdata = new SavingsAccData();
 
             savingsdata.date = cbDate.Value;
@@ -86,13 +88,13 @@ namespace Financial_Status
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-0:mm-dd"), tbAmount.Text);
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text);
                 DataBasedata.UpdateBudget(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account
                 savingsdata.TranType = TransType.Dr; 
                 savingsdata.Description = "Transfer to Loan Account: " + cbCreditAC.SelectedItem.ToString();
-                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+                balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
             else if (cbTranType.SelectedItem.ToString() == "Tr_SA")
             {
@@ -104,15 +106,16 @@ namespace Financial_Status
                 //Update in debit savings account
                 savingsdata.TranType = TransType.Dr;
                 savingsdata.Description = "Transfer to Savings Account: " + cbCreditAC.SelectedItem.ToString();
-                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+                balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
             else
             {
                 //Update in debit savings account
                 savingsdata.TranType = (TransType)cbTranType.SelectedIndex;
                 savingsdata.Description = tbDesc.Text;
-                DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+                balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
+            lbBal.Text = balance.ToString("N");
             MessageBox.Show("Transaction Added");
         }
 

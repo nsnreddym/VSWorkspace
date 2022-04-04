@@ -30,23 +30,25 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lbCredit = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lbDebit = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.EndDate = new System.Windows.Forms.DateTimePicker();
+            this.label10 = new System.Windows.Forms.Label();
+            this.StrtDate = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbAccount = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataview = new System.Windows.Forms.DataGridView();
             this.Sno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Credit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Debit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Credit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Debit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).BeginInit();
@@ -73,10 +75,11 @@
             // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.lbCredit);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.lbDebit);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.EndDate);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.StrtDate);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.cbCategory);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbAccount);
@@ -87,52 +90,56 @@
             this.panel1.Size = new System.Drawing.Size(794, 200);
             this.panel1.TabIndex = 0;
             // 
-            // label3
+            // button1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(184, 129);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Credit";
+            this.button1.Location = new System.Drawing.Point(333, 136);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Show";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // lbCredit
+            // EndDate
             // 
-            this.lbCredit.AutoSize = true;
-            this.lbCredit.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbCredit.ForeColor = System.Drawing.Color.Red;
-            this.lbCredit.Location = new System.Drawing.Point(229, 126);
-            this.lbCredit.Name = "lbCredit";
-            this.lbCredit.Size = new System.Drawing.Size(37, 19);
-            this.lbCredit.TabIndex = 8;
-            this.lbCredit.Text = "0.00";
+            this.EndDate.CustomFormat = "dd-MMM-yy";
+            this.EndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.EndDate.Location = new System.Drawing.Point(401, 36);
+            this.EndDate.Name = "EndDate";
+            this.EndDate.Size = new System.Drawing.Size(97, 23);
+            this.EndDate.TabIndex = 12;
             // 
-            // label5
+            // label10
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(184, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 15);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Debit";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(118, 42);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 15);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Start Date";
             // 
-            // lbDebit
+            // StrtDate
             // 
-            this.lbDebit.AutoSize = true;
-            this.lbDebit.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbDebit.ForeColor = System.Drawing.Color.Red;
-            this.lbDebit.Location = new System.Drawing.Point(229, 95);
-            this.lbDebit.Name = "lbDebit";
-            this.lbDebit.Size = new System.Drawing.Size(37, 19);
-            this.lbDebit.TabIndex = 6;
-            this.lbDebit.Text = "0.00";
+            this.StrtDate.CustomFormat = "dd-MMM-yy";
+            this.StrtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.StrtDate.Location = new System.Drawing.Point(182, 36);
+            this.StrtDate.Name = "StrtDate";
+            this.StrtDate.Size = new System.Drawing.Size(99, 23);
+            this.StrtDate.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(337, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 15);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "End Date";
             // 
             // cbCategory
             // 
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(401, 48);
+            this.cbCategory.Location = new System.Drawing.Point(401, 75);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(121, 23);
             this.cbCategory.TabIndex = 4;
@@ -141,7 +148,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 51);
+            this.label2.Location = new System.Drawing.Point(340, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 15);
             this.label2.TabIndex = 3;
@@ -150,7 +157,7 @@
             // cbAccount
             // 
             this.cbAccount.FormattingEnabled = true;
-            this.cbAccount.Location = new System.Drawing.Point(182, 48);
+            this.cbAccount.Location = new System.Drawing.Point(182, 75);
             this.cbAccount.Name = "cbAccount";
             this.cbAccount.Size = new System.Drawing.Size(121, 23);
             this.cbAccount.TabIndex = 2;
@@ -159,7 +166,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 51);
+            this.label1.Location = new System.Drawing.Point(105, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 15);
             this.label1.TabIndex = 1;
@@ -172,13 +179,14 @@
             this.dataview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Sno,
+            this.Account,
             this.Date,
             this.Desc,
-            this.Credit,
-            this.Debit,
             this.Ttype,
             this.Category,
-            this.Account});
+            this.Credit,
+            this.Debit,
+            this.Balance});
             this.dataview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataview.Location = new System.Drawing.Point(3, 209);
             this.dataview.Name = "dataview";
@@ -197,6 +205,16 @@
             this.Sno.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Sno.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Sno.Width = 35;
+            // 
+            // Account
+            // 
+            this.Account.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Account.HeaderText = "Account";
+            this.Account.Name = "Account";
+            this.Account.ReadOnly = true;
+            this.Account.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Account.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Account.Width = 58;
             // 
             // Date
             // 
@@ -218,26 +236,6 @@
             this.Desc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Desc.Width = 73;
             // 
-            // Credit
-            // 
-            this.Credit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Credit.HeaderText = "Credit";
-            this.Credit.Name = "Credit";
-            this.Credit.ReadOnly = true;
-            this.Credit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Credit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Credit.Width = 45;
-            // 
-            // Debit
-            // 
-            this.Debit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Debit.HeaderText = "Debit";
-            this.Debit.Name = "Debit";
-            this.Debit.ReadOnly = true;
-            this.Debit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Debit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Debit.Width = 41;
-            // 
             // Ttype
             // 
             this.Ttype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -258,15 +256,34 @@
             this.Category.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Category.Width = 61;
             // 
-            // Account
+            // Credit
             // 
-            this.Account.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Account.HeaderText = "Account";
-            this.Account.Name = "Account";
-            this.Account.ReadOnly = true;
-            this.Account.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Account.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Account.Width = 58;
+            this.Credit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Credit.HeaderText = "Credit";
+            this.Credit.Name = "Credit";
+            this.Credit.ReadOnly = true;
+            this.Credit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Credit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Credit.Width = 45;
+            // 
+            // Debit
+            // 
+            this.Debit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Debit.HeaderText = "Debit";
+            this.Debit.Name = "Debit";
+            this.Debit.ReadOnly = true;
+            this.Debit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Debit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Debit.Width = 41;
+            // 
+            // Balance
+            // 
+            this.Balance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Balance.HeaderText = "Balance";
+            this.Balance.Name = "Balance";
+            this.Balance.ReadOnly = true;
+            this.Balance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Balance.Width = 54;
             // 
             // ViewTran
             // 
@@ -295,17 +312,19 @@
         private ComboBox cbAccount;
         private Label label1;
         private DataGridView dataview;
-        private Label lbDebit;
-        private Label label3;
-        private Label lbCredit;
-        private Label label5;
+        private DateTimePicker EndDate;
+        private Label label10;
+        private DateTimePicker StrtDate;
+        private Label label4;
+        private Button button1;
         private DataGridViewTextBoxColumn Sno;
+        private DataGridViewTextBoxColumn Account;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Desc;
-        private DataGridViewTextBoxColumn Credit;
-        private DataGridViewTextBoxColumn Debit;
         private DataGridViewTextBoxColumn Ttype;
         private DataGridViewTextBoxColumn Category;
-        private DataGridViewTextBoxColumn Account;
+        private DataGridViewTextBoxColumn Credit;
+        private DataGridViewTextBoxColumn Debit;
+        private DataGridViewTextBoxColumn Balance;
     }
 }
