@@ -94,8 +94,8 @@ namespace Financial_Status
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, (TransType)cbTranType.SelectedIndex);
-                DataBasedata.UpdateBudget(cbCreditAC.SelectedItem.ToString());
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);
+                DataBasedata.UpdateMntlyData(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account
                 savingsdata.TranType = TransType.Dr; 
@@ -113,6 +113,18 @@ namespace Financial_Status
                 savingsdata.TranType = TransType.Dr;
                 savingsdata.Description = "Transfer to Savings Account: " + cbCreditAC.SelectedItem.ToString();
                 balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+            }
+            else if (cbTranType.SelectedItem.ToString() == "Cr_LN")
+            {
+                //Update in loan account
+                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Cr);
+                balance = 0;
+            }
+            else if (cbTranType.SelectedItem.ToString() == "Dr_LN")
+            {
+                ///Update in loan account
+                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);                
+                balance = 0;
             }
             else
             {

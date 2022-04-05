@@ -210,7 +210,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MonthlyBudget";
             this.Text = "MonthlyBudget";
-            this.Load += new System.EventHandler(this.MonthlyBudget_Load);
+            this.Load += new System.EventHandler(this.MonthlyBalData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

@@ -39,8 +39,8 @@ namespace Financial_Status.Forms.Users
 
             groupcellstyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             groupcellstyle.BackColor = Color.White;            
-            groupcellstyle.ForeColor = Color.BlueViolet;
-            groupcellstyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+            groupcellstyle.ForeColor = Color.Black;
+            groupcellstyle.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
 
 
             dataview.Columns.Clear();
@@ -50,6 +50,14 @@ namespace Financial_Status.Forms.Users
             dataview.Columns["Group"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataview.Columns["Group"].ReadOnly = true;
             dataview.Columns["Group"].DefaultCellStyle = groupcellstyle;
+
+            dataview.Columns.Add("Budget", "Budget");
+            dataview.Columns["Budget"].DefaultCellStyle = dataview.DefaultCellStyle;
+            dataview.Columns["Budget"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataview.Columns["Budget"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataview.Columns["Budget"].ReadOnly = true;
+            dataview.Columns["Budget"].DefaultCellStyle = groupcellstyle;
+
 
             for (int i = 1; i <= 12; i++)
             {
@@ -63,30 +71,36 @@ namespace Financial_Status.Forms.Users
                 dataview.Columns[name].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dataview.Columns[name].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dataview.Columns[name].ReadOnly = true;
-                dataview.Columns[name].DefaultCellStyle = groupcellstyle;
+                dataview.Columns[name].DefaultCellStyle = datacellstyle;
             }
 
         }
 
         private void UpdateTable(int year)
         {
-            int indx;
             int groupindx;
+            List<MntlyBDGInfoData> mntlyBDGData = new List<MntlyBDGInfoData>();
+            Category item = new Category();
 
             double balance;
 
 
             PrepareTable(year);
             dataview.Rows.Clear();
-            indx = 0;
             Groupstrtindx.Clear();
-            Groupendindx.Clear();           
+            Groupendindx.Clear();
 
-            foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
+            mntlyBDGData = DataBasedata.ReadMntlyBDGData();
+
+            //foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
+            for (int indx = 0;  indx < mntlyBDGData.Count; indx++)                
             {
+                item = (Category)(mntlyBDGData[indx].Category);
+
                 dataview.Rows.Add();
                 groupindx = dataview.Rows.Count - 1;
                 dataview.Rows[groupindx].Cells["Group"].Value = item.ToString();
+                dataview.Rows[groupindx].Cells["Budget"].Value = mntlyBDGData[indx].Budget.ToString("N");
 
                 for (int month = 1; month <= 12; month++)
                 {
@@ -99,11 +113,16 @@ namespace Financial_Status.Forms.Users
 
                     for (int i = 0; i < SQLTableNames.Count; i++)
                     {
-                        balance += DataBasedata.Getbalance(SQLTableNames[i].ToString(), item.GetHashCode(), 0, month, year);
+                        balance += DataBasedata.Getbalance(SQLTableNames[i].ToString(), mntlyBDGData[indx].Category, 0, month, year);
                     }
 
+                    if (balance > mntlyBDGData[indx].Budget)
+                    {
+                        dataview.Rows[groupindx].Cells[name].Style.ForeColor = Color.Red;
+                    }
                     dataview.Rows[groupindx].Cells[name].Value = balance.ToString("N");
                 }
+                
             }
             
                

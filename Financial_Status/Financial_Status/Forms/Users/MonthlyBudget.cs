@@ -20,17 +20,17 @@ namespace Financial_Status
             InitializeComponent();
         }
 
-        private void MonthlyBudget_Load(object sender, EventArgs e)
+        private void MonthlyBalData_Load(object sender, EventArgs e)
         {
             int sno;
             double credit;
             double debit;
-            List<BDGInfoData> bDGInfoData;
+            List<MntlyBalData> mntlybaldata;
             List<AccountInfoData> accountinfo;
             WindowState = FormWindowState.Maximized;
 
             //Read Accounts
-            bDGInfoData = DataBasedata.ReadBudget();
+            mntlybaldata = DataBasedata.ReadMntlyData();
             accountinfo = DataBasedata.ReadAccountInfo();
             dataView.Rows.Clear();
 
@@ -64,13 +64,13 @@ namespace Financial_Status
                 }
             }
 
-            for (int i = 0; i < bDGInfoData.Count; i++)
+            for (int i = 0; i < mntlybaldata.Count; i++)
             {
                 dataView.Rows.Add();
                 dataView.Rows[sno].Cells[0].Value = sno + 1;
-                dataView.Rows[sno].Cells[1].Value = bDGInfoData[i].Name;
-                dataView.Rows[sno].Cells[2].Value = bDGInfoData[i].EMI.ToString();
-                debit = debit + bDGInfoData[i].EMI;
+                dataView.Rows[sno].Cells[1].Value = mntlybaldata[i].Name;
+                dataView.Rows[sno].Cells[2].Value = mntlybaldata[i].EMI.ToString();
+                debit = debit + mntlybaldata[i].EMI;
                 sno++;
             }
 

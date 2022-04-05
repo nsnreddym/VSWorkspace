@@ -43,10 +43,10 @@
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbBal = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cbCreditAC = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbBal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,7 +138,9 @@
             "Dr",
             "Cr",
             "Tr_SA",
-            "Tr_LN"});
+            "Tr_LN",
+            "Cr_LN",
+            "Dr_LN"});
             this.cbTranType.Location = new System.Drawing.Point(90, 66);
             this.cbTranType.Name = "cbTranType";
             this.cbTranType.Size = new System.Drawing.Size(48, 23);
@@ -206,6 +208,23 @@
             this.panel1.Size = new System.Drawing.Size(454, 280);
             this.panel1.TabIndex = 15;
             // 
+            // lbBal
+            // 
+            this.lbBal.AutoSize = true;
+            this.lbBal.Location = new System.Drawing.Point(339, 197);
+            this.lbBal.Name = "lbBal";
+            this.lbBal.Size = new System.Drawing.Size(0, 15);
+            this.lbBal.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(285, 197);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 15);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Balance";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -224,23 +243,6 @@
             this.cbCreditAC.TabIndex = 14;
             this.cbCreditAC.TabStop = false;
             this.cbCreditAC.SelectedIndexChanged += new System.EventHandler(this.cbCreditAC_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(285, 197);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 15);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Balance";
-            // 
-            // lbBal
-            // 
-            this.lbBal.AutoSize = true;
-            this.lbBal.Location = new System.Drawing.Point(339, 197);
-            this.lbBal.Name = "lbBal";
-            this.lbBal.Size = new System.Drawing.Size(0, 15);
-            this.lbBal.TabIndex = 16;
             // 
             // AddTran
             // 

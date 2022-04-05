@@ -35,12 +35,18 @@ namespace FinancialDataBase
         public double ROI;
         public double BEMI;
     }
-    public struct BDGInfoData
+    public struct MntlyBalData
     {
         public int ID;
         public string Name;
         public double EMI;
         public int paidstatus;
+    }
+    public struct MntlyBDGInfoData
+    {
+        public int ID;
+        public int Category;
+        public double Budget;
     }
 
     public struct AccountInfoData
@@ -90,7 +96,9 @@ namespace FinancialDataBase
         Dr = 0,
         Cr,
         Tr_SA,
-        Tr_LN
+        Tr_LN,
+        Cr_LN,
+        Dr_LN
     }
 
     public enum Errors
@@ -733,7 +741,7 @@ namespace FinancialDataBase
             if(transType == TransType.Cr)
             {
                 //Update balance
-                BEMI = BEMI + 1;
+                //BEMI = BEMI + 1;
                 Bal = Bal + (int)(Convert.ToDouble(EMI));
 
                 cmd.CommandText = @"Update Info_LoanAccount set " +
@@ -756,9 +764,10 @@ namespace FinancialDataBase
             }
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = @"Insert into " + TableName + "(Date, EMI) Values (" + " '" +
+            cmd.CommandText = @"Insert into " + TableName + "(Date, EMI, TranType) Values (" + " '" +
                                 date + "', " +
-                                EMI +  ");";
+                                EMI + ", " +
+                                ((int)transType).ToString() + ");";
 
             cmd.ExecuteNonQuery();
             
@@ -881,9 +890,9 @@ namespace FinancialDataBase
         #endregion
 
         #region MonthlyBudget
-        public static List<BDGInfoData> ReadBudget()
+        public static List<MntlyBalData> ReadMntlyData()
         {
-            List <BDGInfoData> bDGInfoData = new List<BDGInfoData>();
+            List <MntlyBalData> mntlybaldata = new List<MntlyBalData>();
 
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
 
@@ -899,7 +908,7 @@ namespace FinancialDataBase
 
             while (datareader.Read())
             {
-                bDGInfoData.Add(new BDGInfoData
+                mntlybaldata.Add(new MntlyBalData
                 {
                     ID = datareader.GetInt32(0),
                     Name = datareader.GetString(1),
@@ -909,10 +918,10 @@ namespace FinancialDataBase
 
             conn.Close();
 
-            return bDGInfoData;
+            return mntlybaldata;
         }
 
-        public static void UpdateBudget(string name)
+        public static void UpdateMntlyData(string name)
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
 
@@ -927,6 +936,38 @@ namespace FinancialDataBase
             cmd.ExecuteNonQuery();
 
             conn.Close();
+        }
+
+        public static List<MntlyBDGInfoData> ReadMntlyBDGData()
+        {
+            List<MntlyBDGInfoData> mntlybdgdata = new List<MntlyBDGInfoData>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"Select * from budget;";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                mntlybdgdata.Add(new MntlyBDGInfoData
+                {
+                    ID = datareader.GetInt32(0),
+                    Category = datareader.GetInt32(1),
+                    Budget = datareader.GetDouble(2)
+                });
+            }
+
+            conn.Close();
+
+            return mntlybdgdata;
+
         }
         #endregion
 
