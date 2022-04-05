@@ -43,7 +43,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ControlBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ControlBox = new System.Windows.Forms.GroupBox();
             this.bExpand = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.ControlBox2.SuspendLayout();
             this.ControlBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).BeginInit();
@@ -210,7 +210,7 @@
             // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.ControlBox2);
             this.panel1.Controls.Add(this.ControlBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -218,14 +218,14 @@
             this.panel1.Size = new System.Drawing.Size(794, 200);
             this.panel1.TabIndex = 0;
             // 
-            // groupBox1
+            // ControlBox2
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Location = new System.Drawing.Point(453, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(245, 182);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
+            this.ControlBox2.Controls.Add(this.checkBox1);
+            this.ControlBox2.Location = new System.Drawing.Point(453, 9);
+            this.ControlBox2.Name = "ControlBox2";
+            this.ControlBox2.Size = new System.Drawing.Size(245, 182);
+            this.ControlBox2.TabIndex = 14;
+            this.ControlBox2.TabStop = false;
             // 
             // checkBox1
             // 
@@ -399,8 +399,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.ControlBox2.ResumeLayout(false);
+            this.ControlBox2.PerformLayout();
             this.ControlBox.ResumeLayout(false);
             this.ControlBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -438,7 +438,7 @@
         private Button bExpand;
         private Button bCollapse;
         private GroupBox ControlBox;
-        private GroupBox groupBox1;
+        private GroupBox ControlBox2;
         private CheckBox checkBox1;
     }
 }

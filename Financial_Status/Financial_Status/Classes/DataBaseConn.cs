@@ -552,6 +552,7 @@ namespace FinancialDataBase
             return savingsdata;
 
         }
+
         public static List<SavingsAccData> GetSavingsData(string TableName, int Category, int month, int year)
         {
             int days = DateTime.DaysInMonth(year, month);
@@ -596,6 +597,46 @@ namespace FinancialDataBase
 
         }
 
+        public static double Getbalance(string TableName, int Category, int TranType, int month, int year)
+        {
+            double balance;
+            int days = DateTime.DaysInMonth(year, month);
+            string cmdstr1;
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            cmdstr1 = @"Select sum(Amount) from " + TableName + 
+                       " where (TranType = " + TranType.ToString() + " and " +
+                                "Category = " + Category.ToString() + " and " +
+                                "(Date between '" + year + "-" + month.ToString("D2") + "-01' and '" +
+                                                    year + "-" + month.ToString("D2") + "-" + days.ToString("D2") + "'));";
+
+            cmd.CommandText = cmdstr1;
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            balance = 0;
+
+            datareader.Read();
+
+            try
+            {
+                balance = datareader.GetDouble(0);
+            }
+            catch (Exception ex)
+            {
+                balance = 0;
+            }
+            
+
+            conn.Close();
+
+            return balance;
+        }
         public static double GetTotalSavings()
         {
             double totalDebt = 0;
@@ -666,7 +707,7 @@ namespace FinancialDataBase
             conn.Close();
         }
 
-        public static void AddLoanRecord(string TableName, string date, string EMI)
+        public static void AddLoanRecord(string TableName, string date, string EMI, TransType transType)
         {
             double ROI, Bal, BEMI;
             double interest;
@@ -689,16 +730,30 @@ namespace FinancialDataBase
 
             datareader.Close();
 
-            //Update balance
-            BEMI = BEMI - 1;
-            interest = ROI * Bal / 12/100;
-            Bal = Bal - (int)(Convert.ToDouble(EMI) - interest);
+            if(transType == TransType.Cr)
+            {
+                //Update balance
+                BEMI = BEMI + 1;
+                Bal = Bal + (int)(Convert.ToDouble(EMI));
 
-            cmd.CommandText = @"Update Info_LoanAccount set "  + 
-                               "Balance = " + Bal.ToString() + "," +
-                               "BEMI = " + BEMI.ToString() + " " +
-                               "where Name = '" + TableName + "'; ";
+                cmd.CommandText = @"Update Info_LoanAccount set " +
+                                   "Balance = " + Bal.ToString() + "," +
+                                   "BEMI = " + BEMI.ToString() + " " +
+                                   "where Name = '" + TableName + "'; ";
 
+            }
+            else
+            {
+                //Update balance
+                BEMI = BEMI - 1;
+                interest = ROI * Bal / 12 / 100;
+                Bal = Bal - (int)(Convert.ToDouble(EMI) - interest);
+
+                cmd.CommandText = @"Update Info_LoanAccount set " +
+                                   "Balance = " + Bal.ToString() + "," +
+                                   "BEMI = " + BEMI.ToString() + " " +
+                                   "where Name = '" + TableName + "'; ";
+            }
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = @"Insert into " + TableName + "(Date, EMI) Values (" + " '" +
@@ -743,6 +798,38 @@ namespace FinancialDataBase
 
         }
 
+        public static List<string> GetallLNAC(string LnType, bool condition)
+        {
+            List<string> All_Names = new List<string>();
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            if (condition)
+            {
+                cmd.CommandText = @"Select Name from Info_LoanAccount where Balance > 0 and LoanType = '" + LnType + "'; ";
+            }
+            else
+            {
+                cmd.CommandText = @"Select Name from Info_LoanAccount where LoanType = '" + LnType + "';";
+            }
+
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                All_Names.Add(datareader.GetString(0));
+            }
+
+            conn.Close();
+
+            return All_Names;
+
+        }
 
         public static double GetTotalDebt()
         {

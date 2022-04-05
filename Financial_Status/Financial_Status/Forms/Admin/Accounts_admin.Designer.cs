@@ -258,7 +258,8 @@
             "PL",
             "HL",
             "CL",
-            "VL"});
+            "VL",
+            "GL"});
             this.cbLnType.Location = new System.Drawing.Point(333, 16);
             this.cbLnType.Name = "cbLnType";
             this.cbLnType.Size = new System.Drawing.Size(81, 23);

@@ -58,7 +58,13 @@ namespace Financial_Status
                 cbAccount.Items.Add(data[cnt]);
             }
 
-            
+            List <string> data2 = DataBasedata.GetallLNAC("GL",false);
+
+            for (int cnt = 0; cnt < data2.Count; cnt++)
+            {
+                cbAccount.Items.Add(data2[cnt]);
+            }
+
 
             foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
             {
@@ -88,7 +94,7 @@ namespace Financial_Status
             if (cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text);
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, (TransType)cbTranType.SelectedIndex);
                 DataBasedata.UpdateBudget(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account
