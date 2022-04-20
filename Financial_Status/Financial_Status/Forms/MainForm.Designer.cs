@@ -40,6 +40,7 @@
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyBudgetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expenditureSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loanSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,6 +100,7 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accountSummaryToolStripMenuItem,
+            this.loanSummaryToolStripMenuItem,
             this.transactionsToolStripMenuItem,
             this.monthlyBudgetToolStripMenuItem,
             this.expenditureSummaryToolStripMenuItem});
@@ -135,6 +137,13 @@
             this.expenditureSummaryToolStripMenuItem.Text = "Expenditure Summary";
             this.expenditureSummaryToolStripMenuItem.Click += new System.EventHandler(this.expenditureSummaryToolStripMenuItem_Click);
             // 
+            // loanSummaryToolStripMenuItem
+            // 
+            this.loanSummaryToolStripMenuItem.Name = "loanSummaryToolStripMenuItem";
+            this.loanSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.loanSummaryToolStripMenuItem.Text = "Loan Summary";
+            this.loanSummaryToolStripMenuItem.Click += new System.EventHandler(this.loanSummaryToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -167,5 +176,6 @@
         private ToolStripMenuItem transactionsToolStripMenuItem;
         private ToolStripMenuItem monthlyBudgetToolStripMenuItem;
         private ToolStripMenuItem expenditureSummaryToolStripMenuItem;
+        private ToolStripMenuItem loanSummaryToolStripMenuItem;
     }
 }

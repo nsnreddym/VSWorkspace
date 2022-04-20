@@ -26,6 +26,9 @@
     <Compile Update="Forms\Users\ExpenditureSummary.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Users\LoanSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Users\Login.cs">
       <SubType>Form</SubType>
     </Compile>

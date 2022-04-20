@@ -21,6 +21,11 @@ namespace Financial_Status.Forms.Users
         List<int> Groupstrtindx = new List<int>();
         List<int> Groupendindx = new List<int>();
 
+        DataGridViewCellStyle datacellstyle = new DataGridViewCellStyle();
+        DataGridViewCellStyle groupcellstyle = new DataGridViewCellStyle();
+        DataGridViewCellStyle Totalcellstyle = new DataGridViewCellStyle();
+        DataGridViewCellStyle Totalcellstyle_max = new DataGridViewCellStyle();
+
         public ExpenditureSummary()
         {
             InitializeComponent();
@@ -28,9 +33,7 @@ namespace Financial_Status.Forms.Users
 
         #region Yearwise
         private void PrepareTable(int year)
-        {
-            DataGridViewCellStyle datacellstyle = new DataGridViewCellStyle();
-            DataGridViewCellStyle groupcellstyle = new DataGridViewCellStyle();
+        {            
 
             datacellstyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             datacellstyle.BackColor = Color.White;
@@ -41,6 +44,16 @@ namespace Financial_Status.Forms.Users
             groupcellstyle.BackColor = Color.White;            
             groupcellstyle.ForeColor = Color.Black;
             groupcellstyle.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+
+            Totalcellstyle_max.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Totalcellstyle_max.BackColor = Color.LightGoldenrodYellow;
+            Totalcellstyle_max.ForeColor = Color.Red;
+            Totalcellstyle_max.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
+
+            Totalcellstyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Totalcellstyle.BackColor = Color.LightGoldenrodYellow;
+            Totalcellstyle.ForeColor = Color.Green;
+            Totalcellstyle.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
 
 
             dataview.Columns.Clear();
@@ -80,6 +93,7 @@ namespace Financial_Status.Forms.Users
         {
             int groupindx;
             List<MntlyBDGInfoData> mntlyBDGData = new List<MntlyBDGInfoData>();
+            double[] total = new double[13];
             Category item = new Category();
 
             double balance;
@@ -92,6 +106,11 @@ namespace Financial_Status.Forms.Users
 
             mntlyBDGData = DataBasedata.ReadMntlyBDGData();
 
+            for(int i = 0; i < 13; i++)
+            {
+                total[i] = 0;
+            }
+
             //foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
             for (int indx = 0;  indx < mntlyBDGData.Count; indx++)                
             {
@@ -101,6 +120,8 @@ namespace Financial_Status.Forms.Users
                 groupindx = dataview.Rows.Count - 1;
                 dataview.Rows[groupindx].Cells["Group"].Value = item.ToString();
                 dataview.Rows[groupindx].Cells["Budget"].Value = mntlyBDGData[indx].Budget.ToString("N");
+
+                total[0] = total[0] + mntlyBDGData[indx].Budget;
 
                 for (int month = 1; month <= 12; month++)
                 {
@@ -121,11 +142,42 @@ namespace Financial_Status.Forms.Users
                         dataview.Rows[groupindx].Cells[name].Style.ForeColor = Color.Red;
                     }
                     dataview.Rows[groupindx].Cells[name].Value = balance.ToString("N");
+
+                    total[month] = total[month] + balance;
                 }
                 
             }
-            
-               
+
+            dataview.Rows.Add();
+            groupindx = dataview.Rows.Count - 1;
+            dataview.Rows[groupindx].Cells["Group"].Value = "Total";
+            dataview.Rows[groupindx].Cells["Budget"].Value = total[0].ToString("N");
+            dataview.Rows[groupindx].Cells["Group"].Style = Totalcellstyle;
+            dataview.Rows[groupindx].Cells["Budget"].Style = Totalcellstyle;
+
+            for (int month = 1; month <= 12; month++)
+            {
+                string name;
+                DateTime date = new DateTime(2020, month, 1);
+
+                name = date.ToString("MMM");
+
+                if (total[month] > total[0])
+                {
+                    dataview.Rows[groupindx].Cells[name].Style = Totalcellstyle_max;
+                    
+                }
+                else
+                {
+                    dataview.Rows[groupindx].Cells[name].Style = Totalcellstyle;
+                }
+
+                dataview.Rows[groupindx].Cells[name].Style.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+
+                dataview.Rows[groupindx].Cells[name].Value = total[month].ToString("N");
+            }
+
+
         }
 
         #endregion
@@ -402,6 +454,8 @@ namespace Financial_Status.Forms.Users
 
         private void ExpenditureSummary_Load(object sender, EventArgs e)
         {
+            WindowState = FormWindowState.Maximized;
+
             tableLayoutPanel1.RowStyles[0].SizeType = SizeType.AutoSize;
             tableLayoutPanel1.RowStyles[0].Height = panel1.Height;
 
@@ -413,13 +467,14 @@ namespace Financial_Status.Forms.Users
             //Read table names
             SQLTableNames = DataBasedata.GetSavingsAC();
 
-            comboBox1.SelectedIndex = 0;
-
             button1.Enabled = true;
             comboBox1.Enabled = true;
             cbMonth.SelectedIndex = 0;
 
-            dataview.CellMouseClick += Dataview_CellMouseClick;          
+            dataview.CellMouseClick += Dataview_CellMouseClick;
+
+            checkBox1.Checked = true;
+            comboBox1.SelectedIndex = 0;
 
 
             //PleaseWaitLabel.Visible = false;

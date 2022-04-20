@@ -117,5 +117,12 @@ namespace Financial_Status
             expendituresummary.MdiParent = this;
             expendituresummary.Show();
         }
+
+        private void loanSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoanSummary loansummary = new LoanSummary();
+            loansummary.MdiParent = this;
+            loansummary.Show();
+        }
     }
 }
