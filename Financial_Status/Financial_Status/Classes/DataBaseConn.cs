@@ -88,7 +88,8 @@ namespace FinancialDataBase
         Invest = 12,
         Medical = 13,
         Travel = 14,
-        Education = 15
+        Education = 15,
+        OneTimeExpenditure
     }
 
     public enum TransType
