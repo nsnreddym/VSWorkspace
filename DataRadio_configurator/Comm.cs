@@ -31,6 +31,8 @@ namespace DataRadio_configurator
 		const byte PWR_ON = 0x0A;
 		const byte RX_OFF = 0x0C;
 		const byte RX_ON = 0x0D;
+		const byte TSTMODE_ON = 0x0E;
+		const byte TSTMODE_OFF = 0x0F;
 
 		public Comm()
 		{
@@ -182,14 +184,23 @@ namespace DataRadio_configurator
 				return 0;
             }
 		}
-		public int TxEnable(bool Txstate)
+		public int TxEnable(bool Txstate, int bit)
 		{
 			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
 			byte[] addr = new byte[4];
 			byte[] data = new byte[4];
 
+			if(bit == 0)
+            {
+				data[0] = 0;
+			}
+			else
+            {
+				data[0] = 1;
+			}
+
 			if (Txstate == true)
-			{
+			{				
 				Prepare_packet(PWR_ON, addr, data);
 			}
 			else
@@ -216,6 +227,42 @@ namespace DataRadio_configurator
 				sport.Close(); 
 				return 0;
             }
+		}
+
+		public int TstMode(bool Tststate)
+		{
+			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
+			byte[] addr = new byte[4];
+			byte[] data = new byte[4];
+
+			if (Tststate == true)
+			{
+				Prepare_packet(TSTMODE_ON, addr, data);
+			}
+			else
+			{
+				Prepare_packet(TSTMODE_OFF, addr, data);
+			}
+
+			sport.Open();
+
+			/* send serial data */
+			SendDataPacket(sport);
+
+			/* Read reply */
+			ReadResponse(sport);
+
+			if (RxBuf[3] == 0x05)
+			{
+				sport.Close();
+				return 1;
+
+			}
+			else
+			{
+				sport.Close();
+				return 0;
+			}
 		}
 
 		public int Read_bytes(int chno_add, ref byte[] replybytes)
@@ -313,6 +360,9 @@ namespace DataRadio_configurator
 
 			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
 			bytedata = BitConverter.GetBytes(addr);
+
+			//sport.ReadBufferSize = 1000;
+			//sport.ReadTimeout = 1000;
 
 			//sof
 			TxBuf[0] = 0xA5;

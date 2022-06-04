@@ -49,6 +49,8 @@ namespace DataRadio_configurator
             this.cbWrDefault = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.UsrChannel = new System.Windows.Forms.GroupBox();
+            this.rbTCAS = new System.Windows.Forms.RadioButton();
+            this.rbEOT = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tbStatus = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -59,8 +61,9 @@ namespace DataRadio_configurator
             this.bSubmit = new System.Windows.Forms.Button();
             this.Ch_no_CB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.rbEOT = new System.Windows.Forms.RadioButton();
-            this.rbTCAS = new System.Windows.Forms.RadioButton();
+            this.cbTstMode = new System.Windows.Forms.CheckBox();
+            this.cbBit = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.UsrChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -277,6 +280,28 @@ namespace DataRadio_configurator
             this.UsrChannel.TabStop = false;
             this.UsrChannel.Text = "User Channels";
             // 
+            // rbTCAS
+            // 
+            this.rbTCAS.AutoSize = true;
+            this.rbTCAS.Checked = true;
+            this.rbTCAS.Location = new System.Drawing.Point(368, 43);
+            this.rbTCAS.Name = "rbTCAS";
+            this.rbTCAS.Size = new System.Drawing.Size(53, 17);
+            this.rbTCAS.TabIndex = 19;
+            this.rbTCAS.TabStop = true;
+            this.rbTCAS.Text = "TCAS";
+            this.rbTCAS.UseVisualStyleBackColor = true;
+            // 
+            // rbEOT
+            // 
+            this.rbEOT.AutoSize = true;
+            this.rbEOT.Location = new System.Drawing.Point(368, 21);
+            this.rbEOT.Name = "rbEOT";
+            this.rbEOT.Size = new System.Drawing.Size(47, 17);
+            this.rbEOT.TabIndex = 18;
+            this.rbEOT.Text = "EOT";
+            this.rbEOT.UseVisualStyleBackColor = true;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -315,6 +340,9 @@ namespace DataRadio_configurator
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.cbBit);
+            this.groupBox3.Controls.Add(this.cbTstMode);
             this.groupBox3.Controls.Add(this.cbRxEN);
             this.groupBox3.Controls.Add(this.cbTxEN);
             this.groupBox3.Location = new System.Drawing.Point(514, 209);
@@ -327,7 +355,7 @@ namespace DataRadio_configurator
             // cbRxEN
             // 
             this.cbRxEN.AutoSize = true;
-            this.cbRxEN.Location = new System.Drawing.Point(25, 54);
+            this.cbRxEN.Location = new System.Drawing.Point(25, 79);
             this.cbRxEN.Name = "cbRxEN";
             this.cbRxEN.Size = new System.Drawing.Size(75, 17);
             this.cbRxEN.TabIndex = 19;
@@ -338,7 +366,7 @@ namespace DataRadio_configurator
             // cbTxEN
             // 
             this.cbTxEN.AutoSize = true;
-            this.cbTxEN.Location = new System.Drawing.Point(25, 31);
+            this.cbTxEN.Location = new System.Drawing.Point(25, 56);
             this.cbTxEN.Name = "cbTxEN";
             this.cbTxEN.Size = new System.Drawing.Size(74, 17);
             this.cbTxEN.TabIndex = 18;
@@ -396,27 +424,36 @@ namespace DataRadio_configurator
             this.label1.TabIndex = 23;
             this.label1.Text = "Channel No";
             // 
-            // rbEOT
+            // cbTstMode
             // 
-            this.rbEOT.AutoSize = true;
-            this.rbEOT.Location = new System.Drawing.Point(368, 21);
-            this.rbEOT.Name = "rbEOT";
-            this.rbEOT.Size = new System.Drawing.Size(47, 17);
-            this.rbEOT.TabIndex = 18;
-            this.rbEOT.Text = "EOT";
-            this.rbEOT.UseVisualStyleBackColor = true;
+            this.cbTstMode.AutoSize = true;
+            this.cbTstMode.Location = new System.Drawing.Point(85, 18);
+            this.cbTstMode.Name = "cbTstMode";
+            this.cbTstMode.Size = new System.Drawing.Size(77, 17);
+            this.cbTstMode.TabIndex = 20;
+            this.cbTstMode.Text = "Test Mode";
+            this.cbTstMode.UseVisualStyleBackColor = true;
+            this.cbTstMode.CheckedChanged += new System.EventHandler(this.cbTstMode_CheckedChanged);
             // 
-            // rbTCAS
+            // cbBit
             // 
-            this.rbTCAS.AutoSize = true;
-            this.rbTCAS.Checked = true;
-            this.rbTCAS.Location = new System.Drawing.Point(368, 43);
-            this.rbTCAS.Name = "rbTCAS";
-            this.rbTCAS.Size = new System.Drawing.Size(53, 17);
-            this.rbTCAS.TabIndex = 19;
-            this.rbTCAS.TabStop = true;
-            this.rbTCAS.Text = "TCAS";
-            this.rbTCAS.UseVisualStyleBackColor = true;
+            this.cbBit.FormattingEnabled = true;
+            this.cbBit.Items.AddRange(new object[] {
+            "0",
+            "1"});
+            this.cbBit.Location = new System.Drawing.Point(169, 52);
+            this.cbBit.Name = "cbBit";
+            this.cbBit.Size = new System.Drawing.Size(48, 21);
+            this.cbBit.TabIndex = 21;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(144, 55);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(19, 13);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Bit";
             // 
             // Radio_Program
             // 
@@ -478,5 +515,8 @@ namespace DataRadio_configurator
         private System.Windows.Forms.CheckBox cbRxEN;
         private System.Windows.Forms.RadioButton rbTCAS;
         private System.Windows.Forms.RadioButton rbEOT;
+        private System.Windows.Forms.CheckBox cbTstMode;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbBit;
     }
 }

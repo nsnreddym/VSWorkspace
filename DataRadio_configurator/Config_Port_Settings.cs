@@ -51,7 +51,6 @@ namespace DataRadio_configurator
 
             Global.PortName = Portsel_CB.SelectedItem.ToString();
             Global.Baudrate = Baudrateindex[Bdsel_CB.SelectedIndex];
-            //Global.Baudrate = Baudrateindex[Bdsel_CB.SelectedIndex];
 
            ((MainForm)this.MdiParent).Update();
 

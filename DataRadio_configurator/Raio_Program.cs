@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Ports;
+using System.IO;
 
 namespace DataRadio_configurator
 {
@@ -120,13 +120,22 @@ namespace DataRadio_configurator
             return VCOtuned;
         }
 
-        private int Upload_freq(int mode)
+        private int Upload_freq(int mode, int pwr)
         {
             byte[] bytedata = new byte[4];
             byte[] tmpdata = new byte[4];
             int indx;
             int reg;
+            string[] pwrdata = new string[10];
+            byte pwrvalue = new byte();
 
+            StreamReader Pwrfile = new StreamReader(@".\PwrConfig.txt");
+
+            for (int i= 0; i< 10; i++)
+            {
+                pwrdata[i] = Pwrfile.ReadLine();
+            }
+            Pwrfile.Close();
             indx = 0;
 
             //If Tx mode
@@ -148,7 +157,7 @@ namespace DataRadio_configurator
 
                 //Reg 0x07-->  rx power
                 //synth_reg.SYNTH_REG_t_update(4, 0x07, 0x00, 0x84);
-                synth_reg.SYNTH_REG_t_update(4, 0x07, 0x00, 0x87);
+                synth_reg.SYNTH_REG_t_update(4, 0x07, 0x00, 0x07);
 
                 indx = 5;
             }
@@ -178,7 +187,19 @@ namespace DataRadio_configurator
             //Reg 0x00-->  Reset
             synth_reg.SYNTH_REG_t_update(indx + 5, 0x00, 0x00, 0x83);
 
-            return indx + 6;
+            pwrvalue = Convert.ToByte(pwrdata[pwr],16);
+
+            if (mode == 0)
+            {
+                //Reg 0xFE-->  PWR
+                synth_reg.SYNTH_REG_t_update(indx + 6, 0xFE, 0x00, pwrvalue);
+
+                return indx + 7;
+            }
+            else
+            {
+                return indx + 6;
+            }
 
         }
 
@@ -318,7 +339,7 @@ namespace DataRadio_configurator
             TxFreq_input = Convert.ToDouble(TxFreq.Text);
             Frequency_calc(TxFreq_input);
             
-            returnval_tx = Upload_freq(0);
+            returnval_tx = Upload_freq(0, cbTxPwr.SelectedIndex);
 
             tbWrite("Tx channel address:" + addr.ToString("x"));
             addr = ProgComm.ProgChannel(addr, synth_reg, returnval_tx);
@@ -327,7 +348,7 @@ namespace DataRadio_configurator
             RxFreq_input = Convert.ToDouble(RxFreq.Text);
             Frequency_calc(RxFreq_input);
             
-            returnval_rx = Upload_freq(1);
+            returnval_rx = Upload_freq(1,cbTxPwr.SelectedIndex);
 
             tbWrite("Rx channel address:" + addr.ToString("x"));
             addr = ProgComm.ProgChannel(addr, synth_reg, returnval_rx);
@@ -379,7 +400,7 @@ namespace DataRadio_configurator
             Comm CfgComm = new Comm();
             int returnval;
 
-            returnval = CfgComm.TxEnable(cbTxEN.Checked);
+            returnval = CfgComm.TxEnable(cbTxEN.Checked, cbBit.SelectedIndex);
 
             
             if (returnval == 1)
@@ -399,6 +420,26 @@ namespace DataRadio_configurator
             int returnval;
 
             returnval = CfgComm.RxEnable(cbRxEN.Checked);
+
+
+            if (returnval == 1)
+            {
+                tbWrite(" CMD success");
+            }
+            else
+            {
+                tbWrite("CMD failed");
+            }
+        }
+
+        private void cbTstMode_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            byte[] chno = new byte[4];
+            Comm CfgComm = new Comm();
+            int returnval;
+
+            returnval = CfgComm.TstMode(cbTstMode.Checked);
 
 
             if (returnval == 1)
