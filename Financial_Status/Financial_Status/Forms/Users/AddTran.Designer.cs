@@ -140,7 +140,9 @@
             "Tr_SA",
             "Tr_LN",
             "Cr_LN",
-            "Dr_LN"});
+            "Dr_LN",
+            "Cr_GLN",
+            "Dr_GLN"});
             this.cbTranType.Location = new System.Drawing.Point(90, 66);
             this.cbTranType.Name = "cbTranType";
             this.cbTranType.Size = new System.Drawing.Size(48, 23);

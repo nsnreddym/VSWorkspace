@@ -85,6 +85,7 @@ namespace DataRadio_configurator
             "4800",
             "9600",
             "19200",
+            "57600",
             "115200"});
             this.Bdsel_CB.Location = new System.Drawing.Point(135, 79);
             this.Bdsel_CB.Name = "Bdsel_CB";

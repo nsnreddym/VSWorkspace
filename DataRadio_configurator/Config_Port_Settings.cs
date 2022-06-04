@@ -38,7 +38,7 @@ namespace DataRadio_configurator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int[] Baudrateindex = new int[8];
+            int[] Baudrateindex = new int[9];
             Baudrateindex[0] = 100;
             Baudrateindex[1] = 300;
             Baudrateindex[2] = 600;
@@ -46,10 +46,12 @@ namespace DataRadio_configurator
             Baudrateindex[4] = 4800;
             Baudrateindex[5] = 9600;
             Baudrateindex[6] = 19200;
-            Baudrateindex[7] = 115200;
+            Baudrateindex[7] = 57600;
+            Baudrateindex[8] = 115200;
 
             Global.PortName = Portsel_CB.SelectedItem.ToString();
             Global.Baudrate = Baudrateindex[Bdsel_CB.SelectedIndex];
+            //Global.Baudrate = Baudrateindex[Bdsel_CB.SelectedIndex];
 
            ((MainForm)this.MdiParent).Update();
 

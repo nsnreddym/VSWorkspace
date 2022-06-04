@@ -58,12 +58,12 @@ namespace Financial_Status
                 cbAccount.Items.Add(data[cnt]);
             }
 
-            List <string> data2 = DataBasedata.GetallLNAC("GL",false);
+            /*List <string> data2 = DataBasedata.GetallLNAC("GL",false);
 
             for (int cnt = 0; cnt < data2.Count; cnt++)
             {
                 cbAccount.Items.Add(data2[cnt]);
-            }
+            }*/
 
 
             foreach (var item in Enum.GetValues(typeof(FinancialDataBase.Category)))
@@ -98,7 +98,7 @@ namespace Financial_Status
                 DataBasedata.UpdateMntlyData(cbCreditAC.SelectedItem.ToString());
 
                 //Update in debit savings account
-                savingsdata.TranType = TransType.Dr; 
+                savingsdata.TranType = TransType.Dr;
                 savingsdata.Description = "Transfer to Loan Account: " + cbCreditAC.SelectedItem.ToString();
                 balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
@@ -123,8 +123,35 @@ namespace Financial_Status
             else if (cbTranType.SelectedItem.ToString() == "Dr_LN")
             {
                 ///Update in loan account
-                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);                
+                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);
                 balance = 0;
+            }
+            else if (cbTranType.SelectedItem.ToString() == "Cr_GLN")
+            {
+#if false
+                //Update in loan account
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Cr);
+                DataBasedata.UpdateMntlyData(cbCreditAC.SelectedItem.ToString());
+
+                //Update in debit savings account
+                savingsdata.TranType = TransType.Dr;
+                savingsdata.Description = "Transfer to Loan Account: " + cbCreditAC.SelectedItem.ToString();
+                balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
+#endif
+                MessageBox.Show("Not Implemented Feature");
+                balance = 0;
+
+            }
+            else if (cbTranType.SelectedItem.ToString() == "Dr_GLN")
+            {
+                //Update in loan account
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);
+                DataBasedata.UpdateMntlyData(cbCreditAC.SelectedItem.ToString());
+
+                //Update in debit savings account
+                savingsdata.TranType = TransType.Dr;
+                savingsdata.Description = "Transfer to Loan Account: " + cbCreditAC.SelectedItem.ToString();
+                balance = DataBasedata.AddSavingsRecord(cbAccount.SelectedItem.ToString(), savingsdata);
             }
             else
             {
@@ -148,6 +175,24 @@ namespace Financial_Status
 
                 //Get all Account details
                 List<string> data2 = DataBasedata.GetallLNAC(true);
+                cbCreditAC.Items.Clear();
+
+                for (int cnt = 0; cnt < data2.Count; cnt++)
+                {
+                    cbCreditAC.Items.Add(data2[cnt]);
+                }
+                cbCreditAC.SelectedIndex = 0;
+                cbCategory.SelectedIndex = (int)Category.Loan;
+            }
+            else if((cbTranType.SelectedItem.ToString() == "Cr_GLN") || (cbTranType.SelectedItem.ToString() == "Dr_GLN"))
+            {
+                cbCreditAC.Enabled = true;
+                cbCategory.Enabled = false;
+                tbDesc.Enabled = false;
+                tbAmount.Enabled = true;
+
+                //Get all Account details
+                List<string> data2 = DataBasedata.GetallLNAC("GL", true);
                 cbCreditAC.Items.Clear();
 
                 for (int cnt = 0; cnt < data2.Count; cnt++)

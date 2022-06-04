@@ -95,11 +95,13 @@ namespace FinancialDataBase
     public enum TransType
     {
         Dr = 0,
-        Cr,
+        Cr/*,
         Tr_SA,
         Tr_LN,
         Cr_LN,
-        Dr_LN
+        Dr_LN,
+        Cr_GLN,
+        Dr_GLN*/
     }
 
     public enum Errors
