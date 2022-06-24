@@ -56,14 +56,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataview = new System.Windows.Forms.DataGridView();
+            this.DetailView = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.ControlBox2.SuspendLayout();
             this.ControlBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailView)).BeginInit();
             this.SuspendLayout();
             // 
             // Account
@@ -360,8 +364,8 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.dataview, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -371,19 +375,48 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.9874F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0126F));
+            this.tableLayoutPanel3.Controls.Add(this.dataview, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.DetailView, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 209);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(794, 238);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
             // dataview
             // 
             this.dataview.AllowUserToAddRows = false;
             this.dataview.AllowUserToDeleteRows = false;
             this.dataview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataview.Location = new System.Drawing.Point(3, 209);
+            this.dataview.Location = new System.Drawing.Point(3, 3);
             this.dataview.Name = "dataview";
             this.dataview.ReadOnly = true;
             this.dataview.RowHeadersVisible = false;
             this.dataview.RowTemplate.Height = 25;
-            this.dataview.Size = new System.Drawing.Size(794, 238);
+            this.dataview.Size = new System.Drawing.Size(509, 232);
             this.dataview.TabIndex = 2;
+            // 
+            // DetailView
+            // 
+            this.DetailView.AllowUserToAddRows = false;
+            this.DetailView.AllowUserToDeleteRows = false;
+            this.DetailView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DetailView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DetailView.Location = new System.Drawing.Point(518, 3);
+            this.DetailView.Name = "DetailView";
+            this.DetailView.ReadOnly = true;
+            this.DetailView.RowHeadersVisible = false;
+            this.DetailView.RowTemplate.Height = 25;
+            this.DetailView.Size = new System.Drawing.Size(273, 232);
+            this.DetailView.TabIndex = 3;
             // 
             // ExpenditureSummary
             // 
@@ -405,7 +438,9 @@
             this.ControlBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -440,5 +475,7 @@
         private GroupBox ControlBox;
         private GroupBox ControlBox2;
         private CheckBox checkBox1;
+        private TableLayoutPanel tableLayoutPanel3;
+        private DataGridView DetailView;
     }
 }

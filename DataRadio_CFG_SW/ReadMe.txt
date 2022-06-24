@@ -1,0 +1,5 @@
+-----> Initial
+--> Config upload and download implemented
+--> Read Configuration will show Frequency
+--> Health Status Read and shown
+--> Flash Memory can be read and shown in Hex display 

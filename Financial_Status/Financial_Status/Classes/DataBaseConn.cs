@@ -88,7 +88,7 @@ namespace FinancialDataBase
         Invest = 12,
         Medical = 13,
         Travel = 14,
-        Education = 15,
+        Education  = 15,
         OneTimeExpenditure
     }
 
@@ -298,6 +298,60 @@ namespace FinancialDataBase
             }
             datareader3.Close();
 
+            conn.Close();
+
+            return accountinfo;
+                      
+        }
+
+        public static List<AccountInfoData> ReadAccountInfo(string type)
+        {
+            List<AccountInfoData> accountinfo = new List<AccountInfoData>();
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+            string infotable;
+            string AccName;
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+            SQLiteCommand cmd2 = conn.CreateCommand();
+
+            accountinfo.Clear();
+
+            if (type == "Loan")
+            {
+                cmd.CommandText = "Select * from Info_LoanAccount where Balance > 0 order by LoanType, BEMI;";
+            }
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+            while (datareader.Read())
+            {
+                accountinfo.Add(new AccountInfoData
+                {
+                    ID = datareader.GetInt32(0),
+                    Type = "Loan",
+                    Name = datareader.GetString(1),
+                    InfoTable = "Info_LoanAccount",
+                    DataTable = datareader.GetString(1),
+                    LNInfo = new LNInfoData
+                    {
+                        ID = datareader.GetInt32(0),
+                        Name = datareader.GetString(1),
+                        AccNo = datareader.GetString(2),
+                        Bank = datareader.GetString(3),
+                        Balance = datareader.GetDouble(4),
+                        LoanAmount = datareader.GetDouble(5),
+                        EMI = datareader.GetDouble(6),
+                        //StartDate = datareader3.GetDateTime(7),
+                        Tenure = datareader.GetInt32(8),
+                        LnType = datareader.GetString(9),
+                        ROI = datareader.GetDouble(10),
+                        BEMI = datareader.GetDouble(11)
+                    }
+                });
+
+            }
+            datareader.Close();
+            
             conn.Close();
 
             return accountinfo;
@@ -752,7 +806,7 @@ namespace FinancialDataBase
                                    "BEMI = " + BEMI.ToString() + " " +
                                    "where Name = '" + TableName + "'; ";
 
-            }
+            }            
             else
             {
                 //Update balance
@@ -774,6 +828,71 @@ namespace FinancialDataBase
 
             cmd.ExecuteNonQuery();
             
+            conn.Close();
+        }
+        public static void AddLoanRecord(string TableName, string date, string Amount, string transType)
+        {
+            double ROI, Bal, BEMI;
+            double interest;
+            SQLiteConnection conn = new SQLiteConnection("Data Source = " + GlobalVar.DataBasePath + "; Version = 3;");
+
+            conn.Open();
+
+            SQLiteCommand cmd = conn.CreateCommand();
+
+            //Read balance 
+            cmd.CommandText = @"Select Balance, ROI, BEMI from Info_LoanAccount where Name = '" + TableName + "';";
+
+            SQLiteDataReader datareader = cmd.ExecuteReader();
+
+            datareader.Read();
+
+            Bal = datareader.GetDouble(0);
+            ROI = datareader.GetDouble(1);
+            BEMI = datareader.GetDouble(2);
+
+            datareader.Close();
+
+            if(transType == "Cr_LN")
+            {
+                //Update balance                
+                Bal = Bal - Convert.ToDouble(Amount);
+
+                cmd.CommandText = @"Update Info_LoanAccount set " +
+                                   "Balance = " + Bal.ToString() + "," +
+                                   "BEMI = " + BEMI.ToString() + " " +
+                                   "where Name = '" + TableName + "'; ";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = @"Insert into " + TableName + "(Date, EMI, TranType) Values (" + " '" +
+                                    date + "', " +
+                                    Amount + ", " +
+                                    "0" + ");";
+
+                cmd.ExecuteNonQuery();
+
+
+            }
+            else if (transType == "Cr_LN")
+            {
+                //Update balance
+                Bal = Bal + Convert.ToDouble(Amount);
+
+                cmd.CommandText = @"Update Info_LoanAccount set " +
+                                   "Balance = " + Bal.ToString() + "," +
+                                   "BEMI = " + BEMI.ToString() + " " +
+                                   "where Name = '" + TableName + "'; ";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = @"Insert into " + TableName + "(Date, EMI, TranType) Values (" + " '" +
+                                    date + "', " +
+                                    Amount + ", " +
+                                    "1" + ");";
+
+                cmd.ExecuteNonQuery();
+
+            }
+
             conn.Close();
         }
 

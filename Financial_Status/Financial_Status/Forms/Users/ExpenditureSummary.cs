@@ -71,6 +71,32 @@ namespace Financial_Status.Forms.Users
             dataview.Columns["Budget"].ReadOnly = true;
             dataview.Columns["Budget"].DefaultCellStyle = groupcellstyle;
 
+            DetailView.Columns.Add("Account", "Account");
+            DetailView.Columns["Account"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            DetailView.Columns["Account"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DetailView.Columns["Account"].ReadOnly = true;
+            DetailView.Columns["Account"].DefaultCellStyle = datacellstyle;
+
+            DetailView.Columns.Add("Date", "Date");
+            DetailView.Columns["Date"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            DetailView.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DetailView.Columns["Date"].ReadOnly = true;
+            DetailView.Columns["Date"].DefaultCellStyle = datacellstyle;
+
+            DetailView.Columns.Add("Desc", "Description");
+            DetailView.Columns["Desc"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            DetailView.Columns["Desc"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DetailView.Columns["Desc"].ReadOnly = true;
+            DetailView.Columns["Desc"].DefaultCellStyle = datacellstyle;
+
+            DetailView.Columns.Add("Amount", "Amount");
+            DetailView.Columns["Amount"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            DetailView.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DetailView.Columns["Amount"].ReadOnly = true;
+            DetailView.Columns["Amount"].DefaultCellStyle = datacellstyle;
+
+            DetailView.Show();
+
 
             for (int i = 1; i <= 12; i++)
             {
@@ -180,6 +206,71 @@ namespace Financial_Status.Forms.Users
 
         }
 
+        private void UpdateDetailTable(int year, int mon, int category)
+        {
+            int k;
+            double total;
+            double subtotal;
+
+            DetailView.Rows.Clear();
+            
+            subtotal = 0;
+            for (int j = 0; j < SQLTableNames.Count; j++)
+            {
+                total = 0;
+                List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(SQLTableNames[j].ToString(),
+                                                                               category + 1, mon, year);
+                if (savingsdata.Count > 0)
+                {
+                    for (int i = 0; i < savingsdata.Count; i++)
+                    {
+
+                        if ((int)savingsdata[i].TranType == 0)
+                        {
+                            DetailView.Rows.Add();
+                            k = DetailView.Rows.Count - 1;
+
+                            DetailView.Rows[k].Cells["Account"].Value = SQLTableNames[j].ToString();
+                            DetailView.Rows[k].Cells["date"].Value = savingsdata[i].date.ToShortDateString();
+                            DetailView.Rows[k].Cells["desc"].Value = savingsdata[i].Description;
+
+                            DetailView.Rows[k].Cells["Amount"].Value = savingsdata[i].Amount.ToString("N");
+
+                            total = total + savingsdata[i].Amount;
+
+                        }
+                    }
+                    DetailView.Rows.Add();
+                    k = DetailView.Rows.Count - 1;
+
+                    DetailView.Rows[k].Cells["desc"].Style = Totalcellstyle_max;
+                    DetailView.Rows[k].Cells["desc"].Style.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+                    DetailView.Rows[k].Cells["desc"].Value = "Total";
+
+                    DetailView.Rows[k].Cells["Amount"].Style = Totalcellstyle;
+                    DetailView.Rows[k].Cells["Amount"].Style.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+                    DetailView.Rows[k].Cells["Amount"].Value = total.ToString("N");
+
+                    subtotal = subtotal + total;
+
+                    DetailView.Rows.Add();
+
+                }
+
+            }
+            DetailView.Rows.Add();
+            k = DetailView.Rows.Count - 1;
+
+            DetailView.Rows[k].Cells["desc"].Style = Totalcellstyle_max;
+            DetailView.Rows[k].Cells["desc"].Style.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+            DetailView.Rows[k].Cells["desc"].Value = "Final Amount";
+
+            DetailView.Rows[k].Cells["Amount"].Style = Totalcellstyle;
+            DetailView.Rows[k].Cells["Amount"].Style.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+            DetailView.Rows[k].Cells["Amount"].Value = subtotal.ToString("N");
+
+
+        }
         #endregion
 
         #region Monthwise
@@ -278,7 +369,7 @@ namespace Financial_Status.Forms.Users
         private int updateRecord(string tablename, int category, int indx)
         {
             int j;
-            int k;
+            int k;            
 
             List<SavingsAccData> savingsdata = DataBasedata.GetSavingsData(tablename, category, cbMonth.SelectedIndex + 1, Convert.ToInt32(tbYear.Text));
 
@@ -434,20 +525,50 @@ namespace Financial_Status.Forms.Users
         #region Events
         private void Dataview_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (checkBox1.Checked == false)
             {
-                for (int i = 0; i < Groupstrtindx.Count; i++)
+                if (e.ColumnIndex == 0)
                 {
-                    if (Groupstrtindx[i] == e.RowIndex)
+                    for (int i = 0; i < Groupstrtindx.Count; i++)
                     {
-                        for (int j = Groupstrtindx[i]; j < Groupendindx[i]; j++)
+                        if (Groupstrtindx[i] == e.RowIndex)
                         {
-                            dataview.Rows[j + 1].Visible = !(dataview.Rows[j + 1].Visible);
+                            for (int j = Groupstrtindx[i]; j < Groupendindx[i]; j++)
+                            {
+                                dataview.Rows[j + 1].Visible = !(dataview.Rows[j + 1].Visible);
+                            }
                         }
                     }
                 }
+                RemoveEmptyColumns();
             }
-            RemoveEmptyColumns();
+            else
+            {
+                Category itemcategory;
+                string itemname;
+                int itemcode;
+
+                if((e.ColumnIndex > 1))
+                {
+                    itemname = dataview.Rows[e.RowIndex].Cells["Group"].Value.ToString();
+                    if (Enum.IsDefined(typeof(Category), itemname))
+                    {
+                        itemcategory = Enum.Parse<Category>(itemname);
+
+
+                        itemcode = itemcategory.GetHashCode();
+
+
+                        UpdateDetailTable(Convert.ToInt32(tbYear.Text),
+                                          e.ColumnIndex-1,
+                                          itemcode);
+
+                        /*MessageBox.Show("Coloumn clicked  " +
+                                         dataview.Rows[e.RowIndex].Cells["Group"].Value.ToString() + "   " +
+                                         dataview.Columns[e.ColumnIndex].HeaderText + "   " + itemcode.ToString());*/
+                    }
+                }
+            }
             //throw new NotImplementedException();
         }
 
@@ -475,6 +596,8 @@ namespace Financial_Status.Forms.Users
 
             checkBox1.Checked = true;
             comboBox1.SelectedIndex = 0;
+
+            DetailView.Hide();
 
 
             //PleaseWaitLabel.Visible = false;
@@ -507,6 +630,7 @@ namespace Financial_Status.Forms.Users
                 {
                     bExpand.Enabled = false;
                     bCollapse.Enabled = false;
+                    DetailView.Show();
                     UpdateTable(Convert.ToInt32(tbYear.Text));
                 }
                 else
@@ -514,7 +638,8 @@ namespace Financial_Status.Forms.Users
                     bExpand.Enabled = true;
                     bCollapse.Enabled = true;
                     trtype = comboBox1.SelectedIndex;
-
+                    DetailView.Hide();
+                    DetailView.Rows.Clear();
                     UpdateTable();
                     
                 }
@@ -532,14 +657,15 @@ namespace Financial_Status.Forms.Users
                 cbMonth.Enabled = false;
                 comboBox1.Enabled = false;
                 bExpand.Enabled = false;
-                bCollapse.Enabled = false;
+                bCollapse.Enabled = false;                
             }
             else
             {
                 cbMonth.Enabled = true;
-                comboBox1.Enabled = true;
+                comboBox1.Enabled = true;               
             }
         }
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

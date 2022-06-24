@@ -117,13 +117,13 @@ namespace Financial_Status
             else if (cbTranType.SelectedItem.ToString() == "Cr_LN")
             {
                 //Update in loan account
-                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Cr);
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, "Cr_LN");
                 balance = 0;
             }
             else if (cbTranType.SelectedItem.ToString() == "Dr_LN")
             {
                 ///Update in loan account
-                DataBasedata.AddLoanRecord(cbAccount.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, TransType.Dr);
+                DataBasedata.AddLoanRecord(cbCreditAC.SelectedItem.ToString(), cbDate.Value.ToString("yyyy-MM-dd"), tbAmount.Text, "Dr_LN");
                 balance = 0;
             }
             else if (cbTranType.SelectedItem.ToString() == "Cr_GLN")
@@ -168,6 +168,7 @@ namespace Financial_Status
         {
             if(cbTranType.SelectedItem.ToString() == "Tr_LN")
             {
+                cbAccount.Enabled = true;
                 cbCreditAC.Enabled = true;
                 cbCategory.Enabled = false;
                 tbDesc.Enabled = false;
@@ -184,8 +185,28 @@ namespace Financial_Status
                 cbCreditAC.SelectedIndex = 0;
                 cbCategory.SelectedIndex = (int)Category.Loan;
             }
+            else if((cbTranType.SelectedItem.ToString() == "Cr_LN") || (cbTranType.SelectedItem.ToString() == "Dr_LN"))
+            {
+                cbAccount.Enabled = false;
+                cbCreditAC.Enabled = true;
+                cbCategory.Enabled = false;
+                tbDesc.Enabled = false;
+                tbAmount.Enabled = true;
+
+                //Get all Account details
+                List<string> data2 = DataBasedata.GetallLNAC(true);
+                cbCreditAC.Items.Clear();
+
+                for (int cnt = 0; cnt < data2.Count; cnt++)
+                {
+                    cbCreditAC.Items.Add(data2[cnt]);
+                }
+                cbCreditAC.SelectedIndex = 0;
+                cbCategory.SelectedIndex = (int)Category.Loan;
+            }
             else if((cbTranType.SelectedItem.ToString() == "Cr_GLN") || (cbTranType.SelectedItem.ToString() == "Dr_GLN"))
             {
+                cbAccount.Enabled = true;
                 cbCreditAC.Enabled = true;
                 cbCategory.Enabled = false;
                 tbDesc.Enabled = false;
@@ -204,6 +225,7 @@ namespace Financial_Status
             }
             else if(cbTranType.SelectedItem.ToString() == "Tr_SA")
             {
+                cbAccount.Enabled = true;
                 cbCreditAC.Enabled = true;
                 cbCategory.Enabled = false;
                 tbDesc.Enabled = true;
@@ -222,6 +244,7 @@ namespace Financial_Status
             }
             else
             {
+                cbAccount.Enabled = true;
                 cbCreditAC.Enabled = false;
                 cbCategory.Enabled = true;
                 tbDesc.Enabled = true;

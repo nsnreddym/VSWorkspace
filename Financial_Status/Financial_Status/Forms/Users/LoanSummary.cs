@@ -61,6 +61,13 @@ namespace Financial_Status.Forms.Users
             //data
             dataview.Columns["SNO"].ReadOnly = true;
             dataview.Columns["SNO"].DefaultCellStyle = datacellstyle;
+
+            dataview.Columns.Add("LnType", "Loan Type");
+            dataview.Columns["LnType"].DefaultCellStyle = dataview.DefaultCellStyle;
+            dataview.Columns["LnType"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataview.Columns["LnType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataview.Columns["LnType"].ReadOnly = true;
+            dataview.Columns["LnType"].DefaultCellStyle = datacellstyle;
             
 
             dataview.Columns.Add("Loan", "Loan");
@@ -118,52 +125,65 @@ namespace Financial_Status.Forms.Users
         private void LoadTable()
         {
             List<AccountInfoData> accountinfo; 
-            accountinfo = DataBasedata.ReadAccountInfo();
+            accountinfo = DataBasedata.ReadAccountInfo("Loan");
             Int32 indx;
+            Int32 sno;
             double total;
             double total2;
             DateTime dt = DateTime.Now;
+            string lntype;
 
 
             dataview.Rows.Clear();
             indx = 0;
+            sno = 1;
             total = 0;
             total2 = 0;
+            double gltotal = 0;
+            double gltotal2 = 0;
+            lntype = accountinfo[0].LNInfo.LnType;
             for (int i = 0 ; i < accountinfo.Count; i++)
             {
-                if((accountinfo[i].Type == "Loan") && (accountinfo[i].LNInfo.Balance > 0))
+                if(accountinfo[i].LNInfo.LnType != lntype)
                 {
                     dataview.Rows.Add();
-                    dataview.Rows[indx].Cells["SNO"].Value = (indx + 1).ToString();
-                    dataview.Rows[indx].Cells["Loan"].Value = accountinfo[i].LNInfo.Name;
-                    dataview.Rows[indx].Cells["LoanAC"].Value = accountinfo[i].LNInfo.AccNo;
-                    dataview.Rows[indx].Cells["EMI"].Value = accountinfo[i].LNInfo.EMI.ToString("N");
-                    dataview.Rows[indx].Cells["BEMI"].Value = accountinfo[i].LNInfo.BEMI;
-                    dataview.Rows[indx].Cells["Amount"].Value = accountinfo[i].LNInfo.LoanAmount.ToString("N");
-                    dataview.Rows[indx].Cells["BAmount"].Value = accountinfo[i].LNInfo.Balance.ToString("N");
-                    dataview.Rows[indx].Cells["EDate"].Value = (dt.AddMonths((int)accountinfo[i].LNInfo.BEMI)).ToString("MMM-yy");
+                    dataview.Rows[indx].Cells["EDate"].Value = "Total";
+                    dataview.Rows[indx].Cells["EDate"].Style = Totalcellstyle_max;
 
-                    total = total + accountinfo[i].LNInfo.Balance;
-                    total2 = total2 + accountinfo[i].LNInfo.LoanAmount;
+                    dataview.Rows[indx].Cells["Amount"].Value = total2.ToString("N");
+                    dataview.Rows[indx].Cells["BAmount"].Value = total.ToString("N");
+                    dataview.Rows[indx].Cells["Amount"].Style = Totalcellstyle;
+                    dataview.Rows[indx].Cells["BAmount"].Style = Totalcellstyle;
+
+                    total = 0;
+                    total2 = 0;
+                    lntype = accountinfo[i].LNInfo.LnType;
 
                     indx++;
+
                 }
+                
+                dataview.Rows.Add();
+                dataview.Rows[indx].Cells["SNO"].Value = (sno++).ToString();
+                dataview.Rows[indx].Cells["LnType"].Value = accountinfo[i].LNInfo.LnType;
+                dataview.Rows[indx].Cells["Loan"].Value = accountinfo[i].LNInfo.Name;
+                dataview.Rows[indx].Cells["LoanAC"].Value = accountinfo[i].LNInfo.AccNo;
+                dataview.Rows[indx].Cells["EMI"].Value = accountinfo[i].LNInfo.EMI.ToString("N");
+                dataview.Rows[indx].Cells["BEMI"].Value = accountinfo[i].LNInfo.BEMI;
+                dataview.Rows[indx].Cells["Amount"].Value = accountinfo[i].LNInfo.LoanAmount.ToString("N");
+                dataview.Rows[indx].Cells["BAmount"].Value = accountinfo[i].LNInfo.Balance.ToString("N");
+                dataview.Rows[indx].Cells["EDate"].Value = (dt.AddMonths((int)accountinfo[i].LNInfo.BEMI)).ToString("MMM-yy");
+
+                total = total + accountinfo[i].LNInfo.Balance;
+                total2 = total2 + accountinfo[i].LNInfo.LoanAmount;
+                gltotal = gltotal + accountinfo[i].LNInfo.Balance;
+                gltotal2 = gltotal2 + accountinfo[i].LNInfo.LoanAmount;
+
+                indx++;
+                
 
             }
 
-
-            dataview.Sort(dataview.Columns["BEMI"], ListSortDirection.Ascending);
-
-            indx = 0;
-            for (int i = 0; i < accountinfo.Count; i++)
-            {
-                if ((accountinfo[i].Type == "Loan") && (accountinfo[i].LNInfo.Balance > 0))
-                {
-                    dataview.Rows[indx].Cells["SNO"].Value = (indx+1).ToString();
-                    indx++;
-                }
-
-            }
 
             dataview.Rows.Add();
             dataview.Rows[indx].Cells["EDate"].Value = "Total";
@@ -171,6 +191,18 @@ namespace Financial_Status.Forms.Users
 
             dataview.Rows[indx].Cells["Amount"].Value = total2.ToString("N");
             dataview.Rows[indx].Cells["BAmount"].Value = total.ToString("N");
+            dataview.Rows[indx].Cells["Amount"].Style = Totalcellstyle;
+            dataview.Rows[indx].Cells["BAmount"].Style = Totalcellstyle;
+
+            dataview.Rows.Add();
+            indx++;
+            dataview.Rows.Add();
+            indx++;
+            dataview.Rows[indx].Cells["EDate"].Value = "Grand Total";
+            dataview.Rows[indx].Cells["EDate"].Style = Totalcellstyle_max;
+
+            dataview.Rows[indx].Cells["Amount"].Value = gltotal2.ToString("N");
+            dataview.Rows[indx].Cells["BAmount"].Value = gltotal.ToString("N");
             dataview.Rows[indx].Cells["Amount"].Style = Totalcellstyle;
             dataview.Rows[indx].Cells["BAmount"].Style = Totalcellstyle;
 

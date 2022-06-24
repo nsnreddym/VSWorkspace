@@ -12,3 +12,18 @@ D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Radio_Pr
 D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.SelCh.resources
 D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Read_Flash.resources
 D:\VS workspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.AssemblyReference.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.exe.config
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.exe
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\bin\Debug\DataRadio_configurator.pdb
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.AssemblyReference.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.SuggestedBindingRedirects.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Config_Port_Settings.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.MainForm.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Properties.Resources.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Radio_Program.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.Read_Flash.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.SelCh.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.GenerateResource.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.csproj.CoreCompileInputs.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.exe
+E:\Git_Repositories\VSWorkspace\DataRadio_configurator\obj\Debug\DataRadio_configurator.pdb
