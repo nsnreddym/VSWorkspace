@@ -30,7 +30,7 @@ namespace DataRadio_CFG_SW.COMM
 
 		
 		byte[] TxBuf = new byte[15];
-		byte[] RxBuf = new byte[15];
+		byte[] RxBuf = new byte[24];
 
 		const byte READ_CMD = 0x01;
 		const byte WRITE_CMD = 0x02;
@@ -74,6 +74,8 @@ namespace DataRadio_CFG_SW.COMM
 			byteindx = 0;
 			sport.ReadTimeout = 500;
 
+			int buflen = 0;
+
 			try
 			{
 				while (loop)
@@ -84,9 +86,13 @@ namespace DataRadio_CFG_SW.COMM
 						RxBuf[byteindx] = (byte)byte_rcvd;
 						byteindx = byteindx + 1;
 
-						if (byteindx == 15)
+						if (byteindx > 3)
 						{
-							loop = false;
+							buflen = RxBuf[2];
+							if (byteindx >= buflen)
+							{
+								loop = false;
+							}
 						}
 					}
 					else
@@ -169,13 +175,11 @@ namespace DataRadio_CFG_SW.COMM
             }
 			else if (RxBuf[3] == 0x05)
 			{
-				status[0] = RxBuf[4];
-				status[1] = RxBuf[5];
-				status[2] = RxBuf[6];
-				status[3] = RxBuf[7];
-				status[4] = RxBuf[8];
-				status[5] = RxBuf[9];
-				status[6] = RxBuf[10];
+				for (int i = 0; i < RxBuf[2]-8; i++)
+                {
+					status[i] = RxBuf[i+4];
+				}				
+				
 				sport.Close();
 				return true;
 

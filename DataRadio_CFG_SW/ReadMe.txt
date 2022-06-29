@@ -3,3 +3,5 @@
 --> Read Configuration will show Frequency
 --> Health Status Read and shown
 --> Flash Memory can be read and shown in Hex display 
+-----> Build 0.001
+--> Protocol modifications

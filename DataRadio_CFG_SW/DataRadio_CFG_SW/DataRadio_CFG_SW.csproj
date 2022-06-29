@@ -32,6 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Radio.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2">
       <HintPath>..\..\FinanceLite_32bit\FinanceLite_V3\bin\x86\Debug\DevComponents.DotNetBar2.dll</HintPath>
@@ -146,6 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ButtonReload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Radio.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Radio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Radio.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

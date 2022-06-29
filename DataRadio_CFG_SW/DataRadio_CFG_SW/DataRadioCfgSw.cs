@@ -59,22 +59,53 @@ namespace DataRadio_CFG_SW
             double rssi = (rssival - 39.591719)/ 130168674.328253;
             rssi = 10 * Math.Log10(rssi / 1000);*/
 
-            temp[0] = status[4];
-            temp[1] = status[3];
-            temp[2] = status[2];
-            temp[3] = status[1];
+            temp[0] = status[7];
+            temp[1] = status[6];
+            temp[2] = status[5];
+            temp[3] = status[4];           
 
             float rssi = System.BitConverter.ToSingle(temp, 0);
-
             if (double.IsNaN(rssi) || double.IsInfinity(rssi))
             {
                 rssi = (float)-130.0;
             }
-            
-            int txpwr = status[6];
+
+            temp[0] = status[15];
+            temp[1] = status[14];
+            temp[2] = status[13];
+            temp[3] = status[12];
+            int temp2 = System.BitConverter.ToInt32(temp, 0);
+            float txpwr = (float)temp2;
+
+            if (double.IsNaN(txpwr) || double.IsInfinity(txpwr))
+            {
+                txpwr = 0;
+            }
+            txpwr = txpwr * (float)3.3 / 4095;
+            txpwr = (float)(-28.53 * txpwr * txpwr + 74.245 * txpwr - 36.56);
+            txpwr = txpwr + (float)32.0;
+            txpwr = (float)(Math.Pow(10, (txpwr / 10)) / 1000);
+
+
+            temp[0] = status[11];
+            temp[1] = status[10];
+            temp[2] = status[9];
+            temp[3] = status[8];
+            int temp3 = System.BitConverter.ToInt32(temp, 0);
+            float refpwr = (float)temp3;
+
+            if (double.IsNaN(refpwr) || double.IsInfinity(refpwr))
+            {
+                refpwr = 0;
+            }
+            refpwr = refpwr * (float)3.3 / 4095;
+            refpwr = (float)(-28.53 * refpwr * refpwr + 74.245 * refpwr - 36.56);
+            refpwr = refpwr + (float)32.0;
+            refpwr = (float)(Math.Pow(10,(refpwr/10))/1000);
 
             rbRSSI.Text = "RSSI :  " + rssi.ToString("F2") + " dBm";
-            rbTxPwr.Text = "Tx-Power :  " + txpwr.ToString() + " W";
+            rbTxPwr.Text = "Tx-Power :  " + txpwr.ToString("F2") + " W";
+            rbRefTxPwr.Text = "Ref-Power :  " + refpwr.ToString("F2") + " W";
             if (RxState)
             {
                 rbRxSynth.LargeImage = Properties.Resources.ButtonGreen;
@@ -147,6 +178,7 @@ namespace DataRadio_CFG_SW
         {
             rbRSSI.Text = "RSSI :  --- dBm";
             rbTxPwr.Text = "Tx-Power :  --- W";
+            rbRefTxPwr.Text = "Ref-Power : --- W";
             rbRxSynth.LargeImage = Properties.Resources.ButtonGray;
             rbTxSynth.LargeImage = Properties.Resources.ButtonGray;
             

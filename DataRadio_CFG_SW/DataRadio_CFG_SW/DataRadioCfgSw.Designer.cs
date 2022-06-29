@@ -65,6 +65,7 @@
             this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
             this.cbSector = new System.Windows.Forms.ComboBox();
             this.ribbonDescriptionMenuItem1 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.rbRefTxPwr = new System.Windows.Forms.RibbonLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -215,6 +216,7 @@
             this.rpStatus.Items.Add(this.rbTxSynth);
             this.rpStatus.Items.Add(this.rbRSSI);
             this.rpStatus.Items.Add(this.rbTxPwr);
+            this.rpStatus.Items.Add(this.rbRefTxPwr);
             this.rpStatus.Name = "rpStatus";
             this.rpStatus.Text = "Status";
             // 
@@ -369,6 +371,11 @@
             this.ribbonDescriptionMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.SmallImage")));
             this.ribbonDescriptionMenuItem1.Text = "ribbonDescriptionMenuItem1";
             // 
+            // rbRefTxPwr
+            // 
+            this.rbRefTxPwr.Name = "rbRefTxPwr";
+            this.rbRefTxPwr.Text = "Ref-Power: ";
+            // 
             // DataRadioCfgSw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,6 +384,7 @@
             this.Controls.Add(this.cbSector);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ribbon1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.Name = "DataRadioCfgSw";
@@ -428,5 +436,6 @@
         private System.Windows.Forms.RibbonButton rbTxSynth;
         private System.Windows.Forms.RibbonLabel rbRSSI;
         private System.Windows.Forms.RibbonLabel rbTxPwr;
+        private System.Windows.Forms.RibbonLabel rbRefTxPwr;
     }
 }

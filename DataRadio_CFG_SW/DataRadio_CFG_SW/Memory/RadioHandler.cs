@@ -27,7 +27,7 @@ namespace DataRadio_CFG_SW.Memory
         private void Timer1_Tick(object sender, EventArgs e)
         {
             Comm comm = new Comm();
-            byte[] status = new byte[7];
+            byte[] status = new byte[16];
 
             if(Global.PortState == false)
             {
