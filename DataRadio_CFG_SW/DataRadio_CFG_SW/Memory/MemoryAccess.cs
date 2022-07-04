@@ -19,7 +19,8 @@ namespace DataRadio_CFG_SW.Memory
 
         private void MemoryAccess_Load(object sender, EventArgs e)
         {
-
+            HorizontalScroll.Enabled = true;
+            VerticalScroll.Enabled = true;
         }
     }
 }

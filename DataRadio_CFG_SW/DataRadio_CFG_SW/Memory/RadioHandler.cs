@@ -72,6 +72,7 @@ namespace DataRadio_CFG_SW.Memory
                 //ChannelTabs.TabPages[name].Font = new Font(FontFamily.GenericSerif, (float)9.75, FontStyle.Bold);
                 ChannelTabs.Font = new Font(FontFamily.GenericSerif, (float)9.75, FontStyle.Bold);
                 ChannelTabs.TabPages[name].Controls.Add(dis);
+                ChannelTabs.TabPages[name].AutoScroll = true;
             }
             
             Read_Channel();            
@@ -488,6 +489,11 @@ namespace DataRadio_CFG_SW.Memory
                     MessageBox.Show("Channel Select failed");
                 }*/
             }
+        }
+
+        private void ChannelTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

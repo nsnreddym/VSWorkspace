@@ -76,18 +76,11 @@ namespace DataRadio_CFG_SW.UserControls
             return data;
         }
 
-        private void ChannelDisplay_ControlAdded(object sender, ControlEventArgs e)
+
+        private void ChannelDisplay_Load(object sender, EventArgs e)
         {
-            TxPwr.SelectedIndex = 0;
-
-            cbAirBaud.SelectedIndex = 2;
-            cbBW.SelectedIndex = 1;
-
-            cbComBaud.SelectedIndex = 3;
-            cbComStopbits.SelectedIndex = 0;
-            cbComMode.SelectedIndex = 1;
-            cbComParity.SelectedIndex = 0;
+            HorizontalScroll.Enabled = true;
+            VerticalScroll.Enabled = true;
         }
-
     }
 }

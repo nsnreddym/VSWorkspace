@@ -5,3 +5,5 @@
 --> Flash Memory can be read and shown in Hex display 
 -----> Build 0.001
 --> Protocol modifications
+-----> Build 0.002
+--> Scroll Bars added

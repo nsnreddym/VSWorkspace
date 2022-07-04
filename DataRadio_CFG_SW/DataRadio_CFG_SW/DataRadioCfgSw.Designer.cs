@@ -49,6 +49,7 @@
             this.rbTxSynth = new System.Windows.Forms.RibbonButton();
             this.rbRSSI = new System.Windows.Forms.RibbonLabel();
             this.rbTxPwr = new System.Windows.Forms.RibbonLabel();
+            this.rbRefTxPwr = new System.Windows.Forms.RibbonLabel();
             this.SettingsTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.Settings = new System.Windows.Forms.RibbonButton();
@@ -65,7 +66,6 @@
             this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
             this.cbSector = new System.Windows.Forms.ComboBox();
             this.ribbonDescriptionMenuItem1 = new System.Windows.Forms.RibbonDescriptionMenuItem();
-            this.rbRefTxPwr = new System.Windows.Forms.RibbonLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -246,6 +246,11 @@
             this.rbTxPwr.Name = "rbTxPwr";
             this.rbTxPwr.Text = "Tx-Power:  0 W";
             // 
+            // rbRefTxPwr
+            // 
+            this.rbRefTxPwr.Name = "rbRefTxPwr";
+            this.rbRefTxPwr.Text = "Ref-Power: ";
+            // 
             // SettingsTab
             // 
             this.SettingsTab.Name = "SettingsTab";
@@ -370,11 +375,6 @@
             this.ribbonDescriptionMenuItem1.Name = "ribbonDescriptionMenuItem1";
             this.ribbonDescriptionMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.SmallImage")));
             this.ribbonDescriptionMenuItem1.Text = "ribbonDescriptionMenuItem1";
-            // 
-            // rbRefTxPwr
-            // 
-            this.rbRefTxPwr.Name = "rbRefTxPwr";
-            this.rbRefTxPwr.Text = "Ref-Power: ";
             // 
             // DataRadioCfgSw
             // 

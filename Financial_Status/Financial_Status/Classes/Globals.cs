@@ -30,7 +30,8 @@ namespace Globals
         static public readonly string CreateLoanAccount = new string("CREATE TABLE temp (" + 
                                                                      "UID  INTEGER PRIMARY KEY ASC AUTOINCREMENT," + 
                                                                      "Date DATE," +
-                                                                     "EMI  DOUBLE);");
+                                                                     "EMI  DOUBLE," +
+                                                                     "TranType DECIMAL DEFAULT(0));");
 
     }
 }
