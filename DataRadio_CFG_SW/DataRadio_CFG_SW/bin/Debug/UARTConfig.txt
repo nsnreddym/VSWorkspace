@@ -1,3 +1,5 @@
-COM1
+COM9
 57600
 True
+False
+E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\bin\Debug\PwrConfig_radio2.txt

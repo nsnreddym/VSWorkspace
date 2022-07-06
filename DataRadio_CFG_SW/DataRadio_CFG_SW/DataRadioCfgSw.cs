@@ -235,27 +235,43 @@ namespace DataRadio_CFG_SW
                 Global.PortName = ConfigFile.ReadLine();
                 Global.Baudrate = Convert.ToInt32(ConfigFile.ReadLine());
                 Global.rawflashaccess = Convert.ToBoolean(ConfigFile.ReadLine());
+                Global.rssilatchen = Convert.ToBoolean(ConfigFile.ReadLine());
+                Global.pwrcfgfname = ConfigFile.ReadLine();
                 ConfigFile.Close();
+            
+
+                rpChannel.Enabled = false;
+                rpMemory.Enabled = false;
+                rpStatus.Enabled = false;
+
+                PortStatus.Text = Global.PortName;
+                BaudValue.Text = Global.Baudrate.ToString();
+                Global.PortState = false;
+
+                cbSector.Enabled = false;
+                cbSector.SelectedIndex = 0;
+
+                rpLink.Enabled = true;
+                Global.cfgvalid = true;
+
+                Update_Status();
             }
             catch (Exception ex)
             {
                 Global.PortName = "COM1";
                 Global.Baudrate = 57600;
 
-                MessageBox.Show(ex.Message);
+                rpChannel.Enabled = false;
+                rpMemory.Enabled = false;
+                cbSector.Enabled = false;
+                rpStatus.Enabled = false;
+                cbSector.SelectedIndex = 0;
+
+                rpLink.Enabled = false;
+                Global.cfgvalid = false;
+
+                MessageBox.Show(ex.Message + "\n Update Settings First");
             }
-
-            rpChannel.Enabled = false;
-            rpMemory.Enabled = false;
-
-            PortStatus.Text = Global.PortName;
-            BaudValue.Text = Global.Baudrate.ToString();
-            Global.PortState = false;
-
-            cbSector.Enabled = false;
-            cbSector.SelectedIndex = 0;
-
-            Update_Status();
 
             this.WindowState = FormWindowState.Maximized;
         }
@@ -271,6 +287,7 @@ namespace DataRadio_CFG_SW
                 rpChannel.Enabled = false;
                 rpMemory.Enabled = false;
                 cbSector.Enabled = false;
+                rpStatus.Enabled = false;
                 SettingsTab.Enabled = true;
             }
             else
@@ -281,6 +298,7 @@ namespace DataRadio_CFG_SW
                 rpChannel.Enabled = false;
                 rpMemory.Enabled = false;
                 cbSector.Enabled = false;
+                rpStatus.Enabled = true;
                 SettingsTab.Enabled = false;
                 radioHandler = new RadioHandler();
                 radioHandler.MdiParent = this;
@@ -293,9 +311,16 @@ namespace DataRadio_CFG_SW
         {
             Config_Port_Settings settings1 = new Config_Port_Settings();
 
-            settings1.MdiParent = this;
+            //settings1.MdiParent = this;
 
-            settings1.Show();
+            settings1.ShowDialog(this);
+
+            Update();
+
+            if (Global.cfgvalid == true)
+            {
+                rpLink.Enabled = true;
+            }
         }
 
         private void FlashRead_Click(object sender, EventArgs e)

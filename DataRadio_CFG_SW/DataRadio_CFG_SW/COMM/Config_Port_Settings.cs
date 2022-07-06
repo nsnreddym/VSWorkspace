@@ -24,22 +24,32 @@ namespace DataRadio_CFG_SW.COMM
             string[] ports = SerialPort.GetPortNames();
             int i;
 
-            StreamReader ConfigFile = new StreamReader(@".\UARTConfig.txt");
-            ConfigFile.ReadLine();
-            ConfigFile.ReadLine();
-            RawFlashAccess.Checked = Convert.ToBoolean(ConfigFile.ReadLine());
-            ConfigFile.Close();
-
             Bdsel_CB.SelectedIndex = 7;
 
             for (i = 0; i < ports.Length; i++)
             {
-                Portsel_CB.Items.Add(ports[i]);                
+                Portsel_CB.Items.Add(ports[i]);
             }
 
-            if(Portsel_CB.Items.Count > 0)
+            if (Portsel_CB.Items.Count > 0)
             {
                 Portsel_CB.SelectedIndex = 0;
+            }
+
+            try
+            {
+                StreamReader ConfigFile = new StreamReader(@".\UARTConfig.txt");
+                ConfigFile.ReadLine();
+                ConfigFile.ReadLine();
+                RawFlashAccess.Checked = Convert.ToBoolean(ConfigFile.ReadLine());
+                RSSI_LEN.Checked = Convert.ToBoolean(ConfigFile.ReadLine());
+                tbfname.Text = ConfigFile.ReadLine();
+                ConfigFile.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -61,27 +71,42 @@ namespace DataRadio_CFG_SW.COMM
             Global.PortName = Portsel_CB.SelectedItem.ToString();
             baudrate = Bdsel_CB.SelectedItem.ToString();
             Global.Baudrate = Convert.ToInt32(baudrate);
+            Global.rawflashaccess = (bool)RawFlashAccess.Checked;
+            Global.rssilatchen = (bool)RSSI_LEN.Checked;
+            Global.pwrcfgfname = tbfname.Text;
+            Global.cfgvalid = true;
 
             try 
             {
                 ConfigFile.WriteLine(Global.PortName);
                 ConfigFile.WriteLine(Global.Baudrate.ToString());
                 ConfigFile.WriteLine((bool)RawFlashAccess.Checked);
+                ConfigFile.WriteLine((bool)RSSI_LEN.Checked);
+                ConfigFile.WriteLine(Global.pwrcfgfname);
                 ConfigFile.Close();
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }            
 
-           ((DataRadioCfgSw)this.MdiParent).Update();
-
             this.Close();
         }
 
-        private void RawFlashAccess_CheckedChanged(object sender, EventArgs e)
+        private void pCfgBrowse_Click(object sender, EventArgs e)
         {
-            Global.rawflashaccess = (bool)RawFlashAccess.Checked;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.Multiselect = false;
+
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+                tbfname.Text = openFileDialog.FileName;
+            }
         }
     }
 }

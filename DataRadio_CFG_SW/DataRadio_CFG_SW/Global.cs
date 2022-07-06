@@ -20,5 +20,8 @@ namespace DataRadio_CFG_SW
         public static int Baudrate;
         public static bool PortState;
         public static bool rawflashaccess;
+        public static bool rssilatchen;
+        public static string pwrcfgfname;
+        public static bool cfgvalid;
     }
 }

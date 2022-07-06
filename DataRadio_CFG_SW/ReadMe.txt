@@ -7,3 +7,7 @@
 --> Protocol modifications
 -----> Build 0.002
 --> Scroll Bars added
+-----> Build 0.003
+--> Power config file browsing implemented
+--> Latch State configuration implemented
+--> Scroll bars for Radio Handler

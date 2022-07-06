@@ -52,6 +52,7 @@ namespace DataRadio_CFG_SW.Memory
 
         private void RadioHandler_Load(object sender, EventArgs e)
         {
+            Comm comm = new Comm();
             FlashReadReady();
 
             RadioCommState = RADIO_COMM_STATES.IDLE;
@@ -74,7 +75,11 @@ namespace DataRadio_CFG_SW.Memory
                 ChannelTabs.TabPages[name].Controls.Add(dis);
                 ChannelTabs.TabPages[name].AutoScroll = true;
             }
-            
+
+            //Send configuration
+            comm.SendLatchState(Global.rssilatchen);
+
+            //Read Channels            
             Read_Channel();            
             WindowState = FormWindowState.Maximized;
 

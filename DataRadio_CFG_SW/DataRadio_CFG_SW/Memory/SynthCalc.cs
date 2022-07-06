@@ -185,7 +185,8 @@ namespace DataRadio_CFG_SW.Memory
             string[] pwrdata = new string[10];
             byte pwrvalue = new byte();
 
-            StreamReader Pwrfile = new StreamReader(@".\PwrConfig.txt");
+            //StreamReader Pwrfile = new StreamReader(@".\PwrConfig.txt");
+            StreamReader Pwrfile = new StreamReader(Global.pwrcfgfname);
 
             for (int i = 0; i < 10; i++)
             {
@@ -276,7 +277,8 @@ namespace DataRadio_CFG_SW.Memory
             UInt32 nFrac_den = 0;
             string[] pwrdata = new string[10];
 
-            StreamReader Pwrfile = new StreamReader(@".\PwrConfig.txt");
+            //StreamReader Pwrfile = new StreamReader(@".\PwrConfig.txt");
+            StreamReader Pwrfile = new StreamReader(Global.pwrcfgfname);
 
             for (int i = 0; i < 10; i++)
             {

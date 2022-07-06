@@ -44,7 +44,7 @@ namespace DataRadio_CFG_SW.COMM
 		const byte PWR_ON = 0x0A;
 		const byte RX_OFF = 0x0C;
 		const byte RX_ON = 0x0D;
-		const byte TSTMODE_ON = 0x0E;
+		const byte LATCH_STATE = 0x0E;
 		const byte TSTMODE_OFF = 0x0F;
 
 		public Comm()
@@ -150,7 +150,9 @@ namespace DataRadio_CFG_SW.COMM
 			TxBuf[14] = 0xAA;
 		}
 		#endregion
-		
+
+		#region Commands --------------------------------
+
 		public bool HltReq(ref byte[] status)
 		{
 			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
@@ -267,12 +269,50 @@ namespace DataRadio_CFG_SW.COMM
 			}
 		}
 
+		public bool SendLatchState(bool LatchState)
+        {
+			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
+			byte[] addr = new byte[4];
+			byte[] data = new byte[4];
+
+			if (LatchState == false)
+			{
+				addr[2] = 0;
+			}
+			else
+			{
+				addr[2] = 1;
+			}
+			
+			Prepare_packet(LATCH_STATE, addr, data);
+
+			sport.Open();
+
+			/* send serial data */
+			SendDataPacket(sport);
+
+			/* Read reply */
+			ReadResponse(sport);
+
+			if (RxBuf[3] == 0x05)
+			{
+				sport.Close();
+				return true;
+
+			}
+			else
+			{
+				sport.Close();
+				return false;
+			}
+		}
+        #endregion
 
 
 
 
-		#region Flash_Handlers -------------------------------------------
-		public bool Read_bytes(int chno_add, ref byte[] replybytes)
+        #region Flash_Handlers -------------------------------------------
+        public bool Read_bytes(int chno_add, ref byte[] replybytes)
 		{
 			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
 

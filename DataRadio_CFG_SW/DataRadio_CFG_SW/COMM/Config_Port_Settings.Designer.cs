@@ -35,13 +35,21 @@ namespace DataRadio_CFG_SW.COMM
             this.Portsel_CB = new System.Windows.Forms.ComboBox();
             this.Bdsel_CB = new System.Windows.Forms.ComboBox();
             this.RawFlashAccess = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RSSI_LEN = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbfname = new System.Windows.Forms.TextBox();
+            this.pCfgBrowse = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.label1.Location = new System.Drawing.Point(74, 49);
+            this.label1.Location = new System.Drawing.Point(14, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
@@ -49,7 +57,7 @@ namespace DataRadio_CFG_SW.COMM
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(332, 105);
+            this.button1.Location = new System.Drawing.Point(131, 190);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -61,7 +69,7 @@ namespace DataRadio_CFG_SW.COMM
             // 
             this.label2.AutoSize = true;
             this.label2.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.label2.Location = new System.Drawing.Point(74, 82);
+            this.label2.Location = new System.Drawing.Point(14, 55);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 2;
@@ -70,7 +78,7 @@ namespace DataRadio_CFG_SW.COMM
             // Portsel_CB
             // 
             this.Portsel_CB.FormattingEnabled = true;
-            this.Portsel_CB.Location = new System.Drawing.Point(133, 46);
+            this.Portsel_CB.Location = new System.Drawing.Point(73, 19);
             this.Portsel_CB.Name = "Portsel_CB";
             this.Portsel_CB.Size = new System.Drawing.Size(121, 21);
             this.Portsel_CB.TabIndex = 4;
@@ -88,7 +96,7 @@ namespace DataRadio_CFG_SW.COMM
             "19200",
             "57600",
             "115200"});
-            this.Bdsel_CB.Location = new System.Drawing.Point(133, 79);
+            this.Bdsel_CB.Location = new System.Drawing.Point(73, 52);
             this.Bdsel_CB.Name = "Bdsel_CB";
             this.Bdsel_CB.Size = new System.Drawing.Size(121, 21);
             this.Bdsel_CB.TabIndex = 5;
@@ -96,28 +104,92 @@ namespace DataRadio_CFG_SW.COMM
             // RawFlashAccess
             // 
             this.RawFlashAccess.AutoSize = true;
-            this.RawFlashAccess.Location = new System.Drawing.Point(133, 149);
+            this.RawFlashAccess.Location = new System.Drawing.Point(18, 19);
             this.RawFlashAccess.Name = "RawFlashAccess";
             this.RawFlashAccess.Size = new System.Drawing.Size(114, 17);
             this.RawFlashAccess.TabIndex = 6;
             this.RawFlashAccess.Text = "Raw Flash Access";
             this.RawFlashAccess.UseVisualStyleBackColor = true;
-            this.RawFlashAccess.CheckedChanged += new System.EventHandler(this.RawFlashAccess_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.Portsel_CB);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.Bdsel_CB);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(246, 105);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ConFig Port";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.RSSI_LEN);
+            this.groupBox2.Controls.Add(this.RawFlashAccess);
+            this.groupBox2.Location = new System.Drawing.Point(264, 17);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(231, 100);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Config Settings";
+            // 
+            // RSSI_LEN
+            // 
+            this.RSSI_LEN.AutoSize = true;
+            this.RSSI_LEN.Location = new System.Drawing.Point(18, 42);
+            this.RSSI_LEN.Name = "RSSI_LEN";
+            this.RSSI_LEN.Size = new System.Drawing.Size(117, 17);
+            this.RSSI_LEN.TabIndex = 7;
+            this.RSSI_LEN.Text = "RSSI Latch Enable";
+            this.RSSI_LEN.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 134);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Power Config File: ";
+            // 
+            // tbfname
+            // 
+            this.tbfname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbfname.Location = new System.Drawing.Point(130, 131);
+            this.tbfname.Name = "tbfname";
+            this.tbfname.Size = new System.Drawing.Size(307, 20);
+            this.tbfname.TabIndex = 11;
+            // 
+            // pCfgBrowse
+            // 
+            this.pCfgBrowse.Location = new System.Drawing.Point(443, 129);
+            this.pCfgBrowse.Name = "pCfgBrowse";
+            this.pCfgBrowse.Size = new System.Drawing.Size(75, 23);
+            this.pCfgBrowse.TabIndex = 12;
+            this.pCfgBrowse.Text = "Browse";
+            this.pCfgBrowse.UseVisualStyleBackColor = true;
+            this.pCfgBrowse.Click += new System.EventHandler(this.pCfgBrowse_Click);
             // 
             // Config_Port_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 234);
-            this.Controls.Add(this.RawFlashAccess);
-            this.Controls.Add(this.Bdsel_CB);
-            this.Controls.Add(this.Portsel_CB);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(677, 239);
+            this.Controls.Add(this.pCfgBrowse);
+            this.Controls.Add(this.tbfname);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
             this.Name = "Config_Port_Settings";
             this.Text = "Config_Port_Settings";
             this.Load += new System.EventHandler(this.Config_Port_Settings_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,5 +203,11 @@ namespace DataRadio_CFG_SW.COMM
         private System.Windows.Forms.ComboBox Portsel_CB;
         private System.Windows.Forms.ComboBox Bdsel_CB;
         private System.Windows.Forms.CheckBox RawFlashAccess;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox RSSI_LEN;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbfname;
+        private System.Windows.Forms.Button pCfgBrowse;
     }
 }
