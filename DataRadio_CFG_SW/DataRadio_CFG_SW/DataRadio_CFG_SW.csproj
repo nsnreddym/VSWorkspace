@@ -40,8 +40,13 @@
     <Reference Include="DevComponents.DotNetBar2">
       <HintPath>..\..\FinanceLite_32bit\FinanceLite_V3\bin\x86\Debug\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9, processorArchitecture=MSIL">
       <HintPath>..\packages\RibbonWinForms.5.0.1.1\lib\net472\System.Windows.Forms.Ribbon.dll</HintPath>
@@ -71,6 +76,12 @@
       <DependentUpon>DataRadioCfgSw.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
+    <Compile Include="TestMode\TestMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestMode\TestMode.Designer.cs">
+      <DependentUpon>TestMode.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ChannelDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataRadioCfgSw.resx">
       <DependentUpon>DataRadioCfgSw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestMode\TestMode.resx">
+      <DependentUpon>TestMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChannelDisplay.resx">
       <DependentUpon>ChannelDisplay.cs</DependentUpon>

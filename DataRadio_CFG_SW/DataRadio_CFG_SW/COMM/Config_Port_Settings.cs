@@ -25,20 +25,25 @@ namespace DataRadio_CFG_SW.COMM
             int i;
 
             Bdsel_CB.SelectedIndex = 7;
+            Bdsel_DB.SelectedIndex = 7;
 
             for (i = 0; i < ports.Length; i++)
             {
                 Portsel_CB.Items.Add(ports[i]);
+                Portsel_DB.Items.Add(ports[i]);
             }
 
             if (Portsel_CB.Items.Count > 0)
             {
                 Portsel_CB.SelectedIndex = 0;
+                Portsel_DB.SelectedIndex = 0;
             }
 
             try
             {
                 StreamReader ConfigFile = new StreamReader(@".\UARTConfig.txt");
+                ConfigFile.ReadLine();
+                ConfigFile.ReadLine();
                 ConfigFile.ReadLine();
                 ConfigFile.ReadLine();
                 RawFlashAccess.Checked = Convert.ToBoolean(ConfigFile.ReadLine());
@@ -71,6 +76,9 @@ namespace DataRadio_CFG_SW.COMM
             Global.PortName = Portsel_CB.SelectedItem.ToString();
             baudrate = Bdsel_CB.SelectedItem.ToString();
             Global.Baudrate = Convert.ToInt32(baudrate);
+            Global.DBPortName = Portsel_DB.SelectedItem.ToString();
+            baudrate = Bdsel_DB.SelectedItem.ToString();
+            Global.DBBaudrate = Convert.ToInt32(baudrate);
             Global.rawflashaccess = (bool)RawFlashAccess.Checked;
             Global.rssilatchen = (bool)RSSI_LEN.Checked;
             Global.pwrcfgfname = tbfname.Text;
@@ -80,6 +88,8 @@ namespace DataRadio_CFG_SW.COMM
             {
                 ConfigFile.WriteLine(Global.PortName);
                 ConfigFile.WriteLine(Global.Baudrate.ToString());
+                ConfigFile.WriteLine(Global.DBPortName);
+                ConfigFile.WriteLine(Global.DBBaudrate.ToString());
                 ConfigFile.WriteLine((bool)RawFlashAccess.Checked);
                 ConfigFile.WriteLine((bool)RSSI_LEN.Checked);
                 ConfigFile.WriteLine(Global.pwrcfgfname);

@@ -68,6 +68,7 @@
             this.cbComBaud = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.cbFSKDisable = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -257,6 +258,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cbFSKDisable);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.label15);
@@ -502,6 +504,17 @@
             this.label24.TabIndex = 10;
             this.label24.Text = "Baudrate";
             // 
+            // cbFSKDisable
+            // 
+            this.cbFSKDisable.AutoSize = true;
+            this.cbFSKDisable.Location = new System.Drawing.Point(28, 154);
+            this.cbFSKDisable.Name = "cbFSKDisable";
+            this.cbFSKDisable.Size = new System.Drawing.Size(84, 17);
+            this.cbFSKDisable.TabIndex = 18;
+            this.cbFSKDisable.Text = "FSK Disable";
+            this.cbFSKDisable.UseVisualStyleBackColor = true;
+            this.cbFSKDisable.CheckedChanged += new System.EventHandler(this.cbFSKDisable_CheckedChanged);
+            // 
             // ChannelDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -568,5 +581,6 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.ComboBox cbComMode;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox cbFSKDisable;
     }
 }

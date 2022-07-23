@@ -18,6 +18,8 @@ namespace DataRadio_CFG_SW
         
         public static string PortName;
         public static int Baudrate;
+        public static string DBPortName;
+        public static int DBBaudrate;
         public static bool PortState;
         public static bool rawflashaccess;
         public static bool rssilatchen;

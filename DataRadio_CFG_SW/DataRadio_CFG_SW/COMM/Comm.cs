@@ -45,7 +45,7 @@ namespace DataRadio_CFG_SW.COMM
 		const byte RX_OFF = 0x0C;
 		const byte RX_ON = 0x0D;
 		const byte LATCH_STATE = 0x0E;
-		const byte TSTMODE_OFF = 0x0F;
+		const byte FSK_STATE_CHG = 0x0F;
 
 		public Comm()
 		{
@@ -153,6 +153,37 @@ namespace DataRadio_CFG_SW.COMM
 
 		#region Commands --------------------------------
 
+		public bool FSKStateChg(bool state)
+        {
+			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
+
+			byte[] addr = new byte[4];
+			byte[] data = new byte[4];
+
+			addr[2] = Convert.ToByte(state);
+			Prepare_packet(FSK_STATE_CHG, addr, data);
+
+			sport.Open();
+
+			/* send serial data */
+			SendDataPacket(sport);
+
+			/* Read reply */
+			ReadResponse(sport);
+
+			if (RxBuf[3] == SUCCESS_CMD)
+			{
+				sport.Close();
+				return true;
+
+			}
+			else
+			{
+				sport.Close();
+				return false;
+			}			
+        }
+
 		public bool HltReq(ref byte[] status)
 		{
 			SerialPort sport = new SerialPort(Global.PortName, Global.Baudrate);
@@ -175,7 +206,7 @@ namespace DataRadio_CFG_SW.COMM
 				sport.Close();
 				return false;
             }
-			else if (RxBuf[3] == 0x05)
+			else if (RxBuf[3] == SUCCESS_CMD)
 			{
 				for (int i = 0; i < RxBuf[2]-8; i++)
                 {
@@ -211,7 +242,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] == 0x05)
+			if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return true;
@@ -256,7 +287,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] == 0x05)
+			if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return true;
@@ -294,7 +325,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] == 0x05)
+			if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return true;
@@ -334,7 +365,7 @@ namespace DataRadio_CFG_SW.COMM
 				sport.Close();
 				return false;
 			}
-			else if (RxBuf[3] == 0x07)
+			else if (RxBuf[3] == REPLY_CMD)
 			{
 				replybytes[0] = RxBuf[7];
 				replybytes[1] = RxBuf[8];
@@ -373,7 +404,7 @@ namespace DataRadio_CFG_SW.COMM
 				sport.Close();
 				return false;
 			}
-			else if (RxBuf[3] == 0x05)
+			else if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return true;
@@ -415,7 +446,7 @@ namespace DataRadio_CFG_SW.COMM
 			SendDataPacket(sport);
 
 			/* Read reply */
-			if ((false == ReadResponse(sport)) || (RxBuf[3] != 0x05))
+			if ((false == ReadResponse(sport)) || (RxBuf[3] != SUCCESS_CMD))
 			{
 				sport.Close();
 				return false;
@@ -446,7 +477,7 @@ namespace DataRadio_CFG_SW.COMM
 					return false;
 
 				}
-				else if (RxBuf[3] == 0x05)
+				else if (RxBuf[3] == SUCCESS_CMD)
 				{
 					reg_indx++;
 					if (reg_indx >= length)
@@ -489,7 +520,7 @@ namespace DataRadio_CFG_SW.COMM
 			SendDataPacket(sport);
 
 			/* Read reply */
-			if ((false == ReadResponse(sport)) || (RxBuf[3] != 0x05))
+			if ((false == ReadResponse(sport)) || (RxBuf[3] != SUCCESS_CMD))
 			{
 				sport.Close();
 				return false;
@@ -520,7 +551,7 @@ namespace DataRadio_CFG_SW.COMM
 					return false;
 
 				}
-				else if (RxBuf[3] == 0x05)
+				else if (RxBuf[3] == SUCCESS_CMD)
 				{				
 					if (byte_indx >= length)
 					{
@@ -558,7 +589,7 @@ namespace DataRadio_CFG_SW.COMM
 				sport.Close();
 				return false;
 			}
-			else if(RxBuf[3] == 0x05)
+			else if(RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return true;
@@ -600,7 +631,7 @@ namespace DataRadio_CFG_SW.COMM
 			SendDataPacket(sport);
 
 			/* Read reply */
-			if((false == ReadResponse(sport)) || (RxBuf[3] != 0x05))
+			if((false == ReadResponse(sport)) || (RxBuf[3] != SUCCESS_CMD))
 			{
 				sport.Close();
 				return false;
@@ -631,7 +662,7 @@ namespace DataRadio_CFG_SW.COMM
 					return false;
 
                 }
-				else if (RxBuf[3] == 0x05)
+				else if (RxBuf[3] == SUCCESS_CMD)
 				{
 					reg_indx++;
 					if (reg_indx >= length)
@@ -679,7 +710,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] == 0x05)
+			if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return 1;
@@ -718,7 +749,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] == 0x05)
+			if (RxBuf[3] == SUCCESS_CMD)
 			{
 				sport.Close();
 				return 1;
@@ -763,7 +794,7 @@ namespace DataRadio_CFG_SW.COMM
 			/* Read reply */
 			ReadResponse(sport);
 
-			if (RxBuf[3] != 0x05)
+			if (RxBuf[3] != SUCCESS_CMD)
 			{
 				return 0;
 			}
@@ -789,7 +820,7 @@ namespace DataRadio_CFG_SW.COMM
 				/* Read reply */
 				ReadResponse(sport);
 
-				if (RxBuf[3] == 0x05)
+				if (RxBuf[3] == SUCCESS_CMD)
 				{
 					reg_indx = reg_indx + 1;
 					if (reg_indx >= length)

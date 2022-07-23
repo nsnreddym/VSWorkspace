@@ -37,10 +37,10 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loanSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyBudgetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expenditureSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loanSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,6 +116,13 @@
             this.accountSummaryToolStripMenuItem.Text = "Account Summary";
             this.accountSummaryToolStripMenuItem.Click += new System.EventHandler(this.accountSummaryToolStripMenuItem_Click);
             // 
+            // loanSummaryToolStripMenuItem
+            // 
+            this.loanSummaryToolStripMenuItem.Name = "loanSummaryToolStripMenuItem";
+            this.loanSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.loanSummaryToolStripMenuItem.Text = "Loan Summary";
+            this.loanSummaryToolStripMenuItem.Click += new System.EventHandler(this.loanSummaryToolStripMenuItem_Click);
+            // 
             // transactionsToolStripMenuItem
             // 
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
@@ -136,13 +143,6 @@
             this.expenditureSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.expenditureSummaryToolStripMenuItem.Text = "Expenditure Summary";
             this.expenditureSummaryToolStripMenuItem.Click += new System.EventHandler(this.expenditureSummaryToolStripMenuItem_Click);
-            // 
-            // loanSummaryToolStripMenuItem
-            // 
-            this.loanSummaryToolStripMenuItem.Name = "loanSummaryToolStripMenuItem";
-            this.loanSummaryToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.loanSummaryToolStripMenuItem.Text = "Loan Summary";
-            this.loanSummaryToolStripMenuItem.Click += new System.EventHandler(this.loanSummaryToolStripMenuItem_Click);
             // 
             // MainForm
             // 

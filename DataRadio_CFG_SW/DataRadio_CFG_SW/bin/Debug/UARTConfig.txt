@@ -1,4 +1,6 @@
-COM9
+COM1
+57600
+COM2
 57600
 True
 False

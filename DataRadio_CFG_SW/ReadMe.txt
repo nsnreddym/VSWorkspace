@@ -11,3 +11,6 @@
 --> Power config file browsing implemented
 --> Latch State configuration implemented
 --> Scroll bars for Radio Handler
+-----> Build 0.004
+--> FSK enable/Disable added
+--> Test mode added

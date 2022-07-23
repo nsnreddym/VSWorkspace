@@ -11,6 +11,7 @@ using System.IO;
 
 using DataRadio_CFG_SW.COMM;
 using DataRadio_CFG_SW.Memory;
+using DataRadio_CFG_SW.TestMode;
 
 namespace DataRadio_CFG_SW
 {
@@ -27,7 +28,10 @@ namespace DataRadio_CFG_SW
         {
             PortStatus.Text = Global.PortName;
             BaudValue.Text = Global.Baudrate.ToString();
+            PortStatus_DB.Text = Global.DBPortName;
+            BaudValue_DB.Text = Global.DBBaudrate.ToString();
         }
+
         public void Update_bcom(bool state)
         {
             if (state == false)
@@ -183,6 +187,7 @@ namespace DataRadio_CFG_SW
             rbTxSynth.LargeImage = Properties.Resources.ButtonGray;
             
         }
+
         public void Enable_program(bool state)
         {
             //Prg_ch.Enabled = state;
@@ -234,6 +239,8 @@ namespace DataRadio_CFG_SW
                 StreamReader ConfigFile = new StreamReader(@".\UARTConfig.txt");
                 Global.PortName = ConfigFile.ReadLine();
                 Global.Baudrate = Convert.ToInt32(ConfigFile.ReadLine());
+                Global.DBPortName = ConfigFile.ReadLine();
+                Global.DBBaudrate = Convert.ToInt32(ConfigFile.ReadLine());
                 Global.rawflashaccess = Convert.ToBoolean(ConfigFile.ReadLine());
                 Global.rssilatchen = Convert.ToBoolean(ConfigFile.ReadLine());
                 Global.pwrcfgfname = ConfigFile.ReadLine();
@@ -244,8 +251,7 @@ namespace DataRadio_CFG_SW
                 rpMemory.Enabled = false;
                 rpStatus.Enabled = false;
 
-                PortStatus.Text = Global.PortName;
-                BaudValue.Text = Global.Baudrate.ToString();
+                Update();
                 Global.PortState = false;
 
                 cbSector.Enabled = false;
@@ -346,6 +352,15 @@ namespace DataRadio_CFG_SW
         private void bComPort_DoubleClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void rbTest_Click(object sender, EventArgs e)
+        {
+            testMode  tst = new testMode();
+
+            tst.MdiParent = this;
+
+            tst.Show();
         }
     }
 }

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using DataRadio_CFG_SW.Memory;
+
 namespace DataRadio_CFG_SW.UserControls
 {
     public partial class ChannelDisplay : UserControl
@@ -81,6 +83,11 @@ namespace DataRadio_CFG_SW.UserControls
         {
             HorizontalScroll.Enabled = true;
             VerticalScroll.Enabled = true;
+        }
+
+        private void cbFSKDisable_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioHandler.FSKstateChg(cbFSKDisable.Checked);
         }
     }
 }

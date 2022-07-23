@@ -60,12 +60,19 @@
             this.Baudrate_SL = new System.Windows.Forms.ToolStripStatusLabel();
             this.BaudValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.Status_Pbar = new System.Windows.Forms.ToolStripProgressBar();
+            this.COM_DL = new System.Windows.Forms.ToolStripStatusLabel();
+            this.PortStatus_DB = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Baudrate_DL = new System.Windows.Forms.ToolStripStatusLabel();
+            this.BaudValue_DB = new System.Windows.Forms.ToolStripStatusLabel();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel6 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel7 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
             this.cbSector = new System.Windows.Forms.ComboBox();
             this.ribbonDescriptionMenuItem1 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.TestModeTab = new System.Windows.Forms.RibbonTab();
+            this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
+            this.rbTest = new System.Windows.Forms.RibbonButton();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,6 +101,7 @@
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ChannelsTab);
             this.ribbon1.Tabs.Add(this.SettingsTab);
+            this.ribbon1.Tabs.Add(this.TestModeTab);
             this.ribbon1.Text = "ribbon1";
             this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue;
             // 
@@ -286,7 +294,11 @@
             this.PortStatus,
             this.Baudrate_SL,
             this.BaudValue,
-            this.Status_Pbar});
+            this.Status_Pbar,
+            this.COM_DL,
+            this.PortStatus_DB,
+            this.Baudrate_DL,
+            this.BaudValue_DB});
             this.statusStrip1.Location = new System.Drawing.Point(0, 428);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
@@ -296,8 +308,8 @@
             // COM_SL
             // 
             this.COM_SL.Name = "COM_SL";
-            this.COM_SL.Size = new System.Drawing.Size(66, 17);
-            this.COM_SL.Text = "COM Port: ";
+            this.COM_SL.Size = new System.Drawing.Size(60, 17);
+            this.COM_SL.Text = "CFG Port: ";
             // 
             // PortStatus
             // 
@@ -319,6 +331,32 @@
             // 
             this.Status_Pbar.Name = "Status_Pbar";
             this.Status_Pbar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // COM_DL
+            // 
+            this.COM_DL.Name = "COM_DL";
+            this.COM_DL.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.COM_DL.Size = new System.Drawing.Size(62, 17);
+            this.COM_DL.Text = "Data Port: ";
+            // 
+            // PortStatus_DB
+            // 
+            this.PortStatus_DB.Name = "PortStatus_DB";
+            this.PortStatus_DB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.PortStatus_DB.Size = new System.Drawing.Size(0, 17);
+            // 
+            // Baudrate_DL
+            // 
+            this.Baudrate_DL.Name = "Baudrate_DL";
+            this.Baudrate_DL.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Baudrate_DL.Size = new System.Drawing.Size(54, 17);
+            this.Baudrate_DL.Text = "Baudrate";
+            // 
+            // BaudValue_DB
+            // 
+            this.BaudValue_DB.Name = "BaudValue_DB";
+            this.BaudValue_DB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.BaudValue_DB.Size = new System.Drawing.Size(0, 17);
             // 
             // ribbonPanel3
             // 
@@ -375,6 +413,28 @@
             this.ribbonDescriptionMenuItem1.Name = "ribbonDescriptionMenuItem1";
             this.ribbonDescriptionMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.SmallImage")));
             this.ribbonDescriptionMenuItem1.Text = "ribbonDescriptionMenuItem1";
+            // 
+            // TestModeTab
+            // 
+            this.TestModeTab.Name = "TestModeTab";
+            this.TestModeTab.Panels.Add(this.ribbonPanel2);
+            this.TestModeTab.Text = "TestMode";
+            this.TestModeTab.Value = "";
+            // 
+            // ribbonPanel2
+            // 
+            this.ribbonPanel2.Items.Add(this.rbTest);
+            this.ribbonPanel2.Name = "ribbonPanel2";
+            this.ribbonPanel2.Text = "Radio Test";
+            // 
+            // rbTest
+            // 
+            this.rbTest.Image = global::DataRadio_CFG_SW.Properties.Resources.Radio1;
+            this.rbTest.LargeImage = global::DataRadio_CFG_SW.Properties.Resources.Radio1;
+            this.rbTest.Name = "rbTest";
+            this.rbTest.SmallImage = global::DataRadio_CFG_SW.Properties.Resources.Radio1;
+            this.rbTest.Text = "Start";
+            this.rbTest.Click += new System.EventHandler(this.rbTest_Click);
             // 
             // DataRadioCfgSw
             // 
@@ -437,5 +497,12 @@
         private System.Windows.Forms.RibbonLabel rbRSSI;
         private System.Windows.Forms.RibbonLabel rbTxPwr;
         private System.Windows.Forms.RibbonLabel rbRefTxPwr;
+        private System.Windows.Forms.ToolStripStatusLabel COM_DL;
+        private System.Windows.Forms.ToolStripStatusLabel PortStatus_DB;
+        private System.Windows.Forms.ToolStripStatusLabel Baudrate_DL;
+        private System.Windows.Forms.ToolStripStatusLabel BaudValue_DB;
+        private System.Windows.Forms.RibbonTab TestModeTab;
+        private System.Windows.Forms.RibbonPanel ribbonPanel2;
+        private System.Windows.Forms.RibbonButton rbTest;
     }
 }

@@ -17,3 +17,5 @@ E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\obj\Debug\Data
 E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\obj\Debug\DataRadio_CFG_SW.Memory.RadioHandler.resources
 E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\obj\Debug\DataRadio_CFG_SW.UserControls.ChannelDisplay.resources
 E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\obj\Debug\DataRadio_CFG_SW.csproj.AssemblyReference.cache
+E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\obj\Debug\DataRadio_CFG_SW.TestMode.TestMode.resources
+E:\Git_Repositories\VSWorkspace\DataRadio_CFG_SW\DataRadio_CFG_SW\bin\Debug\stdole.dll

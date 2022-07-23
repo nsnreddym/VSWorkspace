@@ -7,11 +7,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>Financial_Status.Program</StartupObject>
-    <ApplicationIcon>FSLogo.ico</ApplicationIcon>
+    <ApplicationIcon>dollar.ico</ApplicationIcon>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="FSLogo.ico" />
+    <Content Include="dollar.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using DataRadio_CFG_SW.TestMode;
+
 namespace DataRadio_CFG_SW
 {
     internal static class Program
@@ -16,7 +18,7 @@ namespace DataRadio_CFG_SW
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
+            //Application.Run(new testMode());
             Application.Run(new DataRadioCfgSw());
         }
     }

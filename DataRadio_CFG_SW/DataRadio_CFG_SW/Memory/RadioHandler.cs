@@ -20,6 +20,13 @@ namespace DataRadio_CFG_SW.Memory
         byte[] flashData = new byte[512];
         private SYNTH_REG_t synth_default_reg = new SYNTH_REG_t();
 
+        public static void FSKstateChg(bool state)
+        {
+            Comm comm = new Comm();
+
+            comm.FSKStateChg(!state);
+        }
+
         public RadioHandler()
         {
             InitializeComponent();
@@ -34,9 +41,8 @@ namespace DataRadio_CFG_SW.Memory
                 timer1.Stop();                
                 Close();
             }
-
             else if (RadioCommState == RADIO_COMM_STATES.IDLE)
-            {
+            {                
                 if (true == comm.HltReq(ref status))
                 {
                     ((DataRadioCfgSw)MdiParent).Update_Status(status);
